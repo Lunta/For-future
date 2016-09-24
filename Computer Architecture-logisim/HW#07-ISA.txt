@@ -1,0 +1,14 @@
+명령				opcode	 포맷		T4	T5	T6	T7
+No operation			0x0 0000 NOP		uNOP	uNOP	uNOP	uNOP
+Negate AC			0x1 0001 NOT		uNOT	uNOP	uNOP	uNOP
+Shift left AC			0x2 0010 SHL		uSHL	uNOP	uNOP	uNOP
+Shift right AC			0x3 0011 SHR		uSHR	uNOP	uNOP	uNOP
+Jump to addr			0x4 0100 JMP addr	IRAD2PC uNOP	uNOP	uNOP
+Branch on zero to addr		0x5 0101 BZ addr	IRAD2PC	uNOP	uNOP	uNOP
+Load M[addr] to AC		0x8 1000 LDA addr	IRAD2AR READ	BR2AC	uNOP
+Add M[addr] to AC		0x9 1001 ADD addr	IRAD2AR READ	uADD	uNOP
+Subtract M[addr] from AC	0xA 1010 SUB addr	IRAD2AR READ	uSUB	uNOP
+Bitwise AND M[addr] to AC	0xB 1011 AND addr	IRAD2AR READ	uAND	uNOP
+Bitwise OR M[addr] to AC	0xC 1100 OR addr	IRAD2AR READ	uOR	uNOP
+Bitwise XOR M[addr] to AC	0xD 1101 XOR addr	IRAD2AR READ	uXOR	uNOP
+Store AC to M[addr]		0xF 1111 STR addr	IRAD2AR AC2BR	WRITE	uNOP
