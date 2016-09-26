@@ -1,11 +1,10 @@
-
-
-
-
-
-
+from pico2d import *
 
 
 class SoundManager:
-    pass
+
+    def __init__(self):
+        pass
+
+
 
