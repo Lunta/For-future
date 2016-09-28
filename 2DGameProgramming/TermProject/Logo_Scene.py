@@ -1,36 +1,22 @@
 from pico2d import *
+from Scene import *
 
 
-class LogoScene:
-    name = 'Logo'
-    _m_framework = None
-    _m_BKImage = None
-    _m_timer = 0.0
+class LogoScene(Scene):
+    DRAW_TIME = 3
+    _m_Timer = 0.0
 
-    def build_object(self, framework):
-        self._m_framework = framework
-        self._m_BKImage = load_image('Resource\Graphics\Background\Logo.jpg')
+    def __init__(self, scene_name='Logo'):
+        Scene.__init__(self, scene_name)
 
-    def release(self):
-        del self._m_BKImage
+    def build_object(self, framework, BKImagePath=None):
+        Scene.build_object(framework, 'Resource\Graphics\Background\Logo.png')
 
     def update(self, TimeElapsed):
-        self._handle_events()
-        if self._m_timer > 10.0:
-            self._m_timer = 0
-            self._m_framework.quit()
+        self._m_Timer += TimeElapsed
+        if self._m_Timer > self.DRAW_TIME:
+            self._m_Timer = 0.0
+            Scene.change_scene(self, 'Title')
 
-        self._m_timer += 0.01
-
-    def draw(self):
-        self._m_BKImage.draw(400, 300)
-
-    def _handle_events(self):
-        events = get_events()
-        for event in events:
-            if event.type == SDL_QUIT:
-                self._m_framework.quit()
-            elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                self._m_framework.change_state()
 
 

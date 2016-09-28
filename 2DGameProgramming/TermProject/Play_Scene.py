@@ -1,14 +1,19 @@
 from pico2d import *
+from Scene import *
 
 
-class PlayScene:
-    name = 'Play'
+class PlayScene(Scene):
+    name = None
     _m_framework = None
     _m_BKImage = None
+    _m_select = None
 
-    def build_object(self, framework):
+    def __init__(self, scene_name='Play'):
+        Scene.__init__(self, scene_name)
+
+    def build_object(self, framework, BKImagePath=None):
         self._m_framework = framework
-        self._m_BKImage = load_image('Resource\Graphics\Background\Logo.jpg')
+        self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
 
     def release(self):
         del self._m_BKImage

@@ -1,28 +1,21 @@
 from pico2d import *
+from Scene import *
 
 
-class GameoverScene:
-    name = 'Gameover'
-    _m_framework = None
-    _m_BKImage = None
+class GameoverScene(Scene):
+    DRAW_TIME = 5
+    _m_Timer = 0.0
 
-    def build_object(self, framework):
-        self._m_framework = framework
-        self._m_BKImage = load_image('Resource\Graphics\Background\Logo.jpg')
+    def __init__(self, scene_name='Gameover'):
+        Scene.__init__(self, scene_name)
 
-    def release(self):
-        del self._m_BKImage
+    def build_object(self, framework, BKImagePath=None):
+        Scene.build_object(self, framework, 'Resource\Graphics\Background\Gameover.png')
 
     def update(self, TimeElapsed):
-        self._handle_events()
+        self._m_Timer += TimeElapsed
+        if self._m_Timer > self.DRAW_TIME:
+            self._m_Timer = 0.0
+            Scene.change_scene(self, 'Title')  # TODO: Ranking 구현 후 변경
 
-    def draw(self):
-        self._m_BKImage.draw(400, 300)
 
-    def _handle_events(self):
-        events = get_events()
-        for event in events:
-            if event.type == SDL_QUIT:
-                self._m_framework.quit()
-            elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                self._m_framework.change_state()
