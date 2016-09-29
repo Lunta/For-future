@@ -3,8 +3,6 @@ from Scene import *
 
 
 class RankingScene(Scene):
-    name = None
-    _m_framework = None
     _m_BKImage = None
     _m_select = None
 
@@ -30,4 +28,4 @@ class RankingScene(Scene):
             if event.type == SDL_QUIT:
                 self._m_framework.quit()
             elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                self._m_framework.change_state()
+                self._m_framework.change_state('Title')

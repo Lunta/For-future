@@ -34,7 +34,6 @@ class Framework:
            GameOver_Scene.GameoverScene(),
            Ranking_Scene.RankingScene()
         ]
-
     # Sound
     _m_SoundManager = None
 
@@ -44,9 +43,9 @@ class Framework:
         self._m_bRun = True
 
     def _build_scene(self):
-        for idx in range(4):
+        for idx in range(len(self._m_Scene_List)):
             self._m_Scene_List[idx].build_object(self)
-            self._m_SceneName_List.append(self._m_Scene_List[idx].name)
+            self._m_SceneName_List.append(self._m_Scene_List[idx].get_name())
 
         self._m_CurrentScene = self._m_Scene_List[0]
 
@@ -59,7 +58,7 @@ class Framework:
         update_canvas()
 
     def _release_scene(self):
-        for idx in self._m_Scene_List[0::1]:
+        for idx in range(len(self._m_Scene_List)):
             self._m_Scene_List[idx].release()
 
     def _exit(self):
@@ -73,7 +72,7 @@ class Framework:
 
     def run(self):
         self._create()
-
+        self._m_PrevTime = time.time()
         while self._m_bRun:
             self._m_CurrentTime = time.time()
             self._m_AccumulatedTime += self._m_CurrentTime - self._m_PrevTime

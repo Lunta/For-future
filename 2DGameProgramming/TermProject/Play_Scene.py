@@ -12,7 +12,7 @@ class PlayScene(Scene):
         Scene.__init__(self, scene_name)
 
     def build_object(self, framework, BKImagePath=None):
-        self._m_framework = framework
+        Scene.build_object(self, framework)
         self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
 
     def release(self):
@@ -22,7 +22,7 @@ class PlayScene(Scene):
         self._handle_events()
 
     def draw(self):
-        self._m_BKImage.draw(400, 300)
+        self._m_BKImage.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
 
     def _handle_events(self):
         events = get_events()
@@ -30,4 +30,4 @@ class PlayScene(Scene):
             if event.type == SDL_QUIT:
                 self._m_framework.quit()
             elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                self._m_framework.change_state()
+                self._m_framework.change_state('Gameover')
