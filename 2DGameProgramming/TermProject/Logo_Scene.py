@@ -22,4 +22,3 @@ class LogoScene(Scene):
             self._m_framework.change_scene('Title')
 
 
-

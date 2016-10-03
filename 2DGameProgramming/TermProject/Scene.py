@@ -18,6 +18,8 @@ class Scene:
             self._m_BKImage = load_image(BKImagePath)
 
     def release(self):
+        del self._name
+        del self._m_framework
         del self._m_BKImage
 
     def update(self, TimeElapsed):

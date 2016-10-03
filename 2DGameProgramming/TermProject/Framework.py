@@ -11,7 +11,7 @@ class Framework:
     # Canvas Setting
     WINDOW_WIDTH = 1200
     WINDOW_HEIGHT = 800
-    CAPTION = 'Block Crash'
+    CAPTION = 'Meteor Crash'
 
     _m_bRun = False
 
@@ -63,8 +63,10 @@ class Framework:
 
     def _exit(self):
         self._release_scene()
-        self._m_CurrentScene = None
-        self._m_SoundManager = None
+        del self._m_CurrentScene
+        del self._m_SceneName_List
+        del self._m_Scene_List
+        del self._m_SoundManager
         close_canvas()
 
     def change_scene(self, scene_name):

@@ -1,5 +1,5 @@
-from pico2d import *
 from Scene import *
+from Stage import *
 
 
 class PlayScene(Scene):
@@ -7,6 +7,7 @@ class PlayScene(Scene):
     _m_framework = None
     _m_BKImage = None
     _m_select = None
+    a = None
 
     def __init__(self, scene_name='Play'):
         Scene.__init__(self, scene_name)
@@ -14,15 +15,18 @@ class PlayScene(Scene):
     def build_object(self, framework, BKImagePath=None):
         Scene.build_object(self, framework)
         self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
+        self.a = Meteor(500, 400, 'Huge')
 
     def release(self):
         del self._m_BKImage
 
     def update(self, TimeElapsed):
         self._handle_events()
+        self.a.update(TimeElapsed)
 
     def draw(self):
         self._m_BKImage.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
+        self.a.draw()
 
     def _handle_events(self):
         events = get_events()
