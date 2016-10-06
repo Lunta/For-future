@@ -6,7 +6,10 @@ class PlayScene(Scene):
     name = None
     _m_framework = None
     _m_BKImage = None
-    _m_select = None
+
+    _m_StageName_List = []
+    _m_Stage_List = []
+    _m_CurrentStage = None
     a = None
 
     def __init__(self, scene_name='Play'):
@@ -15,7 +18,7 @@ class PlayScene(Scene):
     def build_object(self, framework, BKImagePath=None):
         Scene.build_object(self, framework)
         self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
-        self.a = Meteor(500, 400, 'Huge')
+        self.a = Meteor(500, 400, 'Big')
 
     def release(self):
         del self._m_BKImage
@@ -27,6 +30,9 @@ class PlayScene(Scene):
     def draw(self):
         self._m_BKImage.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
         self.a.draw()
+
+    def reset(self):
+        pass
 
     def _handle_events(self):
         events = get_events()

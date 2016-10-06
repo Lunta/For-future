@@ -1,10 +1,10 @@
 from pico2d import *
 import time
-import Play_Scene
-import Logo_Scene
-import Ranking_Scene
-import Title_Scene
-import GameOver_Scene
+import Scene_Play
+import Scene_Logo
+import Scene_Ranking
+import Scene_Title
+import Scene_GameOver
 
 
 class Framework:
@@ -28,11 +28,11 @@ class Framework:
     _m_SceneName_List = []
     _m_Scene_List = \
         [
-           Logo_Scene.LogoScene(),
-           Title_Scene.TitleScene(),
-           Play_Scene.PlayScene(),
-           GameOver_Scene.GameoverScene(),
-           Ranking_Scene.RankingScene()
+           Scene_Logo.LogoScene(),
+           Scene_Title.TitleScene(),
+           Scene_Play.PlayScene(),
+           Scene_GameOver.GameoverScene(),
+           Scene_Ranking.RankingScene()
         ]
     # Sound
     _m_SoundManager = None

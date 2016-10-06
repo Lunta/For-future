@@ -9,11 +9,15 @@ class Meteor:
             'Huge',
             'Boss'
         ]
-    _m_Image_path_List = \
+    _m_ImagePath_List = \
         [
             'Resource\Graphics\Object\Stone_Small.png',
             'Resource\Graphics\Object\Stone_Big.png',
             'Resource\Graphics\Object\Stone_Huge.png',
+        ]
+    _m_BossImagePath_List = \
+        [
+
         ]
     _m_EffectImage_path_List =\
         [
@@ -32,19 +36,21 @@ class Meteor:
     _m_Radian = 0.0
     _m_bEffect = True
 
-    def __init__(self, x, y, type_m, random_vector=False):
+    def __init__(self, x, y, type_m, stage=0, random_vector=False):
         self._m_x = x
         self._m_y = y
         if random_vector:
             self._m_DVector = Vector2D(0, 0)
         if type_m == 'Boss':
+            self._m_Image = load_image(self._m_BossImagePath_List[stage])
             self._m_EffectImage = SpriteImage(self._m_EffectImage_path_List[self.m_TypeList.index(type_m)], 4)
         else:
-            self._m_Image = load_image(self._m_Image_path_List[self.m_TypeList.index(type_m)])
+            self._m_Image = load_image(self._m_ImagePath_List[self.m_TypeList.index(type_m)])
             self._m_EffectImage = SpriteImage(self._m_EffectImage_path_List[self.m_TypeList.index(type_m)], 4)
 
     def update(self, TimeElapsed):
         self._m_EffectImage.update()
+        self._m_x += self._m_DVector.x * self._m_Speed
         if self._m_Radian >= math.pi * 2:
             self._m_Radian = 0
         else:
@@ -59,6 +65,6 @@ class Meteor:
         del self._m_Image
         del self._m_EffectImage
         del self.m_TypeList
-        del self._m_Image_path_List
+        del self._m_ImagePath_List
         del self._m_EffectImage_path_List
         del self._m_DVector
