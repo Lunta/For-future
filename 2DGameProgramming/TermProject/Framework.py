@@ -8,34 +8,35 @@ import Scene_GameOver
 
 
 class Framework:
-    # Canvas Setting
-    WINDOW_WIDTH = 1200
-    WINDOW_HEIGHT = 800
-    CAPTION = 'Meteor Crash'
+    def __init__(self):
+        # Canvas Setting
+        self.WINDOW_WIDTH = 1200
+        self.WINDOW_HEIGHT = 800
+        self.CAPTION = 'Meteor Crash'
 
-    _m_bRun = False
+        self._m_bRun = False
 
-    # Frame Control
-    MAX_FPS = 1 / 60  # 1 / FPS
+        # Frame Control
+        self.MAX_FPS = 1 / 60  # 1 / FPS
 
-    _m_PrevTime = 0.0
-    _m_CurrentTime = 0.0
-    _m_AccumulatedTime = 0.0
+        self._m_PrevTime = 0.0
+        self._m_CurrentTime = 0.0
+        self._m_AccumulatedTime = 0.0
 
-    # Scene
-    _m_CurrentScene = None
+        # Scene
+        self._m_CurrentScene = None
 
-    _m_SceneName_List = []
-    _m_Scene_List = \
-        [
-           Scene_Logo.LogoScene(),
-           Scene_Title.TitleScene(),
-           Scene_Play.PlayScene(),
-           Scene_GameOver.GameoverScene(),
-           Scene_Ranking.RankingScene()
-        ]
-    # Sound
-    _m_SoundManager = None
+        self._m_SceneName_List = []
+        self._m_Scene_List = \
+            [
+               Scene_Logo.LogoScene(),
+               Scene_Title.TitleScene(),
+               Scene_Play.PlayScene(),
+               Scene_GameOver.GameoverScene(),
+               Scene_Ranking.RankingScene()
+            ]
+        # Sound
+        self._m_SoundManager = None
 
     def _create(self):
         open_canvas(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.CAPTION)

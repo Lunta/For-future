@@ -3,16 +3,6 @@ from Utility import*
 
 
 class SpriteImage:
-    _m_SpriteImage = None
-
-    _m_FrameXNum = 0
-    _m_FrameYNum = 0
-
-    _m_nFrameWidthSize = 0
-    _m_nFrameHeightSize = 0
-
-    _m_ptCurrentAnimationState = POINT()
-
     def __init__(self, path=None, w=1, h=1):
         if path is not None:
             self._m_SpriteImage = load_image(path)
@@ -23,6 +13,7 @@ class SpriteImage:
         self._m_nFrameWidthSize = int(self._m_SpriteImage.w / self._m_FrameXNum) + 1
         self._m_nFrameHeightSize = int(self._m_SpriteImage.h / self._m_FrameYNum)
 
+        self._m_ptCurrentAnimationState = POINT()
         self._m_ptCurrentAnimationState.x = 0
         self._m_ptCurrentAnimationState.y = 0
 

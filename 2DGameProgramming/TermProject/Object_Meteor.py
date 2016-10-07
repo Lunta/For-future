@@ -17,7 +17,13 @@ class Meteor:
         ]
     _m_BossImagePath_List = \
         [
-
+            'Resource\Graphics\Object\Boss_Mercury1.png',
+            'Resource\Graphics\Object\Boss_Venus2.png',
+            'Resource\Graphics\Object\Boss_Mars3.png',
+            'Resource\Graphics\Object\Boss_Jupiter4.png',
+            'Resource\Graphics\Object\Boss_Saturn5.png',
+            'Resource\Graphics\Object\Boss_Uranus6.png',
+            'Resource\Graphics\Object\Boss_Neptune7.png'
         ]
     _m_EffectImage_path_List =\
         [
@@ -39,9 +45,10 @@ class Meteor:
     def __init__(self, x, y, type_m, stage=0, random_vector=False):
         self._m_x = x
         self._m_y = y
+        self._m_Type = type_m
         if random_vector:
             self._m_DVector = Vector2D(0, 0)
-        if type_m == 'Boss':
+        if type_m is 'Boss':
             self._m_Image = load_image(self._m_BossImagePath_List[stage])
             self._m_EffectImage = SpriteImage(self._m_EffectImage_path_List[self.m_TypeList.index(type_m)], 4)
         else:
@@ -53,12 +60,14 @@ class Meteor:
         self._m_x += self._m_DVector.x * self._m_Speed
         if self._m_Radian >= math.pi * 2:
             self._m_Radian = 0
-        else:
+        elif self._m_Type is not 'Boss':
             self._m_Radian += TimeElapsed
+        elif self._m_Type is 'Boss':
+            self._m_Radian += TimeElapsed * 10
 
     def draw(self):
         self._m_Image.rotate_draw(self._m_Radian, self._m_x, self._m_y)
-        if self._m_bEffect:
+        if self._m_bEffect or self._m_Type is 'Boss':
             self._m_EffectImage.draw(self._m_x, self._m_y)
 
     def release(self):

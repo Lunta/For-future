@@ -18,7 +18,7 @@ class PlayScene(Scene):
     def build_object(self, framework, BKImagePath=None):
         Scene.build_object(self, framework)
         self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
-        self.a = Meteor(500, 400, 'Big')
+        self.a = Meteor(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2, 'Boss')
 
     def release(self):
         del self._m_BKImage
