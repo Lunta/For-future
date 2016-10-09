@@ -28,7 +28,7 @@ class Scene:
     def draw(self):
         self._m_BKImage.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
 
-    def _handle_events(self):
+    def handle_events(self):
         events = get_events()
         for event in events:
             if event.type == SDL_QUIT:

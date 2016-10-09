@@ -28,7 +28,6 @@ class TitleScene(Scene):
         del self._m_BKImage_Exit
 
     def update(self, TimeElapsed):
-        self._handle_events()
         self._m_Cursor_Radian = min(self._m_Cursor_Radian + TimeElapsed, math.pi * 2)
 
     def draw(self):
@@ -39,7 +38,7 @@ class TitleScene(Scene):
             self._m_BKImage_Exit.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
             self._m_ObjImage_Cursor.rotate_draw(self._m_Cursor_Radian, self._m_Cursor_Pos_Exit.x, self._m_Cursor_Pos_Exit.y)
 
-    def _handle_events(self):
+    def handle_events(self):
         events = get_events()
         for event in events:
             if event.type == SDL_QUIT:

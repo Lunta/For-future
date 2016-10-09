@@ -1,13 +1,13 @@
 from Object_Meteor import *
+from Object_Player import *
 
 
 class Stage:
-    BOSS_TIMER = 10
-    _m_Timer = 0
-    _m_MeteorList = []
 
     def __init__(self):
-        pass
+        self.BOSS_TIMER = 10
+        self._m_Timer = 0
+        self._m_MeteorList = []
 
     def build_object(self):
         pass

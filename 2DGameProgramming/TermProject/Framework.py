@@ -82,6 +82,7 @@ class Framework:
             self._m_PrevTime = self._m_CurrentTime
             if self._m_AccumulatedTime > self.MAX_FPS:
                 print_fps(1 / self._m_AccumulatedTime)  # FPS = 1 / ( 1 / 60 )
+                self._m_CurrentScene.handle_events()
                 self._update(self._m_AccumulatedTime)
                 self._draw()
                 self._m_AccumulatedTime = 0

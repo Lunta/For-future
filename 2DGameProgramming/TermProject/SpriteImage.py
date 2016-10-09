@@ -3,9 +3,11 @@ from Utility import*
 
 
 class SpriteImage:
-    def __init__(self, path=None, w=1, h=1):
-        if path is not None:
-            self._m_SpriteImage = load_image(path)
+    def __init__(self, path, sprite_name=None, w=1, h=1):
+        if sprite_name is not None:
+            self._m_name = sprite_name
+
+        self._m_SpriteImage = load_image(path)
 
         self._m_FrameXNum = w
         self._m_FrameYNum = h
@@ -35,6 +37,16 @@ class SpriteImage:
             self._m_nFrameHeightSize,
             x, y
         )
+
+    def set_currentframe(self, x, y=0):
+        self._m_ptCurrentAnimationState.x = x
+        self._m_ptCurrentAnimationState.y = y
+
+    def get_currentframe_x(self):
+        return self._m_ptCurrentAnimationState.x
+
+    def get_name(self):
+        return self._m_name
 
     def release(self):
         del self._m_SpriteImage

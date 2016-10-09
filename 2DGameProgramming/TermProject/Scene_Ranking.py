@@ -17,12 +17,12 @@ class RankingScene(Scene):
         del self._m_BKImage
 
     def update(self, TimeElapsed):
-        self._handle_events()
+        pass
 
     def draw(self):
         self._m_BKImage.draw(400, 300)
 
-    def _handle_events(self):
+    def handle_events(self):
         events = get_events()
         for event in events:
             if event.type == SDL_QUIT:

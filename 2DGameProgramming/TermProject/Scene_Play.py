@@ -18,14 +18,17 @@ class PlayScene(Scene):
     def build_object(self, framework, BKImagePath=None):
         Scene.build_object(self, framework)
         self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
-        self.a = Meteor(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2, 'Boss')
+        self.a = Player(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
 
     def release(self):
         del self._m_BKImage
 
     def update(self, TimeElapsed):
-        self._handle_events()
         self.a.update(TimeElapsed)
+        if self.a.isGameover():
+            self._m_framework.change_state('Gameover')
+        if self.a.isQuit():
+            self._m_framework.quit()
 
     def draw(self):
         self._m_BKImage.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
@@ -34,10 +37,5 @@ class PlayScene(Scene):
     def reset(self):
         pass
 
-    def _handle_events(self):
-        events = get_events()
-        for event in events:
-            if event.type == SDL_QUIT:
-                self._m_framework.quit()
-            elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-                self._m_framework.change_state('Gameover')
+    def handle_events(self):
+        self.a.handle_events()
