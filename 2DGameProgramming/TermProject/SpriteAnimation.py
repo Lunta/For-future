@@ -58,6 +58,7 @@ class SpriteAnimation:
 
         # 공격 중에는 상태 갱신 생략
         if 'Attack' in self._m_CurrentState.get_name():
+            self._m_NextState = self._m_SpriteImage_List[self._m_SpriteState_List.index('Idle_Normal')]
             return None
 
         # 현재 상태가 idle 이 아니고
@@ -93,6 +94,12 @@ class SpriteAnimation:
             state_state = self._m_StateState.action
         return state_state
 
+    def get_currentimage_width(self):
+        return self._m_CurrentState.get_frame_width()
+
+    def get_currentimage_height(self):
+        return self._m_CurrentState.get_frame_height()
+
     def update(self):
         # execute - action - exit
         state_state = self.get_current_state_state()
@@ -115,3 +122,16 @@ class SpriteAnimation:
 
     def draw(self, x, y):
         self._m_CurrentState.draw(x, y)
+
+    def release(self):
+        del self._m_SpriteState_List
+        del self._m_SpriteImage_List
+        del self._m_StateState
+        del self._m_StartEnd
+        del self._m_MaxState
+        del self._m_StateDelay
+        del self._m_StateExecute
+        del self._m_StateAction
+        del self._m_StateExit
+        del self._m_CurrentState
+        del self._m_NextState

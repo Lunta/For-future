@@ -45,6 +45,12 @@ class SpriteImage:
     def get_currentframe_x(self):
         return self._m_ptCurrentAnimationState.x
 
+    def get_frame_width(self):
+        return self._m_nFrameWidthSize
+
+    def get_frame_height(self):
+        return self._m_nFrameHeightSize
+
     def get_name(self):
         return self._m_name
 

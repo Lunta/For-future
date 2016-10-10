@@ -45,10 +45,12 @@ class Meteor:
 
         if self._m_Type is 'Boss':
             self._m_Image = load_image(self._m_BossImagePath_List[stage])
-            self._m_EffectImage = SpriteImage(self._m_EffectImage_path_List[self.m_TypeList.index(self._m_Type)], 'Boss_Effect', 4)
+            self._m_EffectImage = \
+                SpriteImage(self._m_EffectImage_path_List[self.m_TypeList.index(self._m_Type)], self._m_Type + '_Effect', 4)
         else:
             self._m_Image = load_image(self._m_ImagePath_List[self.m_TypeList.index(self._m_Type)])
-            self._m_EffectImage = SpriteImage(self._m_EffectImage_path_List[self.m_TypeList.index(self._m_Type)], 'Boss_Effect', 4)
+            self._m_EffectImage = \
+                SpriteImage(self._m_EffectImage_path_List[self.m_TypeList.index(self._m_Type)], self._m_Type + '_Effect', 4)
         self._m_bEffect = True
         self._m_Radian = 0.0
 
@@ -66,6 +68,12 @@ class Meteor:
         self._m_Image.rotate_draw(self._m_Radian, self._m_x, self._m_y)
         if self._m_bEffect or self._m_Type is 'Boss':
             self._m_EffectImage.draw(self._m_x, self._m_y)
+
+    def get_object_width(self):
+        return self._m_Image.w()
+
+    def get_object_height(self):
+        return self._m_Image.h()
 
     def release(self):
         del self._m_Image
