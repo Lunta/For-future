@@ -3,14 +3,13 @@ from Scene import *
 
 
 class GameoverScene(Scene):
-    DRAW_TIME = 5
-    _m_Timer = 0.0
-
     def __init__(self, scene_name='Gameover'):
         Scene.__init__(self, scene_name)
+        self.DRAW_TIME = 5
+        self._m_Timer = 0.0
 
-    def build_object(self, framework, BKImagePath=None):
-        Scene.build_object(self, framework, 'Resource\Graphics\Background\Gameover.png')
+    def build_object(self, framework, sound_manager, BKImagePath=None):
+        Scene.build_object(self, framework, sound_manager, 'Resource\Graphics\Background\Gameover.png')
 
     def update(self, TimeElapsed):
         self._m_Timer += TimeElapsed

@@ -3,17 +3,16 @@ from Scene import *
 
 
 class LogoScene(Scene):
-    DRAW_TIME = 3
-    _m_Timer = 0.0
-
     def __init__(self, scene_name='Logo'):
         Scene.__init__(self, scene_name)
+        self.DRAW_TIME = 3
+        self._m_Timer = 0.0
 
     def get_scene(self):
         return self.get_name()
 
-    def build_object(self, framework, BKImagePath=None):
-        Scene.build_object(self, framework, 'Resource\Graphics\Background\Logo.png')
+    def build_object(self, framework, sound_manager, BKImagePath=None):
+        Scene.build_object(self, framework, sound_manager, 'Resource\Graphics\Background\Logo.png')
 
     def update(self, TimeElapsed):
         self._m_Timer += TimeElapsed

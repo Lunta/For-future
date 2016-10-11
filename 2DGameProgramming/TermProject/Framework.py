@@ -1,5 +1,6 @@
 from pico2d import *
 import time
+import SoundManager
 import Scene_Play
 import Scene_Logo
 import Scene_Ranking
@@ -36,7 +37,7 @@ class Framework:
                Scene_Ranking.RankingScene()
             ]
         # Sound
-        self._m_SoundManager = None
+        self._m_SoundManager = SoundManager.SoundManager()
 
     def _create(self):
         open_canvas(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.CAPTION)
@@ -45,7 +46,7 @@ class Framework:
 
     def _build_scene(self):
         for idx in range(len(self._m_Scene_List)):
-            self._m_Scene_List[idx].build_object(self)
+            self._m_Scene_List[idx].build_object(self, self._m_SoundManager)
             self._m_SceneName_List.append(self._m_Scene_List[idx].get_name())
 
         self._m_CurrentScene = self._m_Scene_List[0]
@@ -85,7 +86,7 @@ class Framework:
                 self._m_CurrentScene.handle_events()
                 self._update(self._m_AccumulatedTime)
                 self._draw()
-                self._m_AccumulatedTime = 0
+                self._m_AccumulatedTime -= self.MAX_FPS
 
         self._exit()
 

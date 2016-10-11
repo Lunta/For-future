@@ -3,22 +3,17 @@ from Stage import *
 
 
 class PlayScene(Scene):
-    name = None
-    _m_framework = None
-    _m_BKImage = None
-
-    _m_StageName_List = []
-    _m_Stage_List = []
-    _m_CurrentStage = None
-    a = None
-
     def __init__(self, scene_name='Play'):
         Scene.__init__(self, scene_name)
+        self._m_StageName_List = []
+        self._m_Stage_List = []
+        self._m_CurrentStage = None
+        self.a = None
 
-    def build_object(self, framework, BKImagePath=None):
-        Scene.build_object(self, framework)
+    def build_object(self, framework, sound_manager, BKImagePath=None):
+        Scene.build_object(self, framework, sound_manager)
         self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
-        self.a = Player(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
+        self.a = Player(self._m_SoundManager, self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
 
     def release(self):
         del self._m_BKImage

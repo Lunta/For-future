@@ -2,28 +2,28 @@ from pico2d import *
 
 
 class Scene:
-    _name = None
-    _m_framework = None
-    _m_BKImage = None
-
     def __init__(self, scene_name='Scene'):
-        self._name = scene_name
+        self._m_name = scene_name
+        self._m_framework = None
+        self._m_BKImage = None
+        self._m_SoundManager = None
 
     def get_name(self):
-        return self._name
+        return self._m_name
 
-    def build_object(self, framework, BKImagePath=False):
+    def build_object(self, framework, sound_manager, BKImagePath=False):
         self._m_framework = framework
+        self._m_SoundManager = sound_manager
         if BKImagePath:
             self._m_BKImage = load_image(BKImagePath)
 
     def release(self):
-        del self._name
+        del self._m_name
         del self._m_framework
         del self._m_BKImage
 
     def update(self, TimeElapsed):
-        self._handle_events()
+        pass
 
     def draw(self):
         self._m_BKImage.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)

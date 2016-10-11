@@ -3,15 +3,11 @@ from Scene import *
 
 
 class RankingScene(Scene):
-    _m_BKImage = None
-    _m_select = None
-
     def __init__(self, scene_name='Ranking'):
         Scene.__init__(self, scene_name)
 
-    def build_object(self, framework, BKImagePath=None):
-        self._m_framework = framework
-        self._m_BKImage = load_image('Resource\Graphics\Background\Logo.png')
+    def build_object(self, framework, sound_manager, BKImagePath=None):
+        Scene.build_object(self, framework, sound_manager, 'Resource\Graphics\Background\Logo.png')
 
     def release(self):
         del self._m_BKImage
