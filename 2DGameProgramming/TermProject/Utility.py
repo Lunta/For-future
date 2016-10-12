@@ -1,4 +1,6 @@
+from pico2d import *
 import math
+import random
 
 
 def enum(*sequential, **named):
@@ -19,13 +21,32 @@ class POINT(dict):
             dict.__setattr__(self, name, value)
         else:
             self[name] = value
-
-
 '''
  ex) ptPos = POINT()
  ptPos.x = 1
  ptPos.y = 1
 '''
+
+
+class Rect:
+    def __init__(self, left=0, bottom=0, right=0, top=0):
+        self.left = left
+        self.bottom = bottom
+        self.right = right
+        self.top = top
+
+    def set_parameter(self, left=0, bottom=0, right=0, top=0):
+        self.left = left
+        self.bottom = bottom
+        self.right = right
+        self.top = top
+
+    def draw(self, purse_y=0):
+        draw_rectangle(self.left, self.bottom + purse_y, self.right, self.top + purse_y)
+
+
+def check_rect_crash(rect1, rect2):
+    return rect1.left < rect2.right and rect1.top > rect2.bottom and rect1.right > rect2.left and rect1.bottom < rect2.top
 
 
 class Vector2D:
@@ -34,8 +55,9 @@ class Vector2D:
         self.y = y
 
     def normalize(self):
-        self.x /= self.length()
-        self.y /= self.length()
+        length = self.length()
+        self.x /= length
+        self.y /= length
 
     def length(self):
         return math.sqrt(self.x * self.x + self.y * self.y)

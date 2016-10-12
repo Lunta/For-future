@@ -1,5 +1,6 @@
 from Object_Meteor import *
 from Object_Player import *
+from Utility import *
 
 
 class Stage:
@@ -12,7 +13,7 @@ class Stage:
     def build_object(self):
         pass
 
-    def draw(self):
+    def draw(self, purse_y):
         pass
 
     def update(self, TimeElapsed):
