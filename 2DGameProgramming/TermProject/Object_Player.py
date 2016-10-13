@@ -123,24 +123,23 @@ class Player:
             self._m_KeyDown.Punch = False
 
     def crash_check(self):
-        if self._m_Target_List.CheckBox.bottom < self._m_y < self._m_Target_List.CheckBox.top and \
-                self._m_Target_List.CheckBox.left < self._m_x < self._m_Target_List.CheckBox.right - \
-                (self._m_Target_List.CheckBox.right - self._m_Target_List.CheckBox.left) / 2:
-            self._m_x = self._m_Target_List.CheckBox.left
-        if self._m_Target_List.CheckBox.bottom < self._m_y < self._m_Target_List.CheckBox.top and \
-                self._m_Target_List.CheckBox.left + \
-                (self._m_Target_List.CheckBox.right - self._m_Target_List.CheckBox.left) / 2 < \
-                self._m_x < self._m_Target_List.CheckBox.right:
-            self._m_x = self._m_Target_List.CheckBox.right
+        for Target in self._m_Target_List:
+            if Target.CheckBox.bottom < self._m_y < Target.CheckBox.top and \
+                    Target.CheckBox.left < self._m_x < Target.CheckBox.right - \
+                    (Target.CheckBox.right - Target.CheckBox.left) / 2:
+                self._m_x = Target.CheckBox.left
+            if Target.CheckBox.bottom < self._m_y < Target.CheckBox.top and Target.CheckBox.left + \
+                    (Target.CheckBox.right - Target.CheckBox.left) / 2 < self._m_x < Target.CheckBox.right:
+                self._m_x = Target.CheckBox.right
 
         if 'Attack' not in self._m_Animation.get_current_state():
             return False
-
-        if not self._m_Crash and check_rect_crash(self._m_AtkBox, self._m_Target_List.CheckBox) and \
-                self._m_Animation.get_current_state_state() is self._m_Animation.StateState.action:
-            self._m_Crash = True
-            self._m_Target_List.hit(self._m_atk)
-            self._m_SoundManager.SE_Punch.play()
+        for Target in self._m_Target_List:
+            if not self._m_Crash and check_rect_crash(self._m_AtkBox, Target.CheckBox) and \
+                    self._m_Animation.get_current_state_state() is self._m_Animation.StateState.action:
+                self._m_Crash = True
+                Target.hit(self._m_atk)
+                self._m_SoundManager.SE_Punch.play()
         return self._m_Crash
 
     def draw(self, purse_y):
@@ -201,9 +200,9 @@ class Player:
             self._m_KeyDown.Punch = False
             self._m_KeyDown.Kick = False
 
-        if not self._m_bKeyDown:
-            for bList in self._m_KeyDown:
-                self._m_KeyDown[bList] = False
+        #if not self._m_bKeyDown:
+        #    for bList in self._m_KeyDown:
+        #        self._m_KeyDown[bList] = False
 
         events = get_events()
         for event in events:

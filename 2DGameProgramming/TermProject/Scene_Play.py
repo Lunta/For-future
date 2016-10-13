@@ -1,4 +1,5 @@
 from Scene import *
+from Object_Player import *
 from Stage import *
 
 
@@ -6,7 +7,7 @@ class PlayScene(Scene):
     def __init__(self, scene_name='Play'):
         Scene.__init__(self, scene_name)
         # Set Stage
-        self._m_StageName_List = []
+        self._m_MaxStage = 7
         self._m_Stage_List = []
         self._m_CurrentStage = None
 
@@ -23,9 +24,9 @@ class PlayScene(Scene):
         Scene.build_object(self, framework, sound_manager)
         self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
         self._m_Player = Player(self._m_SoundManager, self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
-        self.b = Meteor(self._m_framework.WINDOW_WIDTH, (random.random() * 10000) % self._m_framework.WINDOW_HEIGHT, 50,
-                        'Small', self._m_framework.WINDOW_WIDTH, self._m_framework.WINDOW_HEIGHT)
-        self._m_Player.targeting(self.b)
+        self._m_Stage_List.append(Stage(self._m_framework.WINDOW_WIDTH, self._m_framework.WINDOW_HEIGHT))
+        self._m_CurrentStage = self._m_Stage_List[0]
+        self._m_Player.targeting(self._m_CurrentStage.MeteorList)
 
     def release(self):
         del self._m_BKImage
@@ -43,10 +44,9 @@ class PlayScene(Scene):
                 self._m_Shack_pulse = 0.0
                 self._m_ShackTimer = 0.0
                 self._m_bShake = False
-                print('stop shake')
 
         self._m_Player.update(TimeElapsed)
-        self.b.update(TimeElapsed)
+        self._m_CurrentStage.update(TimeElapsed)
         if self._m_Player.isGameover():
             self._m_framework.change_state('Gameover')
         if self._m_Player.isQuit():
@@ -54,7 +54,7 @@ class PlayScene(Scene):
 
     def draw(self):
         self._m_BKImage.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2 + self._m_Shack_pulse)
-        self.b.draw(self._m_Shack_pulse)
+        self._m_CurrentStage.draw(self._m_Shack_pulse)
         self._m_Player.draw(self._m_Shack_pulse)
 
     def reset(self):
