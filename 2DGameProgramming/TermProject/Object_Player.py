@@ -20,19 +20,26 @@ class Player:
         self._m_Animation.set_state_delay('MoveBack', 5, 100, 1)
         self._m_Animation.set_state_delay('Attack_Punch', 3, 3, 3)
 
+        # Set Effect
+        self._m_Attack_Effect = SpriteImage('Resource\Graphics\Sprite\Effect\Effect_Attack.png', 'Attack_Effect', 6)
+        self._m_Kamehameha = SpriteImage('Resource\Graphics\Sprite\Effect\Kamehameha.png', 'Kamehameha', 3)
+
         # Set SoundManager
         self._m_SoundManager = sound_manager
 
         # Set Character State TODO: 캐릭터 파라미터 밸런스 조절
         self._m_x = x
         self._m_y = y
-        self._m_atk = 1
         self._m_move_speed = 10
         self._m_Earth_HP = 100
+        self._m_PrevHP = self._m_Earth_HP
         self._m_AtkBox = Rect()
+        self.ATK = 1
+        self.Shake_Earth = 1
 
         # Target
         self._m_Target_List = None
+        self._m_Item_List = None
 
         # Input Control
         self._m_Keys = None
@@ -47,27 +54,41 @@ class Player:
         # Timer
         self.STATE_RESET_TIME = 0.4
         self.CRASHED_STOP_TIME = 0.03
+        self.ITEM_POWER_DOWN_TIME = 20
         self._m_CommandTimer = 0.0
         self._m_StateTimer = 0.0
         self._m_CrashTimer = 0.0
+        self._m_PowerDownTimer = 0.0
 
         # Flags
         self._m_Crash = False
+        self._m_Effect = False
+        self._m_PowerUp = False
+        self._m_PowerDown = False
+        self._m_Hit = False
         self._m_SoundOutput = False
         self._m_bKeyDown = False
         self._m_bGameover = False
         self._m_bQuit = False
 
-    def targeting(self, target):
+    def targeting(self, target, item):
         self._m_Target_List = target
+        self._m_Item_List = item
 
     def update(self, TimeElapsed):
+        self._m_PowerDownTimer += TimeElapsed
+        if self._m_PowerDownTimer > self.ITEM_POWER_DOWN_TIME:
+            self._m_PowerDownTimer -= self.ITEM_POWER_DOWN_TIME
+            self.ATK = max(self.ATK - 1, 1)
         self._m_StateTimer += TimeElapsed
         if True not in self._m_KeyDown.values() or self._m_StateTimer > 0.5:
             self._m_StateTimer = 0.0
             self._m_Animation.update_state('Idle_Normal')
             self._m_AtkBox.set_parameter()
+            self._m_Effect = False
         else:
+            self.get_item_check()
+            self._m_Attack_Effect.update()
             if self.crash_check():
                 self._m_CrashTimer += TimeElapsed
                 if self._m_CrashTimer > self.CRASHED_STOP_TIME:
@@ -127,10 +148,10 @@ class Player:
             if Target.CheckBox.bottom < self._m_y < Target.CheckBox.top and \
                     Target.CheckBox.left < self._m_x < Target.CheckBox.right - \
                     (Target.CheckBox.right - Target.CheckBox.left) / 2:
-                self._m_x = Target.CheckBox.left
+                self._m_x -= 5
             if Target.CheckBox.bottom < self._m_y < Target.CheckBox.top and Target.CheckBox.left + \
                     (Target.CheckBox.right - Target.CheckBox.left) / 2 < self._m_x < Target.CheckBox.right:
-                self._m_x = Target.CheckBox.right
+                self._m_x += 5
 
         if 'Attack' not in self._m_Animation.get_current_state():
             return False
@@ -138,12 +159,43 @@ class Player:
             if not self._m_Crash and check_rect_crash(self._m_AtkBox, Target.CheckBox) and \
                     self._m_Animation.get_current_state_state() is self._m_Animation.StateState.action:
                 self._m_Crash = True
-                Target.hit(self._m_atk)
+                Target.hit(self.ATK)
+                self._m_Effect = True
                 self._m_SoundManager.SE_Punch.play()
         return self._m_Crash
 
+    def check_hit_earth(self):
+        self._m_Hit = False
+        if self._m_Earth_HP is not self._m_PrevHP:
+            self.Shake_Earth = self._m_PrevHP - self._m_Earth_HP
+            self._m_PrevHP = self._m_Earth_HP
+            self._m_Hit = True
+            # TODO: 피격 사운드 출력
+        else:
+            self.Shake_Earth = 1
+        return self._m_Hit
+
+    def hit(self, atk):
+        if self._m_Earth_HP is self._m_PrevHP and self._m_Earth_HP > 0:
+            self._m_Earth_HP -= atk
+
+    def get_item_check(self):
+        for item in self._m_Item_List:
+            if check_rect_crash(
+                    Rect(self._m_x - self._m_Animation.get_currentimage_width() / 2,
+                         self._m_y - self._m_Animation.get_currentimage_height() / 2,
+                         self._m_x + self._m_Animation.get_currentimage_width() / 2,
+                         self._m_y + self._m_Animation.get_currentimage_height() / 2),
+                    item.CheckBox):
+                item.use()
+                self.ATK += 1
+
     def draw(self, purse_y):
         self._m_Animation.draw(self._m_x, self._m_y + purse_y)
+        if self._m_Effect:
+            self._m_Attack_Effect.draw(
+                self._m_x + self._m_Animation.get_currentimage_width() / 2 + random.randint(-15, 15),
+                self._m_y + purse_y + self._m_Animation.get_currentimage_height() / 4 + random.randint(-40, 30))
         self._m_AtkBox.draw(purse_y)
 
     def release(self):

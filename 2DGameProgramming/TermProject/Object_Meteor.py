@@ -121,20 +121,12 @@ class Meteor:
                 self._m_Hit = False
             return None
         else:
-            self.CheckBox = \
-                Rect(self._m_x - self._m_Image.w / 2, self._m_y - self._m_Image.h / 2,
-                     self._m_x + self._m_Image.w / 2, self._m_y + self._m_Image.h / 2)
+            self.CheckBox.set_parameter(
+                self._m_x - self._m_Image.w / 2, self._m_y - self._m_Image.h / 2,
+                self._m_x + self._m_Image.w / 2, self._m_y + self._m_Image.h / 2)
         self._m_EffectImage.update()
-        self._m_x += self._m_DVector.x * self._m_Speed * TimeElapsed
-        self._m_y += self._m_DVector.y * self._m_Speed * TimeElapsed
+        self.move(TimeElapsed)
         self.bounce()
-
-        if self._m_Radian >= math.pi * 2:
-            self._m_Radian = 0
-        elif self._m_Type is not 'Boss':
-            self._m_Radian += TimeElapsed
-        elif self._m_Type is 'Boss':
-            self._m_Radian += TimeElapsed * 10
 
     def draw(self, purse_y):
         if self._m_Die:
@@ -150,13 +142,25 @@ class Meteor:
     def get_pos(self):
         return self._m_x, self._m_y
 
+    def get_hp(self):
+        return self._m_HP
+
+    def move(self, TimeElapsed):
+        self._m_x += self._m_DVector.x * self._m_Speed * TimeElapsed
+        self._m_y += self._m_DVector.y * self._m_Speed * TimeElapsed
+
+        if self._m_Radian >= math.pi * 2:
+            self._m_Radian = 0
+        elif self._m_Type is not 'Boss':
+            self._m_Radian += TimeElapsed
+        elif self._m_Type is 'Boss':
+            self._m_Radian += TimeElapsed * 10
+
     def bounce(self):
         if self._m_x > self.CLIENT_WIDTH * (3 / 2):
             if self._m_DVector.x > 0:
                 self._m_DVector.x = -self._m_DVector.x
-        if self._m_y > self.CLIENT_HEIGHT:
-            self._m_DVector.y = -self._m_DVector.y
-        if self._m_y < 0:
+        if self._m_y > self.CLIENT_HEIGHT or self._m_y < 0:
             self._m_DVector.y = -self._m_DVector.y
 
     def crash_impact(self):
