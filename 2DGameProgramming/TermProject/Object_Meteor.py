@@ -164,7 +164,7 @@ class Meteor:
             self._m_DVector.y = -self._m_DVector.y
 
     def crash_impact(self):
-        return self._m_x < self.CLIENT_WIDTH / 5
+        return self._m_x - self._m_Image.w / 2 < self.CLIENT_WIDTH / 10
 
     def check_hit(self):
         if self._m_HP is not self._m_PrevHP:

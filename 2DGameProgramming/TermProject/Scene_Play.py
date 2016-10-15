@@ -1,5 +1,5 @@
-from Scene import *
 from Object_Player import *
+from Scene import *
 from Stage import *
 
 
@@ -20,7 +20,7 @@ class PlayScene(Scene):
 
     def build_object(self, framework, sound_manager, BKImagePath=None):
         Scene.build_object(self, framework, sound_manager)
-        self._m_Stage = Stage(self._m_framework.WINDOW_WIDTH, self._m_framework.WINDOW_HEIGHT)
+        self._m_Stage = Stage(self._m_framework.WINDOW_WIDTH, self._m_framework.WINDOW_HEIGHT, sound_manager)
         self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
         self._m_Player = Player(self._m_SoundManager, self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
         self._m_Player.targeting(self._m_Stage.MeteorList, self._m_Stage.ItemList)

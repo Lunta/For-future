@@ -6,7 +6,8 @@ from Utility import *
 class Stage:
     Type = Meteor.TypeList
 
-    def __init__(self, win_width, win_height):
+    def __init__(self, win_width, win_height, sound_manager):
+        self.SoundManager = sound_manager
         self.WINDOW_WIDTH = win_width
         self.WINDOW_HEIGHT = win_height
         self.POP_TIME = 4
@@ -46,7 +47,7 @@ class Stage:
         elif self._m_Timer > self.POP_TIME:
             self._m_Timer -= self.POP_TIME
             self.MeteorList.append(
-                Meteor(self.WINDOW_WIDTH * (3 / 2), random.randint(0, self.WINDOW_HEIGHT), random.randint(50, 100),
+                Meteor(self.WINDOW_WIDTH * (3 / 2), random.randint(0, self.WINDOW_HEIGHT), random.randint(100, 150),
                        self.Type[random.randint(0, 2)], self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
 
     def check_die(self):
@@ -70,10 +71,12 @@ class Stage:
                             Meteor(x, y, random.randint(10, 100), 'Huge',
                                    self.WINDOW_WIDTH, self.WINDOW_HEIGHT, True))
                     self.ItemList.append(Item(x, y, self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
+                    self.SoundManager.SE_Boss_Crashed.play()
+                self.SoundManager.SE_Meteor_Crashed.play()
                 self.MeteorList.remove(meteor)
-            if meteor.CheckBox.left < self.WINDOW_WIDTH / 10:
+            if meteor.crash_impact():
                 self.Player.hit(meteor.get_hp())
-
+                self.SoundManager.SE_Crash_Impact.play()
                 self.MeteorList.remove(meteor)
 
     def release(self):

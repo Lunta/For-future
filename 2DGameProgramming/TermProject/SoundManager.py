@@ -10,9 +10,8 @@ class SoundManager:
         self.SE_PowerUp = load_music('Resource\Sound\Effect\PowerUp.mp3')
         self.SE_PowerUp2 = load_music('Resource\Sound\Effect\PowerUp2.mp3')
         self.SE_Move = load_music('Resource\Sound\Effect\Move.mp3')
-        self.SE_Boom = load_music('Resource\Sound\Effect\Boom.mp3')
-        self.SE_Crash_Impact = load_music('Resource\Sound\Effect\Crash_Impact.mp3')
-        self.SE_Meteor_Crash = load_music('Resource\Sound\Effect\Meteor_Crash.mp3')
-
+        self.SE_Boss_Crashed = load_music('Resource\Sound\Effect\Boss_Crashed.ogg')
+        self.SE_Crash_Impact = load_music('Resource\Sound\Effect\Crash_Impact.ogg')
+        self.SE_Meteor_Crashed = load_music('Resource\Sound\Effect\Meteor_Crashed.ogg')
 
 

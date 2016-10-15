@@ -25,7 +25,7 @@ class Player:
         self._m_Kamehameha = SpriteImage('Resource\Graphics\Sprite\Effect\Kamehameha.png', 'Kamehameha', 3)
 
         # Set SoundManager
-        self._m_SoundManager = sound_manager
+        self.SoundManager = sound_manager
 
         # Set Character State TODO: 캐릭터 파라미터 밸런스 조절
         self._m_x = x
@@ -130,7 +130,7 @@ class Player:
         if self._m_Animation.get_current_state() is 'Attack_Punch' and \
                 self._m_Animation.get_current_state_state() is self._m_Animation.StateState.action and \
                 not self._m_SoundOutput:
-            #self._m_SoundManager.SE_Punch.play()
+            #self.SoundManager.SE_Punch.play()
             self._m_SoundOutput = True
         elif self._m_Animation.get_current_state_state() is self._m_Animation.StateState.execute:
             self._m_SoundOutput = False
@@ -161,7 +161,7 @@ class Player:
                 self._m_Crash = True
                 Target.hit(self.ATK)
                 self._m_Effect = True
-                self._m_SoundManager.SE_Punch.play()
+                self.SoundManager.SE_Punch.play()
         return self._m_Crash
 
     def check_hit_earth(self):
