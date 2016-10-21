@@ -18,16 +18,16 @@ class PlayScene(Scene):
         self._m_ShackTimer = 0.0
         self._m_bShake = False
 
-    def build_object(self, framework, sound_manager, BKImagePath=None):
-        Scene.build_object(self, framework, sound_manager)
-        self._m_Stage = Stage(self._m_framework.WINDOW_WIDTH, self._m_framework.WINDOW_HEIGHT, sound_manager)
-        self._m_BKImage = load_image('Resource\Graphics\Background\Play.png')
-        self._m_Player = Player(self._m_SoundManager, self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
+    def build_object(self, framework, image_manager, sound_manager):
+        Scene.build_object(self, framework, image_manager, sound_manager)
+        self._m_Stage = Stage(framework.WINDOW_WIDTH, framework.WINDOW_HEIGHT, image_manager, sound_manager)
+        self._m_Player = Player(framework.WINDOW_WIDTH, framework.WINDOW_HEIGHT, image_manager, sound_manager,
+                                self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
         self._m_Player.targeting(self._m_Stage.MeteorList, self._m_Stage.ItemList)
         self._m_Stage.Player = self._m_Player
 
     def release(self):
-        del self._m_BKImage
+        Scene.release(self)
 
     def update(self, TimeElapsed):
         if self._m_Player.crash_check() or self._m_Player.check_hit_earth():

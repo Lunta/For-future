@@ -6,7 +6,8 @@ from Utility import *
 class Stage:
     Type = Meteor.TypeList
 
-    def __init__(self, win_width, win_height, sound_manager):
+    def __init__(self, win_width, win_height, image_manager, sound_manager):
+        self.ImageManager = image_manager
         self.SoundManager = sound_manager
         self.WINDOW_WIDTH = win_width
         self.WINDOW_HEIGHT = win_height
@@ -41,14 +42,14 @@ class Stage:
         if self._m_BossTimer > self.BOSS_POP_TIME * (self._m_BossStage + 1):
             self._m_BossTimer = 0.0
             self.MeteorList.append(
-                Meteor(self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
                        self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, self._m_BossStage))
             self._m_BossStage += 1
         elif self._m_Timer > self.POP_TIME:
             self._m_Timer -= self.POP_TIME
             self.MeteorList.append(
-                Meteor(self.WINDOW_WIDTH * (3 / 2), random.randint(0, self.WINDOW_HEIGHT), random.randint(100, 150),
-                       self.Type[random.randint(0, 2)], self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), random.randint(0, self.WINDOW_HEIGHT),
+                       random.randint(100, 150), self.Type[random.randint(0, 2)], self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
 
     def check_die(self):
         for item in self.ItemList:
@@ -60,7 +61,7 @@ class Stage:
                 if meteor.get_type() is not 'Small' and meteor.get_type() is not 'Boss':
                     for idx in range(random.randint(2, 5)):
                         self.MeteorList.append(
-                            Meteor(x, y, random.randint(100, 150),
+                            Meteor(self.ImageManager, x, y, random.randint(100, 150),
                                    self.Type[random.randint(0, self.Type.index(meteor.get_type()) - 1)],
                                    self.WINDOW_WIDTH, self.WINDOW_HEIGHT, True))
                     if random.randint(0, 10) is 0:
@@ -68,7 +69,7 @@ class Stage:
                 elif meteor.get_type() is not 'Small' and meteor.get_type() is 'Boss':
                     for idx in range(random.randint(2, 5)):
                         self.MeteorList.append(
-                            Meteor(x, y, random.randint(10, 100), 'Huge',
+                            Meteor(self.ImageManager, x, y, random.randint(10, 100), 'Huge',
                                    self.WINDOW_WIDTH, self.WINDOW_HEIGHT, True))
                     self.ItemList.append(Item(x, y, self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
                     self.SoundManager.SE_Boss_Crashed.play()

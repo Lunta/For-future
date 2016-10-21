@@ -6,17 +6,17 @@ class RankingScene(Scene):
     def __init__(self, scene_name='Ranking'):
         Scene.__init__(self, scene_name)
 
-    def build_object(self, framework, sound_manager, BKImagePath=None):
-        Scene.build_object(self, framework, sound_manager, 'Resource\Graphics\Background\Logo.png')
+    def build_object(self, framework, image_manager, sound_manager):
+        Scene.build_object(self, framework, image_manager, sound_manager)
 
     def release(self):
-        del self._m_BKImage
+        Scene.release(self)
 
     def update(self, TimeElapsed):
         pass
 
     def draw(self):
-        self._m_BKImage.draw(400, 300)
+        self._m_BKImage.draw(self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2 )
 
     def handle_events(self):
         events = get_events()

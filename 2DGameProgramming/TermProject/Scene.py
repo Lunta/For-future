@@ -6,21 +6,34 @@ class Scene:
         self._m_name = scene_name
         self._m_framework = None
         self._m_BKImage = None
+        self._m_BKImage_Start = None
+        self._m_BKImage_Exit = None
         self._m_SoundManager = None
 
     def get_name(self):
         return self._m_name
 
-    def build_object(self, framework, sound_manager, BKImagePath=False):
+    def build_object(self, framework, image_manager, sound_manager):
         self._m_framework = framework
         self._m_SoundManager = sound_manager
-        if BKImagePath:
-            self._m_BKImage = load_image(BKImagePath)
+        if self._m_name is 'Logo':
+            self._m_BKImage = image_manager.Image_SceneBK_Logo
+        elif self._m_name is 'Title':
+            self._m_BKImage_Start = image_manager.Image_SceneBK_Title_Start
+            self._m_BKImage_Exit = image_manager.Image_SceneBK_Title_Exit
+        elif self._m_name is 'Play':
+            self._m_BKImage = image_manager.Image_SceneBK_Play
+        elif self._m_name is 'Gameover':
+            self._m_BKImage = image_manager.Image_SceneBK_Gameover
+        elif self._m_name is 'Ranking':
+            self._m_BKImage = image_manager.Image_SceneBK_Ranking
 
     def release(self):
         del self._m_name
         del self._m_framework
         del self._m_BKImage
+        del self._m_BKImage_Start
+        del self._m_BKImage_Exit
 
     def update(self, TimeElapsed):
         pass

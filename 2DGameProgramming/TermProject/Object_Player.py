@@ -2,32 +2,31 @@ from SpriteAnimation import*
 
 
 class Player:
-    def __init__(self, sound_manager, x, y):
+    def __init__(self, client_width, client_height, image_manager, sound_manager, x, y):
+        # Set Client Size
+        self.CLIENT_WIDTH = client_width
+        self.CLIENT_HEIGHT = client_height
+
         # Set Player Animation
-        self._m_Animation = SpriteAnimation()
-        self._m_Animation.set_sprite('Resource\Graphics\Sprite\Player\Idle_Normal.png', 'Idle_Normal', 6)
-        self._m_Animation.set_sprite('Resource\Graphics\Sprite\Player\MoveFront.png', 'MoveFront', 2)
-        self._m_Animation.set_sprite('Resource\Graphics\Sprite\Player\MoveBack.png', 'MoveBack', 2)
-        self._m_Animation.set_sprite('Resource\Graphics\Sprite\Player\Attack_Punch.png', 'Attack_Punch', 4)
-        # Set Animation State
-        self._m_Animation.set_state('Idle_Normal', 6, 0, 6, 6, 6)
-        self._m_Animation.set_state('MoveFront', 2, 0, 1, 2, 2)
-        self._m_Animation.set_state('MoveBack', 2, 0, 1, 2, 2)
-        self._m_Animation.set_state('Attack_Punch', 4, 0, 1, 2, 4)
-        # Set Animation Delay
-        self._m_Animation.set_state_delay('Idle_Normal', 6, 1, 1)
-        self._m_Animation.set_state_delay('MoveFront', 5, 100, 1)
-        self._m_Animation.set_state_delay('MoveBack', 5, 100, 1)
-        self._m_Animation.set_state_delay('Attack_Punch', 3, 3, 3)
+        self._m_Animation = image_manager.Animation_Player
 
         # Set Effect
-        self._m_Attack_Effect = SpriteImage('Resource\Graphics\Sprite\Effect\Effect_Attack.png', 'Attack_Effect', 6)
-        self._m_Kamehameha = SpriteImage('Resource\Graphics\Sprite\Effect\Kamehameha.png', 'Kamehameha', 3)
+        self._m_Attack_Effect = image_manager.SpriteImage_PlayerEffect_Attack
+        self._m_Kamehameha = image_manager.SpriteImage_PlayerEffect_Kamehameha
+
+        # Set Image
+        self._m_UI_Box = image_manager.Image_UI_Box
 
         # Set SoundManager
         self.SoundManager = sound_manager
 
-        # Set Character State TODO: 캐릭터 파라미터 밸런스 조절
+        # Set UI Font
+        self.OutPut_HP = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
+        self.OutPut_Timer = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
+        self.OutPut_PowerGauge = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
+        self.OutPut_Score = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
+
+        # Set Character Parameter TODO: 캐릭터 파라미터 밸런스 조절
         self._m_x = x
         self._m_y = y
         self._m_move_speed = 10
@@ -36,6 +35,11 @@ class Player:
         self._m_AtkBox = Rect()
         self.ATK = 1
         self.Shake_Earth = 1
+
+        # Set UI Parameter
+        self.Score = 0
+        self.GameTimer = 0.0
+        self.PowerGauge = 0
 
         # Target
         self._m_Target_List = None
@@ -76,10 +80,15 @@ class Player:
         self._m_Item_List = item
 
     def update(self, TimeElapsed):
+        self.GameTimer += TimeElapsed
         self._m_PowerDownTimer += TimeElapsed
+        self.PowerGauge = 100 - (100 * self._m_PowerDownTimer) / self.ITEM_POWER_DOWN_TIME
         if self._m_PowerDownTimer > self.ITEM_POWER_DOWN_TIME:
             self._m_PowerDownTimer -= self.ITEM_POWER_DOWN_TIME
             self.ATK = max(self.ATK - 1, 1)
+        elif self.ATK < 2:
+            self._m_PowerDownTimer = 0
+            self.PowerGauge = 0.0
         self._m_StateTimer += TimeElapsed
         if True not in self._m_KeyDown.values() or self._m_StateTimer > 0.5:
             self._m_StateTimer = 0.0
@@ -160,6 +169,7 @@ class Player:
                     self._m_Animation.get_current_state_state() is self._m_Animation.StateState.action:
                 self._m_Crash = True
                 Target.hit(self.ATK)
+                self.Score += self.ATK * 10
                 self._m_Effect = True
                 self.SoundManager.SE_Punch.play()
         return self._m_Crash
@@ -196,7 +206,17 @@ class Player:
             self._m_Attack_Effect.draw(
                 self._m_x + self._m_Animation.get_currentimage_width() / 2 + random.randint(-15, 15),
                 self._m_y + purse_y + self._m_Animation.get_currentimage_height() / 4 + random.randint(-40, 30))
+
+        # Draw UI
         self._m_AtkBox.draw(purse_y)
+        self._m_UI_Box.draw(self.CLIENT_WIDTH / 6 - 10, self.CLIENT_HEIGHT - 55)
+        self.OutPut_Score.draw(10, self.CLIENT_HEIGHT - 25, 'Score : %d' % self.Score, (255, 255, 255))
+        self.OutPut_PowerGauge.draw(10, self.CLIENT_HEIGHT - 75,
+                                    'Power : %.2f' % (self.PowerGauge + 100 * self.ATK) + '%', (255, 255, 255))
+        self.OutPut_HP.draw(10, self.CLIENT_HEIGHT - 125,
+                            'People : %d' % self._m_Earth_HP + '%', (255, 255, 255))
+        self.OutPut_Timer.draw(self.CLIENT_WIDTH * 2 / 5 + 20, self.CLIENT_HEIGHT - 20,
+                               'Time : %.2f' % self.GameTimer, (255, 255, 255))
 
     def release(self):
         self._m_Animation.release()

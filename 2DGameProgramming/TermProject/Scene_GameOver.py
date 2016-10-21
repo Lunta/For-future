@@ -8,8 +8,8 @@ class GameoverScene(Scene):
         self.DRAW_TIME = 5
         self._m_Timer = 0.0
 
-    def build_object(self, framework, sound_manager, BKImagePath=None):
-        Scene.build_object(self, framework, sound_manager, 'Resource\Graphics\Background\Gameover.png')
+    def build_object(self, framework, image_manager, sound_manager):
+        Scene.build_object(self, framework, image_manager, sound_manager)
 
     def update(self, TimeElapsed):
         self._m_Timer += TimeElapsed

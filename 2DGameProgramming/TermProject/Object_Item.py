@@ -48,8 +48,6 @@ class Item:
             self._m_DVector.x = -self._m_DVector.x
             if self._m_DVector.x > self.CLIENT_WIDTH:
                 self._m_x -= 10
-            elif self._m_DVector.x < 0:
-                self._m_x += 10
         if self._m_y > self.CLIENT_HEIGHT or self._m_y < 0:
             self._m_DVector.y = -self._m_DVector.y
 

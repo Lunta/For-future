@@ -11,13 +11,12 @@ class LogoScene(Scene):
     def get_scene(self):
         return self.get_name()
 
-    def build_object(self, framework, sound_manager, BKImagePath=None):
-        Scene.build_object(self, framework, sound_manager, 'Resource\Graphics\Background\Logo.png')
+    def build_object(self, framework, image_manager, sound_manager):
+        Scene.build_object(self, framework, image_manager, sound_manager)
 
     def update(self, TimeElapsed):
         self._m_Timer += TimeElapsed
         if self._m_Timer > self.DRAW_TIME:
             self._m_Timer = 0.0
             self._m_framework.change_scene('Title')
-
 

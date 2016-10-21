@@ -10,29 +10,6 @@ class Meteor:
             'Huge',
             'Boss'
         ]
-    BossImagePath_List = \
-        [
-            'Resource\Graphics\Object\Boss_Mercury1.png',
-            'Resource\Graphics\Object\Boss_Venus2.png',
-            'Resource\Graphics\Object\Boss_Mars3.png',
-            'Resource\Graphics\Object\Boss_Jupiter4.png',
-            'Resource\Graphics\Object\Boss_Saturn5.png',
-            'Resource\Graphics\Object\Boss_Uranus6.png',
-            'Resource\Graphics\Object\Boss_Neptune7.png'
-        ]
-    ImagePath_List = \
-        [
-            'Resource\Graphics\Object\Stone_Small.png',
-            'Resource\Graphics\Object\Stone_Big.png',
-            'Resource\Graphics\Object\Stone_Huge.png',
-        ]
-    EffectImage_path_List = \
-        [
-            'Resource\Graphics\Sprite\Effect\Effect_Small.png',
-            'Resource\Graphics\Sprite\Effect\Effect_Big.png',
-            'Resource\Graphics\Sprite\Effect\Effect_Huge.png',
-            'Resource\Graphics\Sprite\Effect\Effect_Boss.png'
-        ]
     MeteorHP_List = \
         [
             5,  # Small
@@ -51,22 +28,26 @@ class Meteor:
     HIT_TIME = 0.1
     BORN_TIME = 0.5
 
-    def __init__(self, x, y, speed, type_m, client_width, client_height, random_vector=False, stage=0):
+    def __init__(self, image_manager, x, y, speed, type_m, client_width, client_height, random_vector=False, stage=0):
+        self.ImageManager = image_manager
         self.CLIENT_WIDTH = client_width
         self.CLIENT_HEIGHT = client_height
         self._m_Type = type_m
         self._m_Stage = stage
 
         # Set Image
-        if self._m_Type is 'Boss':
-            self._m_Image = load_image(self.BossImagePath_List[self._m_Stage])
-            self._m_EffectImage = \
-                SpriteImage(self.EffectImage_path_List[self.TypeList.index(self._m_Type)], self._m_Type + '_Effect', 4)
-        else:
-            self._m_Stage = 0
-            self._m_Image = load_image(self.ImagePath_List[self.TypeList.index(self._m_Type)])
-            self._m_EffectImage = \
-                SpriteImage(self.EffectImage_path_List[self.TypeList.index(self._m_Type)], self._m_Type + '_Effect', 4)
+        if self._m_Type is 'Small':
+            self._m_Image = image_manager.Image_Meteor_Small
+            self._m_EffectImage = image_manager.SpriteImage_MeteorEffect_Small
+        elif self._m_Type is 'Big':
+            self._m_Image = image_manager.Image_Meteor_Big
+            self._m_EffectImage = image_manager.SpriteImage_MeteorEffect_Big
+        elif self._m_Type is 'Huge':
+            self._m_Image = image_manager.Image_Meteor_Huge
+            self._m_EffectImage = image_manager.SpriteImage_MeteorEffect_Huge
+        elif self._m_Type is 'Boss':
+            self._m_Image = image_manager.Image_Meteor_Boss_List[stage]
+            self._m_EffectImage = image_manager.SpriteImage_MeteorEffect_Boss
 
         # Set State
         self._m_x = x

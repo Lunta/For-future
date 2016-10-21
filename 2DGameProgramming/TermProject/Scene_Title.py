@@ -5,8 +5,6 @@ from Scene import *
 class TitleScene(Scene):
     def __init__(self, scene_name='Title'):
         Scene.__init__(self, scene_name)
-        self._m_BKImage_Start = None
-        self._m_BKImage_Exit = None
         self._m_ObjImage_Cursor = None
         self._m_Cursor_Radian = 0.0
         self._m_Cursor_Pos_Start = POINT(x=875, y=225)
@@ -16,15 +14,13 @@ class TitleScene(Scene):
     def get_scene(self):
         return Scene.get_name(self)
 
-    def build_object(self, framework, sound_manager, BKImagePath=None):
-        Scene.build_object(self, framework, sound_manager)
-        self._m_BKImage_Start = load_image('Resource\Graphics\Background\Title_Start.png')
-        self._m_BKImage_Exit = load_image('Resource\Graphics\Background\Title_Exit.png')
-        self._m_ObjImage_Cursor = load_image('Resource\Graphics\Object\Stone_Small.png')
+    def build_object(self, framework, image_manager, sound_manager):
+        Scene.build_object(self, framework, image_manager, sound_manager)
+        self._m_ObjImage_Cursor = image_manager.Image_Meteor_Small
 
     def release(self):
-        del self._m_BKImage_Start
-        del self._m_BKImage_Exit
+        Scene.release(self)
+        del self._m_ObjImage_Cursor
 
     def update(self, TimeElapsed):
         self._m_Cursor_Radian += TimeElapsed

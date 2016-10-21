@@ -1,11 +1,12 @@
 from pico2d import *
 import time
-import SoundManager
 import Scene_Play
 import Scene_Logo
 import Scene_Ranking
 import Scene_Title
 import Scene_GameOver
+import ImageManager
+import SoundManager
 
 
 class Framework:
@@ -36,17 +37,23 @@ class Framework:
                Scene_GameOver.GameoverScene(),
                Scene_Ranking.RankingScene()
             ]
+
+        # Image
+        self._m_ImageManager = None
+
         # Sound
-        self._m_SoundManager = SoundManager.SoundManager()
+        self._m_SoundManager = None
 
     def _create(self):
         open_canvas(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.CAPTION)
+        self._m_ImageManager = ImageManager.ImageManager()
+        self._m_SoundManager = SoundManager.SoundManager()
         self._build_scene()
         self._m_bRun = True
 
     def _build_scene(self):
         for idx in range(len(self._m_Scene_List)):
-            self._m_Scene_List[idx].build_object(self, self._m_SoundManager)
+            self._m_Scene_List[idx].build_object(self, self._m_ImageManager, self._m_SoundManager)
             self._m_SceneName_List.append(self._m_Scene_List[idx].get_name())
 
         self._m_CurrentScene = self._m_Scene_List[0]
