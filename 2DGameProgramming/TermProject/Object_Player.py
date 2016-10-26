@@ -55,6 +55,14 @@ class Player:
         self._m_KeyDown.Punch = False  # Z key
         self._m_KeyDown.Kick = False  # X key
 
+        # Combo Control
+        self._m_KindOfAttack = POINT()
+        self._m_KindOfAttack.Not_Attack = 0
+        self._m_KindOfAttack.Punch = 1
+        self._m_KindOfAttack.Punch_2 = 2
+        self._m_KindOfAttack.Kick = 3
+        self._m_Attack_prevState = None
+
         # Timer
         self.STATE_RESET_TIME = 0.4
         self.CRASHED_STOP_TIME = 0.03
@@ -80,21 +88,10 @@ class Player:
         self._m_Item_List = item
 
     def update(self, TimeElapsed):
-        self.GameTimer += TimeElapsed
-        self._m_PowerDownTimer += TimeElapsed
-        self.PowerGauge = 100 - (100 * self._m_PowerDownTimer) / self.ITEM_POWER_DOWN_TIME
-        if self._m_PowerDownTimer > self.ITEM_POWER_DOWN_TIME:
-            self._m_PowerDownTimer -= self.ITEM_POWER_DOWN_TIME
-            self.ATK = max(self.ATK - 1, 1)
-        elif self.ATK < 2:
-            self._m_PowerDownTimer = 0
-            self.PowerGauge = 0.0
+        self.update_ui(TimeElapsed)
         self._m_StateTimer += TimeElapsed
         if True not in self._m_KeyDown.values() or self._m_StateTimer > 0.5:
-            self._m_StateTimer = 0.0
-            self._m_Animation.update_state('Idle_Normal')
-            self._m_AtkBox.set_parameter()
-            self._m_Effect = False
+            self.reset_state()
         else:
             self.get_item_check()
             self._m_Attack_Effect.update()
@@ -107,9 +104,27 @@ class Player:
             self._move()
             self._attack()
         self._m_Animation.update()
+
+    def update_ui(self, TimeElapsed):
+        self.GameTimer += TimeElapsed
+        self._m_PowerDownTimer += TimeElapsed
+        self.PowerGauge = 100 - (100 * self._m_PowerDownTimer) / self.ITEM_POWER_DOWN_TIME
+        if self._m_PowerDownTimer > self.ITEM_POWER_DOWN_TIME:
+            self._m_PowerDownTimer -= self.ITEM_POWER_DOWN_TIME
+            self.ATK = max(self.ATK - 1, 1)
+        elif self.ATK < 2:
+            self._m_PowerDownTimer = 0
+            self.PowerGauge = 0.0
+
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
             self._m_bGameover = True
+
+    def reset_state(self):
+        self._m_StateTimer = 0.0
+        self._m_Animation.update_state('Idle_Normal')
+        self._m_AtkBox.set_parameter()
+        self._m_Effect = False
 
     def _move(self):
         if 'Attack' in self._m_Animation.get_current_state():
@@ -145,12 +160,24 @@ class Player:
             self._m_SoundOutput = False
 
         if self._m_KeyDown.Punch:
-            self._m_Animation.update_state('Attack_Punch')
+            if self._m_Attack_prevState is self._m_KindOfAttack.Punch:
+                self._m_Animation.update_state('Attack_Punch_2')
+                self._m_Attack_prevState = self._m_KindOfAttack.Punch_2
+            else:
+                self._m_Animation.update_state('Attack_Punch')
+                self._m_Attack_prevState = self._m_KindOfAttack.Punch
             self._m_AtkBox.set_parameter(
                 self._m_x, self._m_y - self._m_Animation.get_currentimage_height() / 4,
                 self._m_x + self._m_Animation.get_currentimage_width() / 2,
                 self._m_y + self._m_Animation.get_currentimage_height() / 2)
             self._m_KeyDown.Punch = False
+        if self._m_KeyDown.Kick:
+            self._m_Animation.update_state('Attack_Kick')
+            self._m_Attack_prevState = self._m_KindOfAttack.Kick
+            self._m_AtkBox.set_parameter(
+                self._m_x, self._m_y - self._m_Animation.get_currentimage_height() / 4,
+                self._m_x + self._m_Animation.get_currentimage_width() / 2,
+                self._m_y + self._m_Animation.get_currentimage_height() / 2)
 
     def crash_check(self):
         for Target in self._m_Target_List:
