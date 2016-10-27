@@ -17,6 +17,24 @@ class Stage:
         self._m_Timer = 0.0
         self._m_BossTimer = 0.0
         self._m_BossStage = 0
+        self._m_BossList = \
+            [
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
+                       self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, 0),
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
+                       self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, 1),
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
+                       self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, 2),
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
+                       self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, 3),
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
+                       self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, 4),
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
+                       self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, 5),
+                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
+                       self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, 6)
+            ]
+
 
         self.Player = None
         self.MeteorList = []
@@ -41,9 +59,7 @@ class Stage:
             item.update(TimeElapsed)
         if self._m_BossTimer > self.BOSS_POP_TIME * (self._m_BossStage + 1):
             self._m_BossTimer = 0.0
-            self.MeteorList.append(
-                Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), self.WINDOW_HEIGHT / 2, 30, 'Boss',
-                       self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, self._m_BossStage))
+            self.MeteorList.append(self._m_BossList[self._m_BossStage])
             self._m_BossStage += 1
         elif self._m_Timer > self.POP_TIME:
             self._m_Timer -= self.POP_TIME

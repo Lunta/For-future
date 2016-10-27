@@ -159,6 +159,7 @@ class Player:
         elif self._m_Animation.get_current_state_state() is self._m_Animation.StateState.execute:
             self._m_SoundOutput = False
 
+
         if self._m_KeyDown.Punch:
             if self._m_Attack_prevState is self._m_KindOfAttack.Punch:
                 self._m_Animation.update_state('Attack_Punch_2')
@@ -287,13 +288,13 @@ class Player:
             self._m_KeyDown.Up = False
 
         if self._m_Keys[SDL_SCANCODE_Z] or self._m_Keys[SDL_SCANCODE_X]:
-            if self._m_Keys[SDL_SCANCODE_Z]:
-                self._m_KeyDown.Kick = False
-                self._m_KeyDown.Punch = True
-                self._m_bKeyDown = True
             if self._m_Keys[SDL_SCANCODE_X]:
                 self._m_KeyDown.Punch = False
                 self._m_KeyDown.Kick = True
+                self._m_bKeyDown = True
+            if self._m_Keys[SDL_SCANCODE_Z]:
+                self._m_KeyDown.Kick = False
+                self._m_KeyDown.Punch = True
                 self._m_bKeyDown = True
         else:
             self._m_KeyDown.Punch = False
