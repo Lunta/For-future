@@ -29,7 +29,7 @@ class Player:
         # Set Character Parameter TODO: 캐릭터 파라미터 밸런스 조절
         self._m_x = x
         self._m_y = y
-        self._m_move_speed = 10
+        self._m_move_speed = 350
         self._m_Earth_HP = 100
         self._m_PrevHP = self._m_Earth_HP
         self._m_AtkBox = Rect()
@@ -101,7 +101,7 @@ class Player:
                     self._m_CrashTimer = 0.0
                     self._m_Crash = False
                 return None
-            self._move()
+            self._move(TimeElapsed)
             self._attack()
         self._m_Animation.update()
 
@@ -126,7 +126,7 @@ class Player:
         self._m_AtkBox.set_parameter()
         self._m_Effect = False
 
-    def _move(self):
+    def _move(self, TimeElapsed):
         if 'Attack' in self._m_Animation.get_current_state():
             self._m_KeyDown.Right = False
             self._m_KeyDown.Left = False
@@ -136,16 +136,16 @@ class Player:
 
         if self._m_KeyDown.Right:
             self._m_Animation.update_state('MoveFront')
-            self._m_x += self._m_move_speed
+            self._m_x += self._m_move_speed * TimeElapsed
         if self._m_KeyDown.Up:
             self._m_Animation.update_state('MoveFront')
-            self._m_y += self._m_move_speed
+            self._m_y += self._m_move_speed * TimeElapsed
         if self._m_KeyDown.Left:
             self._m_Animation.update_state('MoveBack')
-            self._m_x -= self._m_move_speed
+            self._m_x -= self._m_move_speed * TimeElapsed
         if self._m_KeyDown.Down:
             self._m_Animation.update_state('MoveBack')
-            self._m_y -= self._m_move_speed
+            self._m_y -= self._m_move_speed * TimeElapsed
 
     def _attack(self):
         if not self._m_KeyDown.Punch and not self._m_KeyDown.Kick:
