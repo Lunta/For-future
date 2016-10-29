@@ -46,6 +46,7 @@ class ImageManager:
         self.Animation_Player.set_sprite('Resource\\Graphics\\Sprite\\Player\\Attack_Punch.png', 'Attack_Punch', 4)
         self.Animation_Player.set_sprite('Resource\\Graphics\\Sprite\\Player\\Attack_Punch_2.png', 'Attack_Punch_2', 6)
         self.Animation_Player.set_sprite('Resource\\Graphics\\Sprite\\Player\\Attack_Kick.png', 'Attack_Kick', 6)
+        self.Animation_Player.set_sprite('Resource\\Graphics\\Sprite\\Player\\PowerUP.png', 'PowerUP', 6)
         # Set Animation State
         self.Animation_Player.set_state('Idle_Normal', 6, 0, 6, 6, 6)
         self.Animation_Player.set_state('MoveFront', 2, 0, 1, 2, 2)
@@ -53,6 +54,7 @@ class ImageManager:
         self.Animation_Player.set_state('Attack_Punch', 4, 0, 1, 2, 4)
         self.Animation_Player.set_state('Attack_Punch_2', 6, 0, 2, 3, 6)
         self.Animation_Player.set_state('Attack_Kick', 6, 0, 1, 2, 6)
+        self.Animation_Player.set_state('PowerUP', 6, 0, 0, 0, 6)
         # Set Animation Delay
         self.Animation_Player.set_state_delay('Idle_Normal', 6, 1, 1)
         self.Animation_Player.set_state_delay('MoveFront', 5, 100, 1)
@@ -60,3 +62,4 @@ class ImageManager:
         self.Animation_Player.set_state_delay('Attack_Punch', 3, 3, 3)
         self.Animation_Player.set_state_delay('Attack_Punch_2', 3, 3, 2)
         self.Animation_Player.set_state_delay('Attack_Kick', 3, 3, 2)
+        self.Animation_Player.set_state_delay('PowerUP', 1, 1, 5)

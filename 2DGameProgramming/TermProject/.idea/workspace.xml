@@ -32,30 +32,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utility.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Utility.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1025">
-              <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImageManager.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ImageManager.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ImageManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1375">
-              <caret line="55" column="29" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
+            <state relative-caret-position="172">
+              <caret line="41" column="49" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Scene_Play.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Scene_Play.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scene_Play.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1500">
+            <state relative-caret-position="872">
               <caret line="60" column="20" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
@@ -107,7 +97,7 @@
       <file leaf-file-name="SpriteAnimation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SpriteAnimation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
+            <state relative-caret-position="1075">
               <caret line="43" column="107" selection-start-line="43" selection-start-column="107" selection-end-line="43" selection-end-column="107" />
               <folding />
             </state>
@@ -117,7 +107,7 @@
       <file leaf-file-name="Scene.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scene.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="597">
+            <state relative-caret-position="1150">
               <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
               <folding />
             </state>
@@ -160,10 +150,10 @@
         <option value="$PROJECT_DIR$/Object_Item.py" />
         <option value="$PROJECT_DIR$/Scene_Play.py" />
         <option value="$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/site-packages/pico2d.py" />
-        <option value="$PROJECT_DIR$/ImageManager.py" />
         <option value="$PROJECT_DIR$/Stage.py" />
         <option value="$PROJECT_DIR$/Framework.py" />
         <option value="$PROJECT_DIR$/Object_Player.py" />
+        <option value="$PROJECT_DIR$/ImageManager.py" />
       </list>
     </option>
   </component>
@@ -612,7 +602,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6850">
           <caret line="285" column="45" selection-start-line="285" selection-start-column="45" selection-end-line="285" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,11 +751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Resource/Graphics/Sprite/Player/PowerUp.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Resource/Graphics/Sprite/Effect/Effect_Attack.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -825,7 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6075">
           <caret line="254" column="26" selection-start-line="254" selection-start-column="26" selection-end-line="254" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,14 +833,6 @@
     <entry file="file://$PROJECT_DIR$/Resource/Graphics/Sprite/Player/Attack_Kick.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ImageManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1375">
-          <caret line="55" column="29" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Stage.py">
@@ -906,7 +881,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SpriteAnimation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
+        <state relative-caret-position="1075">
           <caret line="43" column="107" selection-start-line="43" selection-start-column="107" selection-end-line="43" selection-end-column="107" />
           <folding />
         </state>
@@ -922,7 +897,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Scene.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
+        <state relative-caret-position="1150">
           <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
           <folding />
         </state>
@@ -930,11 +905,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Scene_Play.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1500">
+        <state relative-caret-position="872">
           <caret line="60" column="20" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resource/Graphics/Sprite/Player/PowerUp.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ImageManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="41" column="49" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
