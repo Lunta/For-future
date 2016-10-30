@@ -67,14 +67,14 @@ class ImageManager:
         # Player Power Up
         # Set Animation SpriteImage
         self.Animation_Player_PowerUp = SpriteAnimation()
-        self.Animation_Player_PowerUp.set_sprite('Resource\\Graphics\\Sprite\\Player\\Idle_PowerUp.png', 'Idle_PowerUp', 6)
-        self.Animation_Player_PowerUp.set_sprite('Resource\\Graphics\\Sprite\\Player\\Attack_Punch_PowerUp.png', 'Attack_Punch_PowerUp', 4)
+        self.Animation_Player_PowerUp.set_sprite('Resource\\Graphics\\Sprite\\Player\\Idle_PowerUp.png', 'Idle_Normal', 6)
+        self.Animation_Player_PowerUp.set_sprite('Resource\\Graphics\\Sprite\\Player\\Attack_Punch_PowerUp.png', 'Attack_Punch', 4)
         self.Animation_Player_PowerUp.set_sprite('Resource\\Graphics\\Sprite\\Player\\PowerDown.png', 'PowerDown', 5)
         # Set Animation State
-        self.Animation_Player_PowerUp.set_state('Idle_PowerUp', 6, 0, 6, 6, 6)
-        self.Animation_Player_PowerUp.set_state('Attack_Punch_PowerUp', 4, 0, 1, 2, 4)
+        self.Animation_Player_PowerUp.set_state('Idle_Normal', 6, 0, 6, 6, 6)
+        self.Animation_Player_PowerUp.set_state('Attack_Punch', 4, 0, 1, 2, 4)
         self.Animation_Player_PowerUp.set_state('PowerDown', 5, 0, 0, 0, 5)
         # Set Animation Delay
-        self.Animation_Player_PowerUp.set_state_delay('Idle_PowerUp', 6, 1, 1)
-        self.Animation_Player_PowerUp.set_state_delay('Attack_Punch_PowerUp', 3, 3, 3)
+        self.Animation_Player_PowerUp.set_state_delay('Idle_Normal', 6, 1, 1)
+        self.Animation_Player_PowerUp.set_state_delay('Attack_Punch', 3, 3, 3)
         self.Animation_Player_PowerUp.set_state_delay('PowerDown', 1, 1, 5)

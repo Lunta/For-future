@@ -8,7 +8,9 @@ class Player:
         self.CLIENT_HEIGHT = client_height
 
         # Set Player Animation
-        self._m_Animation = image_manager.Animation_Player
+        self._m_Animation_Normal = image_manager.Animation_Player
+        self._m_Animation_PowerUp = image_manager.Animation_Player_PowerUp
+        self._m_Animation = self._m_Animation_Normal
 
         # Set Effect
         self._m_Attack_Effect = image_manager.SpriteImage_PlayerEffect_Attack
@@ -76,7 +78,6 @@ class Player:
         self._m_Crash = False
         self._m_Effect = False
         self._m_PowerUp = False
-        self._m_PowerDown = False
         self._m_Hit = False
         self._m_SoundOutput = False
         self._m_bKeyDown = False
@@ -115,6 +116,10 @@ class Player:
         elif self.ATK < 2:
             self._m_PowerDownTimer = 0
             self.PowerGauge = 0.0
+            self._m_PowerUp = False
+
+        if self.ATK > 1:
+            self._m_PowerUp = True
 
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
