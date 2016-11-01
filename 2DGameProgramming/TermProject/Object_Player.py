@@ -89,6 +89,7 @@ class Player:
         self._m_Item_List = item
 
     def update(self, TimeElapsed):
+        self.check_power()
         self.update_ui(TimeElapsed)
         self._m_StateTimer += TimeElapsed
         if True not in self._m_KeyDown.values() or self._m_StateTimer > 0.5:
@@ -117,9 +118,13 @@ class Player:
             self._m_PowerDownTimer = 0
             self.PowerGauge = 0.0
             self._m_PowerUp = False
+            if self._m_Animation is self._m_Animation_PowerUp:
+                self._m_Animation.update_state('PowerDown')
 
         if self.ATK > 1:
             self._m_PowerUp = True
+            if self._m_Animation is self._m_Animation_Normal:
+                self._m_Animation.update_state('PowerUp')
 
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
@@ -164,7 +169,6 @@ class Player:
         elif self._m_Animation.get_current_state_state() is self._m_Animation.StateState.execute:
             self._m_SoundOutput = False
 
-
         if self._m_KeyDown.Punch:
             if self._m_Attack_prevState is self._m_KindOfAttack.Punch:
                 self._m_Animation.update_state('Attack_Punch_2')
@@ -184,6 +188,14 @@ class Player:
                 self._m_x, self._m_y - self._m_Animation.get_currentimage_height() / 4,
                 self._m_x + self._m_Animation.get_currentimage_width() / 2,
                 self._m_y + self._m_Animation.get_currentimage_height() / 2)
+
+    def check_power(self):
+        if self._m_PowerUp and self._m_Animation.get_current_state() is 'Idle_Normal' and \
+                self._m_Animation is self._m_Animation_Normal:
+            self._m_Animation = self._m_Animation_PowerUp
+        elif not self._m_PowerUp and self._m_Animation.get_current_state() is 'Idle_Normal' and \
+                self._m_Animation is self._m_Animation_PowerUp:
+            self._m_Animation = self._m_Animation_Normal
 
     def crash_check(self):
         for Target in self._m_Target_List:
@@ -252,8 +264,10 @@ class Player:
                                'Time : %.2f' % self.GameTimer, (255, 255, 255))
 
     def release(self):
-        self._m_Animation.release()
-        del self._m_Animation
+        self._m_Animation_Normal.release()
+        self._m_Animation_PowerUp.release()
+        del self._m_Animation_Normal
+        del self._m_Animation_PowerUp
 
     def isGameover(self):
         return self._m_bGameover
