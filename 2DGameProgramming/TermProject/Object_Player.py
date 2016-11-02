@@ -69,10 +69,12 @@ class Player:
         self.STATE_RESET_TIME = 0.4
         self.CRASHED_STOP_TIME = 0.03
         self.ITEM_POWER_DOWN_TIME = 20
+        self.SWITCH_POWER_TIME = 0.5
         self._m_CommandTimer = 0.0
         self._m_StateTimer = 0.0
         self._m_CrashTimer = 0.0
         self._m_PowerDownTimer = 0.0
+        self._m_SwitchPowerTimer = 0.0
 
         # Flags
         self._m_Crash = False
@@ -89,7 +91,7 @@ class Player:
         self._m_Item_List = item
 
     def update(self, TimeElapsed):
-        self.check_power()
+        #self.check_power()
         self.update_ui(TimeElapsed)
         self._m_StateTimer += TimeElapsed
         if True not in self._m_KeyDown.values() or self._m_StateTimer > 0.5:
@@ -114,17 +116,28 @@ class Player:
         if self._m_PowerDownTimer > self.ITEM_POWER_DOWN_TIME:
             self._m_PowerDownTimer -= self.ITEM_POWER_DOWN_TIME
             self.ATK = max(self.ATK - 1, 1)
-        elif self.ATK < 2:
+        elif self.ATK is 1:
             self._m_PowerDownTimer = 0
             self.PowerGauge = 0.0
-            self._m_PowerUp = False
             if self._m_Animation is self._m_Animation_PowerUp:
-                self._m_Animation.update_state('PowerDown')
+                if self._m_PowerUp:
+                    self._m_Animation.update_state('PowerDown')
+                    self._m_PowerUp = False
+                self._m_SwitchPowerTimer += TimeElapsed
+                if self._m_SwitchPowerTimer > self.SWITCH_POWER_TIME:
+                    self._m_SwitchPowerTimer = 0.0
+                    self._m_Animation = self._m_Animation_Normal
 
         if self.ATK > 1:
-            self._m_PowerUp = True
             if self._m_Animation is self._m_Animation_Normal:
-                self._m_Animation.update_state('PowerUp')
+                if not self._m_PowerUp:
+                    self._m_Animation.update_state('PowerUp')
+                    self._m_Animation.update_state('PowerUp')
+                    self._m_PowerUp = True
+                self._m_SwitchPowerTimer += TimeElapsed
+                if self._m_SwitchPowerTimer > self.SWITCH_POWER_TIME:
+                    self._m_SwitchPowerTimer = 0.0
+                    self._m_Animation = self._m_Animation_PowerUp
 
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
@@ -257,7 +270,7 @@ class Player:
         self._m_UI_Box.draw(self.CLIENT_WIDTH / 6 - 10, self.CLIENT_HEIGHT - 55)
         self.OutPut_Score.draw(10, self.CLIENT_HEIGHT - 25, 'Score : %d' % self.Score, (255, 255, 255))
         self.OutPut_PowerGauge.draw(10, self.CLIENT_HEIGHT - 75,
-                                    'Power : %.2f' % (self.PowerGauge + 100 * self.ATK) + '%', (255, 255, 255))
+                                    'Power : %.2f' % (self.PowerGauge + 100 * (self.ATK - 1)) + '%', (255, 255, 255))
         self.OutPut_HP.draw(10, self.CLIENT_HEIGHT - 125,
                             'People : %d' % self._m_Earth_HP + '%', (255, 255, 255))
         self.OutPut_Timer.draw(self.CLIENT_WIDTH * 2 / 5 + 20, self.CLIENT_HEIGHT - 20,

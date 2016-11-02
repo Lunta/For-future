@@ -24,6 +24,7 @@ class SpriteAnimation:
         self._m_CurrentState = None
         self._m_NextState = None
         self._m_DelayCount = 0
+
     def set_sprite(self, path, state_name, w=1, h=1):
         self._m_SpriteImage_List.append(SpriteImage(path, state_name, w, h))
         self._m_SpriteState_List.append(self._m_SpriteImage_List[-1].get_name())
@@ -55,8 +56,12 @@ class SpriteAnimation:
         if self._m_CurrentState.get_name() is state_name:
             return None
 
+        # 변신 중에는 상태 갱신 생략
+        if 'Power' in self._m_CurrentState.get_name():
+            return None
+
         # 공격 중에는 상태 갱신 생략
-        if 'Attack' in self._m_CurrentState.get_name():
+        if 'Attack' in self._m_CurrentState.get_name() and 'Power' not in state_name:
             self._m_NextState = self._m_SpriteImage_List[self._m_SpriteState_List.index('Idle_Normal')]
             return None
 
