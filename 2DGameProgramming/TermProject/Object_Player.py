@@ -14,6 +14,7 @@ class Player:
 
         # Set Effect
         self._m_Attack_Effect = image_manager.SpriteImage_PlayerEffect_Attack
+        self._m_PowerUp_Effect = image_manager.SpriteImage_PlayerEffect_PowerUp
         self._m_Kamehameha = image_manager.SpriteImage_PlayerEffect_Kamehameha
 
         # Set Image
