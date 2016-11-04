@@ -24,10 +24,7 @@ class Player:
         self.SoundManager = sound_manager
 
         # Set UI Font
-        self.OutPut_HP = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
-        self.OutPut_Timer = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
-        self.OutPut_PowerGauge = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
-        self.OutPut_Score = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
+        self.OutPut_Font = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
 
         # Set Character Parameter TODO: 캐릭터 파라미터 밸런스 조절
         self._m_x = x
@@ -92,7 +89,6 @@ class Player:
         self._m_Item_List = item
 
     def update(self, TimeElapsed):
-        #self.check_power()
         self.update_ui(TimeElapsed)
         self._m_StateTimer += TimeElapsed
         if True not in self._m_KeyDown.values() or self._m_StateTimer > 0.5:
@@ -139,6 +135,9 @@ class Player:
                 if self._m_SwitchPowerTimer > self.SWITCH_POWER_TIME:
                     self._m_SwitchPowerTimer = 0.0
                     self._m_Animation = self._m_Animation_PowerUp
+
+        if self.ATK > 2:
+            self._m_PowerUp_Effect.update()
 
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
@@ -203,14 +202,6 @@ class Player:
                 self._m_x + self._m_Animation.get_currentimage_width() / 2,
                 self._m_y + self._m_Animation.get_currentimage_height() / 2)
 
-    def check_power(self):
-        if self._m_PowerUp and self._m_Animation.get_current_state() is 'Idle_Normal' and \
-                self._m_Animation is self._m_Animation_Normal:
-            self._m_Animation = self._m_Animation_PowerUp
-        elif not self._m_PowerUp and self._m_Animation.get_current_state() is 'Idle_Normal' and \
-                self._m_Animation is self._m_Animation_PowerUp:
-            self._m_Animation = self._m_Animation_Normal
-
     def crash_check(self):
         for Target in self._m_Target_List:
             if Target.CheckBox.bottom < self._m_y < Target.CheckBox.top and \
@@ -269,13 +260,13 @@ class Player:
         # Draw UI
         self._m_AtkBox.draw(purse_y)
         self._m_UI_Box.draw(self.CLIENT_WIDTH / 6 - 10, self.CLIENT_HEIGHT - 55)
-        self.OutPut_Score.draw(10, self.CLIENT_HEIGHT - 25, 'Score : %d' % self.Score, (255, 255, 255))
-        self.OutPut_PowerGauge.draw(10, self.CLIENT_HEIGHT - 75,
-                                    'Power : %.2f' % (self.PowerGauge + 100 * (self.ATK - 1)) + '%', (255, 255, 255))
-        self.OutPut_HP.draw(10, self.CLIENT_HEIGHT - 125,
-                            'People : %d' % self._m_Earth_HP + '%', (255, 255, 255))
-        self.OutPut_Timer.draw(self.CLIENT_WIDTH * 2 / 5 + 20, self.CLIENT_HEIGHT - 20,
-                               'Time : %.2f' % self.GameTimer, (255, 255, 255))
+        self.OutPut_Font.draw(10, self.CLIENT_HEIGHT - 25, 'Score : %d' % self.Score, (255, 255, 255))
+        self.OutPut_Font.draw(10, self.CLIENT_HEIGHT - 75,
+                              'Power : %.2f' % (self.PowerGauge + 100 * (self.ATK - 1)) + '%', (255, 255, 255))
+        self.OutPut_Font.draw(10, self.CLIENT_HEIGHT - 125,
+                              'People : %d' % self._m_Earth_HP + '%', (255, 255, 255))
+        self.OutPut_Font.draw(self.CLIENT_WIDTH * 2 / 5 + 20, self.CLIENT_HEIGHT - 20,
+                              'Time: %.2f' % self.GameTimer, (255, 255, 255))
 
     def release(self):
         self._m_Animation_Normal.release()
