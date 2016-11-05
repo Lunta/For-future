@@ -252,6 +252,8 @@ class Player:
 
     def draw(self, purse_y):
         self._m_Animation.draw(self._m_x, self._m_y + purse_y)
+        if self.ATK > 2:
+            self._m_PowerUp_Effect.draw(self._m_x, self._m_y + purse_y)
         if self._m_Effect:
             self._m_Attack_Effect.draw(
                 self._m_x + self._m_Animation.get_currentimage_width() / 2 + random.randint(-15, 15),
