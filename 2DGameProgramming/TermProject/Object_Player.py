@@ -78,6 +78,7 @@ class Player:
         self._m_Crash = False
         self._m_Effect = False
         self._m_PowerUp = False
+        self._m_PowerUp_Update = False
         self._m_Hit = False
         self._m_SoundOutput = False
         self._m_bKeyDown = False
@@ -137,7 +138,11 @@ class Player:
                     self._m_Animation = self._m_Animation_PowerUp
 
         if self.ATK > 2:
-            self._m_PowerUp_Effect.update()
+            if not self._m_PowerUp_Update:
+                self._m_PowerUp_Effect.update()
+                self._m_PowerUp_Update = True
+            else:
+                self._m_PowerUp_Update = False
 
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
