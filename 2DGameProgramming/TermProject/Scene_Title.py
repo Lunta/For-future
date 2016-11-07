@@ -44,6 +44,7 @@ class TitleScene(Scene):
                 if event.key == SDLK_RETURN:
                     if self._m_Start:
                         self._m_framework.change_scene('Play')
+                        self._m_SoundManager.BGM_Play.play()
                     else:
                         self._m_framework.quit()
                 if event.key == SDLK_UP:
