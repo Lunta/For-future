@@ -5,7 +5,7 @@ from Scene import *
 class LogoScene(Scene):
     def __init__(self, scene_name='Logo'):
         Scene.__init__(self, scene_name)
-        self.DRAW_TIME = 3
+        self.DRAW_TIME = 5
         self._m_Timer = 0.0
 
     def get_scene(self):
@@ -19,4 +19,6 @@ class LogoScene(Scene):
         if self._m_Timer > self.DRAW_TIME:
             self._m_Timer = 0.0
             self._m_framework.change_scene('Title')
+            self._m_SoundManager.BGM_Logo.stop()
+            self._m_SoundManager.BGM_Title.play(-1)
 

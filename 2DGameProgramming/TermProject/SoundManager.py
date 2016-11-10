@@ -3,7 +3,12 @@ import pygame
 
 class SoundManager:
     def __init__(self):
+        pygame.mixer.pre_init(44100, -16, 10, 2048)
         pygame.mixer.init()
+
+        # Sound Mixer
+        self.Sound_Mixer = pygame.mixer
+
         # BGM
         self.BGM_Logo = pygame.mixer.Sound('Resource\Sound\BGM\Logo.wav')
         self.BGM_Title = pygame.mixer.Sound('Resource\Sound\BGM\Title.ogg')
@@ -20,7 +25,6 @@ class SoundManager:
         self.SE_Boss_Crashed = pygame.mixer.Sound('Resource\Sound\Effect\Boss_Crashed.ogg')
         self.SE_Crash_Impact = pygame.mixer.Sound('Resource\Sound\Effect\Crash_Impact.ogg')
         self.SE_Meteor_Crashed = pygame.mixer.Sound('Resource\Sound\Effect\Meteor_Crashed.ogg')
-
 
 
 

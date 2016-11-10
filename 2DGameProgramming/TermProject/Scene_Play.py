@@ -50,6 +50,7 @@ class PlayScene(Scene):
         self._m_Stage.update(TimeElapsed)
         if self._m_Player.isGameover():
             self._m_framework.change_scene('Gameover')
+            self._m_SoundManager.BGM_Play.stop()
         if self._m_Player.isQuit():
             self._m_framework.quit()
 

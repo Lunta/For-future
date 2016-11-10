@@ -16,5 +16,6 @@ class GameoverScene(Scene):
         if self._m_Timer > self.DRAW_TIME:
             self._m_Timer = 0.0
             self._m_framework.change_scene('Title')  # TODO: Ranking 구현 후 변경
+            self._m_SoundManager.BGM_Title.play(-1)
 
 
