@@ -15,6 +15,7 @@ class Player:
         # Set Effect
         self._m_Attack_Effect = image_manager.SpriteImage_PlayerEffect_Attack
         self._m_PowerUp_Effect = image_manager.SpriteImage_PlayerEffect_PowerUp
+        self._m_PowerUp2_Effect = image_manager.SpriteImage_PlayerEffect_PowerUp2
         self._m_Kamehameha = image_manager.SpriteImage_PlayerEffect_Kamehameha
 
         # Set Image
@@ -120,6 +121,8 @@ class Player:
             if self._m_Animation is self._m_Animation_PowerUp:
                 if self._m_PowerUp:
                     self._m_Animation.update_state('PowerDown')
+                    self.SoundManager.SE_PowerUp.stop()
+
                     self._m_PowerUp = False
                 self._m_SwitchPowerTimer += TimeElapsed
                 if self._m_SwitchPowerTimer > self.SWITCH_POWER_TIME:
@@ -127,10 +130,13 @@ class Player:
                     self._m_Animation = self._m_Animation_Normal
 
         if self.ATK > 1:
+            self._m_PowerUp_Effect.update()
             if self._m_Animation is self._m_Animation_Normal:
                 if not self._m_PowerUp:
                     self._m_Animation.update_state('PowerUp')
                     self._m_Animation.update_state('PowerUp')
+                    self.SoundManager.SE_PowerUp_Sound.play()
+                    self.SoundManager.SE_PowerUp.play(-1)
                     self._m_PowerUp = True
                 self._m_SwitchPowerTimer += TimeElapsed
                 if self._m_SwitchPowerTimer > self.SWITCH_POWER_TIME:
@@ -139,7 +145,7 @@ class Player:
 
         if self.ATK > 2:
             if not self._m_PowerUp_Update:
-                self._m_PowerUp_Effect.update()
+                self._m_PowerUp2_Effect.update()
                 self._m_PowerUp_Update = True
             else:
                 self._m_PowerUp_Update = False
@@ -256,9 +262,11 @@ class Player:
                 self.ATK += 1
 
     def draw(self, purse_y):
+        if self.ATK > 1:
+            self._m_PowerUp_Effect.draw(self._m_x, self._m_y + purse_y + 20)
         self._m_Animation.draw(self._m_x, self._m_y + purse_y)
         if self.ATK > 2:
-            self._m_PowerUp_Effect.draw(self._m_x, self._m_y + purse_y)
+            self._m_PowerUp2_Effect.draw(self._m_x, self._m_y + purse_y)
         if self._m_Effect:
             self._m_Attack_Effect.draw(
                 self._m_x + self._m_Animation.get_currentimage_width() / 2 + random.randint(-15, 15),

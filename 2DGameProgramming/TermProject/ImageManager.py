@@ -34,7 +34,8 @@ class ImageManager:
         self.SpriteImage_MeteorEffect_Boss = SpriteImage('Resource\\Graphics\\Sprite\\Effect\\Effect_Boss.png', 'Boss_Effect', 4)
 
         self.SpriteImage_PlayerEffect_Attack = SpriteImage('Resource\\Graphics\\Sprite\\Effect\\Effect_Attack.png', 'Attack_Effect', 6)
-        self.SpriteImage_PlayerEffect_PowerUp = SpriteImage('Resource\\Graphics\\Sprite\\Effect\\Effect_PowerUp.png', 'PowerUp_Effect', 10)
+        self.SpriteImage_PlayerEffect_PowerUp = SpriteImage('Resource\\Graphics\\Sprite\\Effect\\Effect_PowerUp.png', 'Effect_PowerUp', 6)
+        self.SpriteImage_PlayerEffect_PowerUp2 = SpriteImage('Resource\\Graphics\\Sprite\\Effect\\Effect_PowerUp2.png', 'Effect_PowerUp2', 10)
         self.SpriteImage_PlayerEffect_Kamehameha = SpriteImage('Resource\\Graphics\\Sprite\\Effect\\Kamehameha.png', 'Kamehameha', 3)
 
         # Sprite Animation

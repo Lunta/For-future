@@ -58,6 +58,7 @@ class SpriteAnimation:
 
         # 변신 중에는 상태 갱신 생략
         if 'Power' in self._m_CurrentState.get_name():
+            self._m_NextState = self._m_SpriteImage_List[self._m_SpriteState_List.index('Idle_Normal')]
             return None
 
         # 공격 중에는 상태 갱신 생략

@@ -3,7 +3,7 @@ import pygame
 
 class SoundManager:
     def __init__(self):
-        pygame.mixer.pre_init(44100, -16, 10, 2048)
+        pygame.mixer.pre_init(44100, -16, 100, 2048)
         pygame.mixer.init()
 
         # Sound Mixer
