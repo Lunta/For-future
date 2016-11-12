@@ -20,31 +20,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Object_Player.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Object_Player.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Object_Player.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-232">
-              <caret line="264" column="24" selection-start-line="264" selection-start-column="24" selection-end-line="264" selection-end-column="24" />
+            <state relative-caret-position="299">
+              <caret line="242" column="43" selection-start-line="242" selection-start-column="43" selection-end-line="242" selection-end-column="43" />
               <folding>
-                <element signature="e#5825#6651#0" expanded="false" />
-                <element signature="e#8405#9508#0" expanded="false" />
-                <element signature="e#9549#9865#0" expanded="false" />
-                <element signature="e#9899#9998#0" expanded="false" />
-                <element signature="e#10038#10537#0" expanded="false" />
-                <element signature="e#12341#12685#0" expanded="false" />
-                <element signature="e#12712#12782#0" expanded="false" />
-                <element signature="e#12873#13208#0" expanded="false" />
-                <element signature="e#13235#13302#0" expanded="false" />
+                <element signature="e#6375#7201#0" expanded="false" />
+                <element signature="e#10199#10485#0" expanded="false" />
+                <element signature="e#10519#10618#0" expanded="false" />
+                <element signature="e#10658#11157#0" expanded="false" />
+                <element signature="e#12961#13305#0" expanded="false" />
+                <element signature="e#13332#13402#0" expanded="false" />
+                <element signature="e#13493#13828#0" expanded="false" />
+                <element signature="e#13855#13922#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpriteAnimation.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SpriteAnimation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SpriteAnimation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="60" column="103" selection-start-line="60" selection-start-column="103" selection-end-line="60" selection-end-column="103" />
+            <state relative-caret-position="182">
+              <caret line="84" column="25" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -83,7 +82,7 @@
       <file leaf-file-name="Scene_Play.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scene_Play.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1175">
+            <state relative-caret-position="864">
               <caret line="49" column="41" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
               <folding />
             </state>
@@ -93,7 +92,7 @@
       <file leaf-file-name="SoundManager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SoundManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="375">
               <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
@@ -103,7 +102,7 @@
       <file leaf-file-name="ImageManager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ImageManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
+            <state relative-caret-position="700">
               <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
             </state>
@@ -113,7 +112,7 @@
       <file leaf-file-name="Utility.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Utility.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="549">
+            <state relative-caret-position="975">
               <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
               <folding />
             </state>
@@ -158,8 +157,8 @@
         <option value="$PROJECT_DIR$/Scene_Logo.py" />
         <option value="$PROJECT_DIR$/SoundManager.py" />
         <option value="$PROJECT_DIR$/ImageManager.py" />
-        <option value="$PROJECT_DIR$/Object_Player.py" />
         <option value="$PROJECT_DIR$/SpriteAnimation.py" />
+        <option value="$PROJECT_DIR$/Object_Player.py" />
       </list>
     </option>
   </component>
@@ -193,8 +192,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -210,6 +209,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TermProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TermProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TermProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sound" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Effect" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TermProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TermProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Sound" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -489,7 +528,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -732,14 +771,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scene_Play.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1175">
-          <caret line="49" column="41" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scene_Title.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -751,14 +782,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scene_GameOver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -780,7 +803,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Utility.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="549">
+        <state relative-caret-position="975">
           <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
           <folding />
         </state>
@@ -796,7 +819,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SoundManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="375">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
@@ -804,35 +827,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ImageManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
+        <state relative-caret-position="700">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scene_GameOver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scene_Play.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="49" column="41" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SpriteAnimation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="84" column="25" selection-start-line="84" selection-start-column="8" selection-end-line="84" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Object_Player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-232">
-          <caret line="264" column="24" selection-start-line="264" selection-start-column="24" selection-end-line="264" selection-end-column="24" />
+        <state relative-caret-position="299">
+          <caret line="242" column="43" selection-start-line="242" selection-start-column="43" selection-end-line="242" selection-end-column="43" />
           <folding>
-            <element signature="e#5825#6651#0" expanded="false" />
-            <element signature="e#8405#9508#0" expanded="false" />
-            <element signature="e#9549#9865#0" expanded="false" />
-            <element signature="e#9899#9998#0" expanded="false" />
-            <element signature="e#10038#10537#0" expanded="false" />
-            <element signature="e#12341#12685#0" expanded="false" />
-            <element signature="e#12712#12782#0" expanded="false" />
-            <element signature="e#12873#13208#0" expanded="false" />
-            <element signature="e#13235#13302#0" expanded="false" />
+            <element signature="e#6375#7201#0" expanded="false" />
+            <element signature="e#10199#10485#0" expanded="false" />
+            <element signature="e#10519#10618#0" expanded="false" />
+            <element signature="e#10658#11157#0" expanded="false" />
+            <element signature="e#12961#13305#0" expanded="false" />
+            <element signature="e#13332#13402#0" expanded="false" />
+            <element signature="e#13493#13828#0" expanded="false" />
+            <element signature="e#13855#13922#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SpriteAnimation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="60" column="103" selection-start-line="60" selection-start-column="103" selection-end-line="60" selection-end-column="103" />
-          <folding />
         </state>
       </provider>
     </entry>

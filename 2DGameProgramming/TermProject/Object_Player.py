@@ -80,6 +80,7 @@ class Player:
         self._m_Effect = False
         self._m_PowerUp = False
         self._m_PowerUp_Update = False
+        self._m_PowerUp_Sound = False
         self._m_Hit = False
         self._m_SoundOutput = False
         self._m_bKeyDown = False
@@ -116,13 +117,14 @@ class Player:
             self._m_PowerDownTimer -= self.ITEM_POWER_DOWN_TIME
             self.ATK = max(self.ATK - 1, 1)
         elif self.ATK is 1:
+            self._m_PowerUp_Update = False
             self._m_PowerDownTimer = 0
             self.PowerGauge = 0.0
             if self._m_Animation is self._m_Animation_PowerUp:
                 if self._m_PowerUp:
                     self._m_Animation.update_state('PowerDown')
                     self.SoundManager.SE_PowerUp.stop()
-
+                    self.SoundManager.SE_PowerUp2.stop()
                     self._m_PowerUp = False
                 self._m_SwitchPowerTimer += TimeElapsed
                 if self._m_SwitchPowerTimer > self.SWITCH_POWER_TIME:
@@ -144,11 +146,20 @@ class Player:
                     self._m_Animation = self._m_Animation_PowerUp
 
         if self.ATK > 2:
+            if not self._m_PowerUp_Sound:
+                self.SoundManager.SE_PowerUp.stop()
+                self.SoundManager.SE_PowerUp2.play(-1)
+                self._m_PowerUp_Sound = True
             if not self._m_PowerUp_Update:
                 self._m_PowerUp2_Effect.update()
                 self._m_PowerUp_Update = True
             else:
                 self._m_PowerUp_Update = False
+        elif self.ATK is 2:
+            if self._m_PowerUp_Sound:
+                self.SoundManager.SE_PowerUp.play(-1)
+                self.SoundManager.SE_PowerUp2.stop()
+                self._m_PowerUp_Sound = False
 
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
@@ -188,7 +199,6 @@ class Player:
         if self._m_Animation.get_current_state() is 'Attack_Punch' and \
                 self._m_Animation.get_current_state_state() is self._m_Animation.StateState.action and \
                 not self._m_SoundOutput:
-            #self.SoundManager.SE_Punch.play()
             self._m_SoundOutput = True
         elif self._m_Animation.get_current_state_state() is self._m_Animation.StateState.execute:
             self._m_SoundOutput = False
@@ -232,7 +242,10 @@ class Player:
                 Target.hit(self.ATK)
                 self.Score += self.ATK * 10
                 self._m_Effect = True
-                self.SoundManager.SE_Punch.play()
+                if 'Kick' in self._m_Animation.get_current_state():
+                    self.SoundManager.SE_Kick.play()
+                else:
+                    self.SoundManager.SE_Punch.play()
         return self._m_Crash
 
     def check_hit_earth(self):
@@ -241,7 +254,6 @@ class Player:
             self.Shake_Earth = self._m_PrevHP - self._m_Earth_HP
             self._m_PrevHP = self._m_Earth_HP
             self._m_Hit = True
-            # TODO: 피격 사운드 출력
         else:
             self.Shake_Earth = 1
         return self._m_Hit
