@@ -75,15 +75,15 @@ class Stage:
             if meteor.is_die():
                 x, y = meteor.get_pos()
                 if meteor.get_type() is not 'Small' and meteor.get_type() is not 'Boss':
-                    for idx in range(random.randint(2, 5)):
+                    for idx in range(random.randint(2, 4)):
                         self.MeteorList.append(
                             Meteor(self.ImageManager, x, y, random.randint(100, 150),
                                    self.Type[random.randint(0, self.Type.index(meteor.get_type()) - 1)],
                                    self.WINDOW_WIDTH, self.WINDOW_HEIGHT, True))
-                    if random.randint(0, 2) is 0:
+                    if random.randint(0, 5) is 0:
                         self.ItemList.append(Item(x, y, self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
                 elif meteor.get_type() is not 'Small' and meteor.get_type() is 'Boss':
-                    for idx in range(random.randint(2, 5)):
+                    for idx in range(random.randint(2, 4)):
                         self.MeteorList.append(
                             Meteor(self.ImageManager, x, y, random.randint(10, 100), 'Huge',
                                    self.WINDOW_WIDTH, self.WINDOW_HEIGHT, True))
