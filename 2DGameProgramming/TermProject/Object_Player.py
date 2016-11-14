@@ -27,7 +27,7 @@ class Player:
         # Set UI Font
         self.OutPut_Font = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
 
-        # Set Character Parameter TODO: 캐릭터 파라미터 밸런스 조절
+        # Set Character Parameter
         self._m_x = x
         self._m_y = y
         self._m_move_speed = 350
@@ -86,6 +86,33 @@ class Player:
         self._m_bKeyDown = False
         self._m_bGameover = False
         self._m_bQuit = False
+
+        # Ranking
+        self._m_RankingList = []
+        self.list_length = 0
+        self.read()
+
+    def write(self):
+        self._m_RankingList.append({'Score': self.Score, 'Time': self.GameTimer, 'Player': self.list_length})
+        self.bubble_sort(self._m_RankingList)
+        f = open('ranking.txt', 'w')
+        json.dump(self._m_RankingList, f)
+        f.close()
+
+    def read(self):
+        f = open('ranking.txt', 'r')
+        self._m_RankingList = json.load(f)
+        f.close()
+        i = 0
+        for idx in self._m_RankingList:
+            i += 1
+        self.list_length = i
+
+    def bubble_sort(self, data):
+        for i in range(0, len(data)):
+            for j in range(i + 1, len(data)):
+                if data[i]['Score'] + 10 * data[i]['Time'] < data[j]['Score'] + 10 * data[j]['Time']:
+                    data[i], data[j] = data[j], data[i]
 
     def targeting(self, target, item):
         self._m_Target_List = target
@@ -164,6 +191,7 @@ class Player:
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
             self._m_bGameover = True
+            self.write()
 
     def reset_state(self):
         self._m_StateTimer = 0.0

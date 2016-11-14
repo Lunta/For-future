@@ -57,7 +57,7 @@ class Framework:
             self._m_SceneName_List.append(self._m_Scene_List[idx].get_name())
 
         self._m_CurrentScene = self._m_Scene_List[0]
-        self._m_SoundManager.BGM_Logo.play(-1)
+        self._m_SoundManager.BGM_Logo.play()
 
     def _update(self, TimeElapsed):
         self._m_CurrentScene.update(TimeElapsed)

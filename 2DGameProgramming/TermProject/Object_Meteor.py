@@ -14,14 +14,14 @@ class Meteor:
         [
             5,  # Small
             10,  # Big
-            15,  # Huge
+            20,  # Huge
             100,  # Boss stage0
-            100,  # Boss stage1
-            100,  # Boss stage2
-            100,  # Boss stage3
-            100,  # Boss stage4
-            100,  # Boss stage5
-            100  # Boss stage6
+            200,  # Boss stage1
+            300,  # Boss stage2
+            400,  # Boss stage3
+            500,  # Boss stage4
+            600,  # Boss stage5
+            700  # Boss stage6
         ]
 
     # 경직시간
@@ -52,7 +52,7 @@ class Meteor:
         # Set State
         self._m_x = x
         self._m_y = y
-        self._m_PrevHP = self.MeteorHP_List[self.TypeList.index(self._m_Type) + self._m_Stage]
+        self._m_PrevHP = self.MeteorHP_List[self.TypeList.index(self._m_Type) + self._m_Stage] + self._m_Stage
         self._m_HP = self._m_PrevHP
         self._m_Speed = speed
         if random_vector:

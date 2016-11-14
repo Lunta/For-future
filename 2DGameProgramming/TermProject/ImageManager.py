@@ -9,7 +9,7 @@ class ImageManager:
         self.Image_SceneBK_Title_Exit = load_image('Resource\\Graphics\\Background\\Title_Exit.png')
         self.Image_SceneBK_Play = load_image('Resource\\Graphics\\Background\\Play.png')
         self.Image_SceneBK_Gameover = load_image('Resource\\Graphics\\Background\\Gameover.png')
-        self.Image_SceneBK_Ranking = load_image('Resource\\Graphics\\Background\\Logo.png')
+        self.Image_SceneBK_Ranking = load_image('Resource\\Graphics\\Background\\Ranking.png')
         
         self.Image_UI_Box = load_image('Resource\\Graphics\\Background\\UI_BOX.png')
 
