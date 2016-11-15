@@ -322,6 +322,8 @@ class Player:
                               'People : %d' % self._m_Earth_HP + '%', (255, 255, 255))
         self.OutPut_Font.draw(self.CLIENT_WIDTH * 2 / 5 + 20, self.CLIENT_HEIGHT - 20,
                               'Time: %.2f' % self.GameTimer, (255, 255, 255))
+        self.OutPut_Font.draw(self.CLIENT_WIDTH - 260, self.CLIENT_HEIGHT - 20,
+                              'Player %2d' % self.list_length, (255, 255, 255))
 
     def release(self):
         self._m_Animation_Normal.release()

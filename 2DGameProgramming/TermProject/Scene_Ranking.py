@@ -42,5 +42,5 @@ class RankingScene(Scene):
             if event.type == SDL_QUIT:
                 self._m_framework.quit()
             elif event.type == SDL_KEYDOWN and event.key == SDLK_z:
-                self._m_framework.change_state('Title')
+                self._m_framework.change_scene('Title')
                 self._m_SoundManager.BGM_Title.play(-1)
