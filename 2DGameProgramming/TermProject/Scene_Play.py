@@ -60,7 +60,28 @@ class PlayScene(Scene):
         self._m_Player.draw(self._m_Shack_pulse)
 
     def reset(self):
-        pass
+        del self._m_Stage
+        del self._m_Player
+
+        # reset Stage
+        self._m_Stage = None
+
+        # reset Player
+        self._m_Player = None
+        self._m_SHAKE_TIME = 0.2
+        self._m_pulse_power = 5
+        self._m_earth_shake_power = 0
+        self._m_Shack_pulse = 0.0
+        self._m_ShackTimer = 0.0
+        self._m_bShake = False
+
+        self._m_Stage = Stage(self._m_framework.WINDOW_WIDTH, self._m_framework.WINDOW_HEIGHT,
+                              self._m_ImageManager, self._m_SoundManager)
+        self._m_Player = Player(self._m_framework.WINDOW_WIDTH, self._m_framework.WINDOW_HEIGHT,
+                                self._m_ImageManager, self._m_SoundManager,
+                                self._m_framework.WINDOW_WIDTH / 2, self._m_framework.WINDOW_HEIGHT / 2)
+        self._m_Player.targeting(self._m_Stage.MeteorList, self._m_Stage.ItemList)
+        self._m_Stage.Player = self._m_Player
 
     def handle_events(self):
         self._m_Player.handle_events()

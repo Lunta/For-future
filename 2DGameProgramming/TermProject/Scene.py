@@ -9,6 +9,7 @@ class Scene:
         self._m_BKImage_Start = None
         self._m_BKImage_Exit = None
         self._m_SoundManager = None
+        self._m_ImageManager = None
 
     def get_name(self):
         return self._m_name
@@ -16,6 +17,7 @@ class Scene:
     def build_object(self, framework, image_manager, sound_manager):
         self._m_framework = framework
         self._m_SoundManager = sound_manager
+        self._m_ImageManager = image_manager
         if self._m_name is 'Logo':
             self._m_BKImage = image_manager.Image_SceneBK_Logo
         elif self._m_name is 'Title':

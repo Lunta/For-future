@@ -191,6 +191,8 @@ class Player:
         if self._m_Earth_HP <= 0:
             self._m_Earth_HP = 0
             self._m_bGameover = True
+            self.SoundManager.SE_PowerUp2.stop()
+            self.SoundManager.SE_PowerUp.stop()
             self.write()
 
     def reset_state(self):
