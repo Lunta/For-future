@@ -83,6 +83,8 @@ class Meteor:
             pass  # TODO: 사망 후 스프라이트 or 알파값
             return None
         self._m_Die = self._m_HP <= 0
+        self._m_EffectImage.update()
+
         if not self._m_bEffect and self._m_x - self._m_Image.w / 2 < self.CLIENT_WIDTH / 3:
             self._m_bEffect = True
         elif self._m_x - self._m_Image.w / 2 > self.CLIENT_WIDTH / 3 or self._m_DVector.x > 0:
@@ -105,7 +107,6 @@ class Meteor:
             self.CheckBox.set_parameter(
                 self._m_x - self._m_Image.w / 2, self._m_y - self._m_Image.h / 2,
                 self._m_x + self._m_Image.w / 2, self._m_y + self._m_Image.h / 2)
-        self._m_EffectImage.update()
         self.move(TimeElapsed)
         self.bounce()
 
