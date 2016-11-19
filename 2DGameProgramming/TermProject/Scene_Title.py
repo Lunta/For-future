@@ -7,8 +7,8 @@ class TitleScene(Scene):
         Scene.__init__(self, scene_name)
         self._m_ObjImage_Cursor = None
         self._m_Cursor_Radian = 0.0
-        self._m_Cursor_Pos_Start = POINT(x=875, y=225)
-        self._m_Cursor_Pos_Exit = POINT(x=875, y=125)
+        self._m_Cursor_Pos_Start = POINT(x=875, y=205)
+        self._m_Cursor_Pos_Exit = POINT(x=875, y=105)
         self._m_Start = True
 
     def get_scene(self):

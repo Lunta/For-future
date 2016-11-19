@@ -40,11 +40,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Object_Player.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Object_Player.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Object_Player.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="337">
               <caret line="212" column="55" selection-start-line="212" selection-start-column="55" selection-end-line="212" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Scene_Title.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Scene_Title.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="10" column="53" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -108,7 +118,6 @@
         <option value="$PROJECT_DIR$/Object_Item.py" />
         <option value="$PROJECT_DIR$/SpriteImage.py" />
         <option value="$PROJECT_DIR$/Utility.py" />
-        <option value="$PROJECT_DIR$/Scene_Title.py" />
         <option value="$PROJECT_DIR$/Scene_Logo.py" />
         <option value="$PROJECT_DIR$/SoundManager.py" />
         <option value="$PROJECT_DIR$/SpriteAnimation.py" />
@@ -123,6 +132,7 @@
         <option value="$PROJECT_DIR$/Scene_Play.py" />
         <option value="$PROJECT_DIR$/Object_Player.py" />
         <option value="$PROJECT_DIR$/Object_Meteor.py" />
+        <option value="$PROJECT_DIR$/Scene_Title.py" />
       </list>
     </option>
   </component>
@@ -156,6 +166,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -248,8 +260,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -812,13 +822,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scene_Title.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scene_Ranking.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1075">
@@ -841,6 +844,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
           <caret line="212" column="55" selection-start-line="212" selection-start-column="55" selection-end-line="212" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scene_Title.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="10" column="53" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
           <folding />
         </state>
       </provider>
