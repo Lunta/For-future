@@ -52,7 +52,7 @@ class Meteor:
         # Set State
         self._m_x = x
         self._m_y = y
-        self._m_PrevHP = self.MeteorHP_List[self.TypeList.index(self._m_Type) + self._m_Stage] + self._m_Stage
+        self._m_PrevHP = self.MeteorHP_List[self.TypeList.index(self._m_Type) + self._m_Stage] + (5 * self._m_Stage)
         self._m_HP = self._m_PrevHP
         self._m_Speed = speed
         if random_vector:

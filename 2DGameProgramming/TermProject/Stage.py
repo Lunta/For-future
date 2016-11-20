@@ -57,12 +57,12 @@ class Stage:
             meteor.update(TimeElapsed)
         for item in self.ItemList:
             item.update(TimeElapsed)
-        if self._m_BossTimer > self.BOSS_POP_TIME * (self._m_BossStage + 1):
+        if self._m_BossTimer > self.BOSS_POP_TIME + ((self.BOSS_POP_TIME / 2) * (self._m_BossStage + 1)):
             self._m_BossTimer = 0.0
             self.MeteorList.append(self._m_BossList[self._m_BossStage])
             self._m_BossStage += 1
-        elif self._m_Timer > self.POP_TIME:
-            self._m_Timer -= self.POP_TIME
+        elif self._m_Timer > self.POP_TIME - (self._m_BossStage * 0.2):
+            self._m_Timer -= (self.POP_TIME - (self._m_BossStage * 0.2))
             self.MeteorList.append(
                 Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), random.randint(0, self.WINDOW_HEIGHT),
                        random.randint(100, 150), self.Type[random.randint(0, 2)], self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
@@ -80,7 +80,7 @@ class Stage:
                             Meteor(self.ImageManager, x, y, random.randint(100, 150),
                                    self.Type[random.randint(0, self.Type.index(meteor.get_type()) - 1)],
                                    self.WINDOW_WIDTH, self.WINDOW_HEIGHT, True))
-                    if random.randint(0, 5) is 0:
+                    if random.randint(0, 7) is 0:
                         self.ItemList.append(Item(x, y, self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
                 elif meteor.get_type() is not 'Small' and meteor.get_type() is 'Boss':
                     for idx in range(random.randint(2, 4)):
