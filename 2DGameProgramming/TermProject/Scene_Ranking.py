@@ -9,7 +9,7 @@ class RankingScene(Scene):
 
     def build_object(self, framework, image_manager, sound_manager):
         Scene.build_object(self, framework, image_manager, sound_manager)
-        self.OutPut_Font = Font('Resource\Font\Typo_DecoSolidSlash.ttf', 60)
+        self.OutPut_Font = Font('Resource\Font\HoonMakdaeyunpilR.ttf', 60)
 
     def release(self):
         Scene.release(self)
@@ -21,12 +21,11 @@ class RankingScene(Scene):
         self._m_BKImage.clip_draw(0, 0, self._m_BKImage.w, self._m_BKImage.h,
                                   self._m_framework.WINDOW_WIDTH / 2 , self._m_framework.WINDOW_HEIGHT / 2,
                                   self._m_framework.WINDOW_WIDTH , self._m_framework.WINDOW_HEIGHT)
-        self.OutPut_Font.draw(500, 650, '[Ranking]', (255, 255, 255))
         i = 0
         self.Ranking = self.Ranking[:5]
         for data in self.Ranking:
-            self.OutPut_Font.draw(150, 550 - 100 * i, '%2d - Player %2d   Score: %6d   Time: %3.2f' %
-                                  (i + 1, data['Player'], data['Score'], data['Time']), (255, 255, 255))
+            self.OutPut_Font.draw(100, 580 - 100 * i, '%2d - Player %2d   Score: %6d   Time: %3.2f' %
+                                  (i + 1, data['Player'], data['Score'], data['Time']), (255, 25, 41))
             i += 1
             if i is 10:
                 break
