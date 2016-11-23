@@ -9,7 +9,7 @@ class RankingScene(Scene):
 
     def build_object(self, framework, image_manager, sound_manager):
         Scene.build_object(self, framework, image_manager, sound_manager)
-        self.OutPut_Font = Font('Resource\Font\HoonMakdaeyunpilR.ttf', 60)
+        self.OutPut_Font = Font('Resource\Font\HoonMakdaeyunpilR.ttf', 50)
 
     def release(self):
         Scene.release(self)
@@ -24,7 +24,7 @@ class RankingScene(Scene):
         i = 0
         self.Ranking = self.Ranking[:5]
         for data in self.Ranking:
-            self.OutPut_Font.draw(100, 580 - 100 * i, '%2d - Player %2d   Score: %6d   Time: %3.2f' %
+            self.OutPut_Font.draw(180, 580 - 100 * i, '%2d - Player %2d   Score: %6d   Time: %3.2f' %
                                   (i + 1, data['Player'], data['Score'], data['Time']), (255, 25, 41))
             i += 1
             if i is 10:
