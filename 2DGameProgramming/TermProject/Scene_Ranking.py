@@ -6,6 +6,7 @@ class RankingScene(Scene):
     def __init__(self, scene_name='Ranking'):
         Scene.__init__(self, scene_name)
         self.Ranking = []
+        self.current_player = 0
 
     def build_object(self, framework, image_manager, sound_manager):
         Scene.build_object(self, framework, image_manager, sound_manager)
@@ -26,14 +27,18 @@ class RankingScene(Scene):
         for data in self.Ranking:
             self.OutPut_Font.draw(180, 580 - 100 * i, '%2d - Player %2d   Score: %6d   Time: %3.2f' %
                                   (i + 1, data['Player'], data['Score'], data['Time']), (255, 25, 41))
+            if self.current_player is data['Player']:
+                self.OutPut_Font.draw(20, 580 - 100 * i, 'YOUR >>', (255, 255, 0))
             i += 1
-            if i is 10:
-                break
 
     def read(self):
         f = open('ranking.txt', 'r')
         self.Ranking = json.load(f)
         f.close()
+        i = 0
+        for idx in self.Ranking:
+            i += 1
+        self.current_player = i - 1
 
     def handle_events(self):
         events = get_events()
