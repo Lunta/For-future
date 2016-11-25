@@ -7,6 +7,9 @@ class RankingScene(Scene):
         Scene.__init__(self, scene_name)
         self.Ranking = []
         self.current_player = 0
+        self.input_timer = 0.0
+        self.INPUT_TIME = 5
+        self.title_scene_bgm_play = False
 
     def build_object(self, framework, image_manager, sound_manager):
         Scene.build_object(self, framework, image_manager, sound_manager)
@@ -16,6 +19,7 @@ class RankingScene(Scene):
         Scene.release(self)
 
     def update(self, TimeElapsed):
+        self.input_timer += TimeElapsed
         self.read()
 
     def draw(self):
@@ -41,10 +45,14 @@ class RankingScene(Scene):
         self.current_player = i - 1
 
     def handle_events(self):
+        if self.input_timer < self.INPUT_TIME:
+            return None
         events = get_events()
         for event in events:
             if event.type == SDL_QUIT:
                 self._m_framework.quit()
             elif event.type == SDL_KEYDOWN:
                 self._m_framework.change_scene('Title')
-                self._m_SoundManager.BGM_Title.play(-1)
+                if not self.title_scene_bgm_play:
+                    self._m_SoundManager.BGM_Title.play(-1)
+                    self.title_scene_bgm_play = True
