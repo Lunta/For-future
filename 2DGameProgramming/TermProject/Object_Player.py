@@ -243,7 +243,7 @@ class Player:
             self._m_AtkBox.set_parameter(
                 self._m_x, self._m_y - self._m_Animation.get_currentimage_height() / 4,
                 self._m_x + self._m_Animation.get_currentimage_width() / 2,
-                self._m_y + self._m_Animation.get_currentimage_height() / 2)
+                self._m_y + self._m_Animation.get_currentimage_height() / 3)
             self._m_KeyDown.Punch = False
         if self._m_KeyDown.Kick:
             self._m_Animation.update_state('Attack_Kick')
@@ -251,7 +251,7 @@ class Player:
             self._m_AtkBox.set_parameter(
                 self._m_x, self._m_y - self._m_Animation.get_currentimage_height() / 4,
                 self._m_x + self._m_Animation.get_currentimage_width() / 2,
-                self._m_y + self._m_Animation.get_currentimage_height() / 2)
+                self._m_y + self._m_Animation.get_currentimage_height() / 3)
 
     def crash_check(self):
         for Target in self._m_Target_List:
