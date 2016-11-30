@@ -1,7 +1,7 @@
 from SpriteAnimation import*
 
 
-class Player:
+class Player:  # Size : 2m, Speed : 4.6m,
     def __init__(self, client_width, client_height, image_manager, sound_manager, x, y):
         # Set Client Size
         self.CLIENT_WIDTH = client_width

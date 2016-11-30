@@ -5,10 +5,10 @@ class Meteor:
     # Set List
     TypeList = \
         [
-            'Small',
-            'Big',
-            'Huge',
-            'Boss'
+            'Small',  # Size : 1.3m
+            'Big',  # Size : 4m
+            'Huge',  # Size : 6.6m
+            'Boss'  # Size : 10.4m
         ]
     MeteorHP_List = \
         [
@@ -25,7 +25,7 @@ class Meteor:
         ]
 
     # 경직시간
-    HIT_TIME = 0.1
+    HIT_TIME = 0.08
     BORN_TIME = 0.5
 
     def __init__(self, image_manager, x, y, speed, type_m, client_width, client_height, random_vector=False, stage=0):
@@ -55,7 +55,7 @@ class Meteor:
         if self._m_Type is 'Boss':
             self._m_PrevHP = self.MeteorHP_List[self.TypeList.index(self._m_Type) + self._m_Stage]
         else:
-            self._m_PrevHP = self.MeteorHP_List[self.TypeList.index(self._m_Type)] + (3 * self._m_Stage)
+            self._m_PrevHP = self.MeteorHP_List[self.TypeList.index(self._m_Type)] + (2 * self._m_Stage)
         self._m_HP = self._m_PrevHP
         self._m_Speed = speed
         if random_vector:
