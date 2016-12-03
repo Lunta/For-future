@@ -83,6 +83,8 @@ class Framework:
         self._m_CurrentScene = self._m_Scene_List[self._m_SceneName_List.index(scene_name)]
         if scene_name is 'Play':
             self._m_CurrentScene.reset()
+            print('Attack : Z, X')
+            print('Move : 방향키')
 
     def run(self):
         self._create()

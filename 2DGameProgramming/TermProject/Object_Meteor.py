@@ -119,7 +119,7 @@ class Meteor:
         self._m_Image.rotate_draw(self._m_Radian, self._m_x, self._m_y + purse_y)
         if self._m_bEffect or self._m_Type is 'Boss':
             self._m_EffectImage.draw(self._m_x, self._m_y + purse_y)
-        self.CheckBox.draw(purse_y)
+        # self.CheckBox.draw(purse_y)
 
     def get_type(self):
         return self._m_Type

@@ -35,7 +35,6 @@ class Stage:
                        self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, 6)
             ]
 
-
         self.Player = None
         self.MeteorList = []
         self.ItemList = []
@@ -61,11 +60,11 @@ class Stage:
             self._m_BossTimer = 0.0
             self.MeteorList.append(self._m_BossList[self._m_BossStage])
             self._m_BossStage += 1
-        elif self._m_Timer > self.POP_TIME - (self._m_BossStage * 0.2):
-            self._m_Timer -= (self.POP_TIME - (self._m_BossStage * 0.2))
+        elif self._m_Timer > self.POP_TIME - (self._m_BossStage * 0.3):
+            self._m_Timer -= (self.POP_TIME - (self._m_BossStage * 0.3))
             self.MeteorList.append(
                 Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), random.randint(0, self.WINDOW_HEIGHT),
-                       random.randint(100, 150) + (self._m_BossStage * 10), self.Type[random.randint(1, 2)],
+                       random.randint(85, 135) + (self._m_BossStage * 15), self.Type[random.randint(1, 2)],
                        self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, self._m_BossStage))
 
     def check_die(self):

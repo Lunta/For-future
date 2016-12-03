@@ -315,7 +315,7 @@ class Player:  # Size : 2m, Speed : 4.6m,
                 self._m_y + purse_y + self._m_Animation.get_currentimage_height() / 4 + random.randint(-40, 30))
 
         # Draw UI
-        self._m_AtkBox.draw(purse_y)
+        # self._m_AtkBox.draw(purse_y)
         self._m_UI_Box.draw(self.CLIENT_WIDTH / 6 - 10, self.CLIENT_HEIGHT - 55)
         self.OutPut_Font.draw(10, self.CLIENT_HEIGHT - 25, 'Score : %d' % self.Score, (255, 255, 255))
         self.OutPut_Font.draw(10, self.CLIENT_HEIGHT - 75,

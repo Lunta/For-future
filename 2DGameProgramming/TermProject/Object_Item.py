@@ -30,7 +30,7 @@ class Item:
 
     def draw(self, purse_y):
         self._m_Image.draw(self._m_x, self._m_y + purse_y)
-        self.CheckBox.draw(purse_y)
+        # self.CheckBox.draw(purse_y)
 
     def move(self, TimeElapsed):
         self._m_x += self._m_DVector.x * self._m_Speed * TimeElapsed
