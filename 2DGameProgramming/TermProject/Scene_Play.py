@@ -34,7 +34,7 @@ class PlayScene(Scene):
             self._m_bShake = True
             self._m_Shack_pulse = 0.0
             self._m_ShackTimer = 0.0
-        self._m_earth_shake_power = clamp(0, self._m_Player.Shake_Earth, 9)
+        self._m_earth_shake_power = clamp(0, self._m_Player.Shake_Earth, 8)
 
         if self._m_bShake:
             self._m_ShackTimer += TimeElapsed

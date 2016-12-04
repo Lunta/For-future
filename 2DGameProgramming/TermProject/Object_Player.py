@@ -211,16 +211,16 @@ class Player:  # Size : 2m, Speed : 4.6m,
 
         if self._m_KeyDown.Right:
             self._m_Animation.update_state('MoveFront')
-            self._m_x += self._m_move_speed * TimeElapsed
+            self._m_x = clamp(0, self._m_x + self._m_move_speed * TimeElapsed, self.CLIENT_WIDTH)
         if self._m_KeyDown.Up:
             self._m_Animation.update_state('MoveFront')
-            self._m_y += self._m_move_speed * TimeElapsed
+            self._m_y = clamp(0, self._m_y + self._m_move_speed * TimeElapsed, self.CLIENT_HEIGHT)
         if self._m_KeyDown.Left:
             self._m_Animation.update_state('MoveBack')
-            self._m_x -= self._m_move_speed * TimeElapsed
+            self._m_x = clamp(0, self._m_x - self._m_move_speed * TimeElapsed, self.CLIENT_WIDTH)
         if self._m_KeyDown.Down:
             self._m_Animation.update_state('MoveBack')
-            self._m_y -= self._m_move_speed * TimeElapsed
+            self._m_y = clamp(0, self._m_y - self._m_move_speed * TimeElapsed, self.CLIENT_HEIGHT)
 
     def _attack(self):
         if not self._m_KeyDown.Punch and not self._m_KeyDown.Kick:
