@@ -64,7 +64,7 @@ class Stage:
             self._m_Timer -= (self.POP_TIME - (self._m_BossStage * 0.3))
             self.MeteorList.append(
                 Meteor(self.ImageManager, self.WINDOW_WIDTH * (3 / 2), random.randint(0, self.WINDOW_HEIGHT),
-                       random.randint(85, 135) + (self._m_BossStage * 15), self.Type[random.randint(1, 2)],
+                       random.randint(90, 120) + (self._m_BossStage * 20), self.Type[random.randint(1, 2)],
                        self.WINDOW_WIDTH, self.WINDOW_HEIGHT, False, self._m_BossStage))
 
     def check_die(self):
