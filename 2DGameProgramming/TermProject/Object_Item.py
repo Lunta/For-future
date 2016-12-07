@@ -16,7 +16,7 @@ class Item:
             vx, vy = random.randint(-10, 10), random.randint(-10, 10)
         self._m_DVector = Vector2D(vx, vy)
         self._m_DVector.normalize()
-        self._m_Speed = random.randint(50, 150)
+        self._m_Speed = random.randint(100, 200)
 
         self._m_UseAble = True
 
