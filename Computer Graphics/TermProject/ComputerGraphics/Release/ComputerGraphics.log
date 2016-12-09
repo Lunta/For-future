@@ -1,0 +1,10 @@
+﻿  Surface.cpp
+d:\mysource\for-future\computer graphics\termproject\computergraphics\BitmapTexture.h(26): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' 선언을 참조하십시오.
+  코드를 생성하고 있습니다.
+  2 of 109 functions ( 1.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  ComputerGraphics.vcxproj -> D:\MySource\For-future\Computer Graphics\TermProject\Release\ComputerGraphics.exe
+  ComputerGraphics.vcxproj -> D:\MySource\For-future\Computer Graphics\TermProject\Release\ComputerGraphics.pdb (Full PDB)

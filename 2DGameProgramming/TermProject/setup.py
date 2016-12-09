@@ -8,6 +8,6 @@ executables = [cx_Freeze.Executable(script='MeteorCrash.py', icon='MeteorCrash.i
 cx_Freeze.setup(
     name='Meteor Crash',
     options={'build_exe': {'packages':['pygame'],
-                           'include_files':['./Resource/', 'ranking.txt']}},
+                           'include_files': ['./SDL2/', './Resource/', 'ranking.txt']}},
     executables = executables
 )
