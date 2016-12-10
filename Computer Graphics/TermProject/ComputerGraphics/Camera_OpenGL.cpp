@@ -29,6 +29,7 @@ CCamera_OpenGL::CCamera_OpenGL(HWND hWnd, const int client_width, const int clie
 	m_Look = { 0.0f, 0.0f, 1.0f };;
 	m_Up = { 0.0f, 1.0f, 0.0f };;
 
+	m_Target = nullptr;
 
 	m_P_Type = ProjectionType::Perspective;
 	m_V_Type = CameraViewMode::TPS;
@@ -64,7 +65,7 @@ void CCamera_OpenGL::LookAt()
 	}
 	else if (m_P_Type == ProjectionType::Ortho)
 	{
-		glOrtho(-m_Client_Width / 2, m_Client_Width / 2, -m_Client_Height / 2, m_Client_Height / 2, -m_Client_Height / 2, m_Client_Height / 2);
+		glOrtho(-MapSize / 2, MapSize / 2, -MapSize / 2, MapSize / 2, -MapSize / 2, MapSize / 2);
 		m_Angle.x = 0.0f;
 		m_Angle.y = PI / 2.0f;
 		m_Look = { cosf(m_Angle.y), tanf(m_Angle.x), sinf(m_Angle.y) };
@@ -86,6 +87,8 @@ void CCamera_OpenGL::TranslatePos(const float side, const float up, const float 
 	m_Pos.y += up;
 	m_Pos += { sinf(m_Angle.y)*side, 0.0f, -cosf(m_Angle.y)*side };
 	LookAt();
+	if(m_Target != nullptr)
+		m_Target->SetPos(m_Pos);
 }
 
 void CCamera_OpenGL::RotateViewDirection(const int x, const int y)
@@ -112,6 +115,11 @@ void CCamera_OpenGL::RotateViewDirection(const int x, const int y)
 	m_Look = { cosf(m_Angle.y), tanf(m_Angle.x), sinf(m_Angle.y) };
 	Normalize(m_Look);
 	LookAt();
+	if (m_Target != nullptr)
+	{
+		m_Target->RotateToDirection(m_Look, m_Angle);
+		m_Target->SetPos(m_Pos);
+	}
 }
 
 void CCamera_OpenGL::ZoomScaling(const double scale, const bool smooth)

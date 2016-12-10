@@ -38,6 +38,7 @@ public:
 
 	virtual void Update(float fTimeElapsed) = 0;
 	virtual void Rendering() = 0;
+	virtual void RendMiniMap() = 0;
 
 	CFramework* GetMyFramework() { return m_pFramework; }
 

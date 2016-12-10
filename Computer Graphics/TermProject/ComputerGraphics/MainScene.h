@@ -1,28 +1,42 @@
 #pragma once
 #include "Scene.h"
+#define ObstarcleNum 100
+#define InitEnemyNum 10
+class CM_Sky;
 
 class CMainScene :public CScene
 {
 private:
-	CCamera_OpenGL* m_pCamera;
-	CLight *m_pLight;
-	CTextureLibraray * m_TextureLib;
+	CCamera_OpenGL		*m_pCamera;
+	CCamera_OpenGL		*m_MiniMapCamera;
 
-	CSurface m_Bottom;
+	CLight				*m_pLight;
+	CTextureLibraray	*m_TextureLib;
 
-	bool m_bFront = false;
-	bool m_bBack = false;
-	bool m_bLeft = false;
-	bool m_bRight = false;
+	CSurface			*m_Bottom;
+	CM_Sky				* m_Sky;
+	std::list<CCube *>	m_ObstarcleList;
+
+	CPlayer				*m_Player;
+	CBoss				*m_Boss;
+	std::list<CEnemy*>	m_EnemyList;
+
+	bool				m_bFront = false;
+	bool				m_bBack = false;
+	bool				m_bLeft = false;
+	bool				m_bRight = false;
 public:
 	CMainScene();
 	~CMainScene();
 
 	void DrawAxis();
 	void SettingLight();
+	void SettingTexture();
+	void SettingObjects();
 
 	virtual void Update(float fTimeElapsed);
 	virtual void Rendering();
+	virtual void RendMiniMap();
 
 	virtual bool OnProcessingKeyboardMessage	(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 	virtual bool OnProcessingMouseMessage		(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);

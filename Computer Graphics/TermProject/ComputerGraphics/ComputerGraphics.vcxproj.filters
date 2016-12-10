@@ -55,6 +55,9 @@
     <Filter Include="Texture">
       <UniqueIdentifier>{8646f8fe-997d-424f-987c-51f508cfab47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SoundManager">
+      <UniqueIdentifier>{253bbd44-4aa3-4cca-b1d5-e10f8c87c4c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -87,15 +90,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Objects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="HexTechTower.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_Model.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="CombatDrone.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="Framework.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -113,6 +107,21 @@
     </ClCompile>
     <ClCompile Include="TextureLib.cpp">
       <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="M_CombatDrone.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="M_HexTechTower.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="M_Player.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="M_Sky.cpp">
+      <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,18 +164,6 @@
     <ClInclude Include="Player.h">
       <Filter>Objects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="CombatDrone.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="HexTechTower.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Player_Model.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="RanderProp.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="MyObject.h">
       <Filter>Objects</Filter>
     </ClInclude>
@@ -179,11 +176,26 @@
     <ClInclude Include="Cube.h">
       <Filter>Objects\Cube</Filter>
     </ClInclude>
-    <ClInclude Include="BitmapTexture.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="TextureLib.h">
       <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="M_CombatDrone.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="M_HexTechTower.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Player.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Sky.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="RanderProp.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,12 +12,16 @@ class CTextureLibraray
 public:
 
 	enum TextureIndex {
-		TOP
+		TOP = 0
 		, BOTTOM
 		, FORWARD
 		, BACK
 		, LEFT
 		, RIGHT
+		, BK_BOTTOM
+		, BK_STORM
+		, MiniMap
+		, COUNT
 	};
 
 	struct GLTextureData

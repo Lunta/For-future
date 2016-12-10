@@ -51,7 +51,8 @@ bool CFramework::OnCreate(HWND hWnd, const RECT & rc)
 
 	// 카메라 생성
 	m_Camera = new CCamera_OpenGL(m_hWnd, CLIENT_WIDTH, CLIENT_HEIGHT);
-
+	m_MiniMapCamera = new CCamera_OpenGL(m_hWnd, CLIENT_WIDTH, CLIENT_HEIGHT);
+	m_MiniMapCamera->SetProjection(CCamera_OpenGL::ProjectionType::Ortho);
 	// 조명 생성
 	m_Light = new CLight();
 
@@ -230,6 +231,9 @@ void CFramework::PreproccessingForRendering()
 	ClearBackgroundColor();
 
 	m_pCurrentScene->Rendering();
+
+
+	m_pCurrentScene->RendMiniMap();
 }
 
 void CFramework::Rendering()

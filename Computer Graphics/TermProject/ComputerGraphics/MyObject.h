@@ -1,7 +1,7 @@
 #pragma once
 class CMyObject
 {
-private:
+protected:
 	Vec3f m_vCenter;
 	Vec3f m_Angle;
 
@@ -12,7 +12,7 @@ public:
 	~CMyObject();
 
 	virtual void Update(const float fTimeElapsed) = 0;
-	virtual void Rendering(const float fTimeElapsed) = 0;
+	virtual void Rendering() = 0;
 
 	virtual void Translate(const Vec3f move) { m_vCenter += move; }
 	virtual void Rotate(const float angle, bool x, bool y, bool z);

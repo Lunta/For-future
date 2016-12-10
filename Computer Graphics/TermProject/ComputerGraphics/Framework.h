@@ -25,6 +25,7 @@ private:
 	CScene			*m_arrScene[GetEnumValueByType(CScene::CurrentScene::count)];
 
 	CCamera_OpenGL	*m_Camera;
+	CCamera_OpenGL	*m_MiniMapCamera;
 	CLight			*m_Light;
 	CTextureLibraray*m_TextureLib;
 
@@ -60,6 +61,7 @@ public:
 
 	void ChangeScene(CScene::CurrentScene tag, bool bDestroy = false);
 	CCamera_OpenGL* GetCamera() { return m_Camera; }
+	CCamera_OpenGL* GetMiniMapCamera() { return m_MiniMapCamera; }
 	CLight* GetLight() { return m_Light; }
 	CTextureLibraray* GetTextureLib() { return m_TextureLib; }
 

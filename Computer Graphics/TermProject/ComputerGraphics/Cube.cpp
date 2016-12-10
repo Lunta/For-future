@@ -4,25 +4,38 @@
 
 CCube::CCube()
 {
-	m_Center.x = static_cast<float>((rand() % CLIENT_WIDTH)- CLIENT_WIDTH / 2);
+	m_Center = { 0.0f , 0.0f , 0.0f };
+	m_scale = { 20.0f, 20.0f, 20.0f };
+	for (int i = 0; i < 16; i++) m_matrix[i] = 0;
+	for (int i = 0; i < 4; i++) m_matrix[i * 4 + i] = 1;
+	RotateInit();
+}
+CCube::CCube(CTextureLibraray * texture)
+{
+	m_TextureLib = texture;
+	m_Center.x = static_cast<float>((rand() % MapSize) - MapSize / 2);
 	m_Center.y = 0.0f;
-	m_Center.z = static_cast<float>((rand() % CLIENT_HEIGHT) - CLIENT_HEIGHT / 2);
+	m_Center.z = static_cast<float>((rand() % MapSize) - MapSize / 2);
 	m_scale.x = 20.0f;
 	m_scale.y = 20.0f;
 	m_scale.z = 20.0f;
 	for (int i = 0; i < 16; i++) m_matrix[i] = 0;
 	for (int i = 0; i < 4; i++) m_matrix[i * 4 + i] = 1;
-	m_Angle.pitch  = rand() % 360;
-	m_Angle.yaw    = rand() % 360;
-	m_Angle.roll   = rand() % 360;
+	m_Angle.pitch = rand() % 360;
+	m_Angle.yaw = rand() % 360;
+	m_Angle.roll = rand() % 360;
 	Rotate(m_Angle.pitch, true, false, false);
 	Rotate(m_Angle.yaw, false, true, false);
 	Rotate(m_Angle.roll, false, false, true);
 	RotateInit();
-	LoadTexture();
 }
 CCube::~CCube()
 {
+}
+void CCube::SetPos(Vec3f & pos)
+{
+	m_Center = pos;
+	RotateInit();
 }
 void CCube::RotateInit()
 {
@@ -59,84 +72,84 @@ void CCube::RotateInit()
 		m_Cube[i] += m_Center;
 	}
 
-	m_Normal[DirectionOfSurface::TOP] = Cross(m_Cube[CubePos::RTB] - m_Cube[CubePos::RTF], m_Cube[CubePos::RTB] - m_Cube[CubePos::LTF]);
-	m_Normal[DirectionOfSurface::RIGHT] = Cross(m_Cube[CubePos::RTF] - m_Cube[CubePos::RTB], m_Cube[CubePos::RTF] - m_Cube[CubePos::RBB]);
-	m_Normal[DirectionOfSurface::LEFT] = Cross(m_Cube[CubePos::LTB] - m_Cube[CubePos::LTF], m_Cube[CubePos::LTB] - m_Cube[CubePos::LBF]);
-	m_Normal[DirectionOfSurface::FORWARD] = Cross(m_Cube[CubePos::LTF] - m_Cube[CubePos::RTF], m_Cube[CubePos::LTF] - m_Cube[CubePos::RBF]);
-	m_Normal[DirectionOfSurface::BACK] = Cross(m_Cube[CubePos::RTB] - m_Cube[CubePos::LTB], m_Cube[CubePos::RTB] - m_Cube[CubePos::LBB]);
-	m_Normal[DirectionOfSurface::BOTTOM] = Cross(m_Cube[CubePos::LBB] - m_Cube[CubePos::LBF], m_Cube[CubePos::LBB] - m_Cube[CubePos::RBF]);
+	m_Normal[CTextureLibraray::TextureIndex::TOP] = Cross(m_Cube[CubePos::RTB] - m_Cube[CubePos::RTF], m_Cube[CubePos::RTB] - m_Cube[CubePos::LTF]);
+	m_Normal[CTextureLibraray::TextureIndex::RIGHT] = Cross(m_Cube[CubePos::RTF] - m_Cube[CubePos::RTB], m_Cube[CubePos::RTF] - m_Cube[CubePos::RBB]);
+	m_Normal[CTextureLibraray::TextureIndex::LEFT] = Cross(m_Cube[CubePos::LTB] - m_Cube[CubePos::LTF], m_Cube[CubePos::LTB] - m_Cube[CubePos::LBF]);
+	m_Normal[CTextureLibraray::TextureIndex::FORWARD] = Cross(m_Cube[CubePos::LTF] - m_Cube[CubePos::RTF], m_Cube[CubePos::LTF] - m_Cube[CubePos::RBF]);
+	m_Normal[CTextureLibraray::TextureIndex::BACK] = Cross(m_Cube[CubePos::RTB] - m_Cube[CubePos::LTB], m_Cube[CubePos::RTB] - m_Cube[CubePos::LBB]);
+	m_Normal[CTextureLibraray::TextureIndex::BOTTOM] = Cross(m_Cube[CubePos::LBB] - m_Cube[CubePos::LBF], m_Cube[CubePos::LBB] - m_Cube[CubePos::RBF]);
 	
 	for (int i = 0; i < 6; i++)
 		Normalize(m_Normal[i]);
 }
-void CCube::LoadTexture()
+
+void CCube::Rend_BB()
 {
-	glGenTextures(6, texture_object);
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::TOP]);
-	TexBits = LoadDIBitmap("TILE_1.bmp", &BM_Info[DirectionOfSurface::TOP]);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 200, 200, 0, GL_BGR_EXT,
-		GL_UNSIGNED_BYTE, TexBits);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::BOTTOM]);
-	TexBits = LoadDIBitmap("TILE_2.bmp", &BM_Info[DirectionOfSurface::BOTTOM]);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 200, 200, 0, GL_BGR_EXT,
-		GL_UNSIGNED_BYTE, TexBits);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::FORWARD]);
-	TexBits = LoadDIBitmap("TILE_3.bmp", &BM_Info[DirectionOfSurface::FORWARD]);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 200, 200, 0, GL_BGR_EXT,
-		GL_UNSIGNED_BYTE, TexBits);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::BACK]);
-	TexBits = LoadDIBitmap("TILE_4.bmp", &BM_Info[DirectionOfSurface::BACK]);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 200, 200, 0, GL_BGR_EXT,
-		GL_UNSIGNED_BYTE, TexBits);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::LEFT]);
-	TexBits = LoadDIBitmap("TILE_5.bmp", &BM_Info[DirectionOfSurface::LEFT]);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 200, 200, 0, GL_BGR_EXT,
-		GL_UNSIGNED_BYTE, TexBits);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::RIGHT]);
-	TexBits = LoadDIBitmap("TILE_6.bmp", &BM_Info[DirectionOfSurface::RIGHT]);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 200, 200, 0, GL_BGR_EXT,
-		GL_UNSIGNED_BYTE, TexBits);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
+	glPushMatrix();
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor4f(1, 0, 0, 0.2f);
+	// À­¸é
+	glBegin(GL_QUADS);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::TOP].arr);
+	glVertex3fv(m_Cube[CubePos::RTB].arr);
+	glVertex3fv(m_Cube[CubePos::RTF].arr);
+	glVertex3fv(m_Cube[CubePos::LTF].arr);
+	glVertex3fv(m_Cube[CubePos::LTB].arr);
+	glEnd();
+	// ¿À¸¥ÂÊ¸é
+	glBegin(GL_QUADS);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::RIGHT].arr);
+	glVertex3fv(m_Cube[CubePos::RTF].arr);
+	glVertex3fv(m_Cube[CubePos::RTB].arr);
+	glVertex3fv(m_Cube[CubePos::RBB].arr);
+	glVertex3fv(m_Cube[CubePos::RBF].arr);
+	glEnd();
+	// ¿ÞÂÊ¸é
+	glBegin(GL_QUADS);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::LEFT].arr);
+	glVertex3fv(m_Cube[CubePos::LTB].arr);
+	glVertex3fv(m_Cube[CubePos::LTF].arr);
+	glVertex3fv(m_Cube[CubePos::LBF].arr);
+	glVertex3fv(m_Cube[CubePos::LBB].arr);
+	glEnd();
+	// ¾Õ¸é
+	glBegin(GL_QUADS);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::FORWARD].arr);
+	glVertex3fv(m_Cube[CubePos::LTF].arr);
+	glVertex3fv(m_Cube[CubePos::RTF].arr);
+	glVertex3fv(m_Cube[CubePos::RBF].arr);
+	glVertex3fv(m_Cube[CubePos::LBF].arr);
+	glEnd();
+	// µÞ¸é
+	glBegin(GL_QUADS);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::BACK].arr);
+	glVertex3fv(m_Cube[CubePos::RTB].arr);
+	glVertex3fv(m_Cube[CubePos::LTB].arr);
+	glVertex3fv(m_Cube[CubePos::LBB].arr);
+	glVertex3fv(m_Cube[CubePos::RBB].arr);
+	glEnd();
+	// ¾Æ·§¸é
+	glBegin(GL_QUADS);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::BOTTOM].arr);
+	glVertex3fv(m_Cube[CubePos::LBB].arr);
+	glVertex3fv(m_Cube[CubePos::LBF].arr);
+	glVertex3fv(m_Cube[CubePos::RBF].arr);
+	glVertex3fv(m_Cube[CubePos::RBB].arr);
+	glEnd();
+	glDisable(GL_BLEND);
+	glPopMatrix();
 }
 
 void CCube::Rendering()
 {
-	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();
+	glColor4f(1, 1, 1, 1);
+	CTextureLibraray::UsingTexture2D();
 	// À­¸é
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::TOP]);
+	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::TOP);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[DirectionOfSurface::TOP].arr);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::TOP].arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::RTB].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -147,9 +160,9 @@ void CCube::Rendering()
 	glVertex3fv(m_Cube[CubePos::LTB].arr);
 	glEnd();
 	// ¿À¸¥ÂÊ¸é
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::RIGHT]);
+	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::RIGHT);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[DirectionOfSurface::RIGHT].arr);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::RIGHT].arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::RTF].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -160,9 +173,9 @@ void CCube::Rendering()
 	glVertex3fv(m_Cube[CubePos::RBF].arr);
 	glEnd();
 	// ¿ÞÂÊ¸é
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::LEFT]);
+	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::LEFT);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[DirectionOfSurface::LEFT].arr);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::LEFT].arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::LTB].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -173,9 +186,9 @@ void CCube::Rendering()
 	glVertex3fv(m_Cube[CubePos::LBB].arr);
 	glEnd();
 	// ¾Õ¸é
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::FORWARD]);
+	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::FORWARD);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[DirectionOfSurface::FORWARD].arr);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::FORWARD].arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::LTF].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -186,9 +199,9 @@ void CCube::Rendering()
 	glVertex3fv(m_Cube[CubePos::LBF].arr);
 	glEnd();
 	// µÞ¸é
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::BACK]);
+	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::BACK);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[DirectionOfSurface::BACK].arr);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::BACK].arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::RTB].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -199,9 +212,9 @@ void CCube::Rendering()
 	glVertex3fv(m_Cube[CubePos::RBB].arr);
 	glEnd();
 	// ¾Æ·§¸é
-	glBindTexture(GL_TEXTURE_2D, texture_object[DirectionOfSurface::BOTTOM]);
+	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::BOTTOM);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[DirectionOfSurface::BOTTOM].arr);
+	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::BOTTOM].arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::LBB].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -211,8 +224,8 @@ void CCube::Rendering()
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::RBB].arr);
 	glEnd();
+	CTextureLibraray::StopUsingTexture2D();
 	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
 }
 
 void CCube::Update(const float fTimeElapsed)

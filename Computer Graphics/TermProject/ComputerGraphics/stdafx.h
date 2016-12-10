@@ -21,6 +21,13 @@
 #pragma comment (lib, "opengl32.lib")  /* link with Microsoft OpenGL lib */
 #pragma comment (lib, "glu32.lib")     /* link with OpenGL Utility lib */
 
+// C++ 런타임 헤더 파일입니다.
+#include <iostream>
+#include <chrono>
+#include <string>
+#include <list>
+#include <thread>
+
 // C 런타임 헤더 파일입니다.
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -31,12 +38,6 @@
 #include <tchar.h>
 #include <math.h>
 
-// C++ 런타임 헤더 파일입니다.
-#include <iostream>
-#include <chrono>
-#include <string>
-#include <list>
-
 // 추가 포함 라이브러리 헤더입니다.
 #include "Vec2f.h"
 #include "Vector3D.h"
@@ -44,9 +45,8 @@
 #include "Camera_OpenGL.h"
 #include "Light.h"
 #include "TextureLib.h"
-#include "BitmapTexture.h"
-#include "Player.h"
 #include "Cube.h"
+#include "Player.h"
 #include "Boss.h"
 #include "Enemy.h"
 #include "Surface.h"
@@ -91,7 +91,7 @@
 #define DIR_DOWN					0x20
 
 // MapSize
-#define MapSize 0x0800
+#define MapSize 0x1000
 
 #define PolySize 80
 #define LineWidth 100
@@ -99,3 +99,5 @@
 #define PI 3.14159265f
 #endif
 #define ForceOfShear 40
+#define degree_per_one_radius 57.29577951471995f
+#define radius_per_one_degree 0.0174532925f;

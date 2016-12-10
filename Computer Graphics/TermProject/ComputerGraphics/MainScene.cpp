@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Framework.h"
+#include "M_Sky.h"
 #include "MainScene.h"
 
 using namespace std;
@@ -40,30 +41,108 @@ void CMainScene::SettingLight()
 	m_pLight->SetLightPosition(CLight::LightTag::Light0, 1.0f, 1.0f, 1.0f);
 }
 
+void CMainScene::SettingTexture()
+{
+	m_TextureLib->SetTexture(L"Texture/TILE_1.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_2.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_3.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_4.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_5.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_6.png");
+	m_TextureLib->SetTexture(L"Texture/Bottom.jpg");
+	m_TextureLib->SetTexture(L"Texture/Storm.jpg");
+	m_TextureLib->SetTexture(L"Texture/Radar.png");
+}
+
+void CMainScene::SettingObjects()
+{
+	// 하늘 생성
+	m_Sky = new CM_Sky(m_TextureLib);
+	// 바닥 생성
+	m_Bottom = new CSurface(m_TextureLib);
+	m_Bottom->SetScale(MapSize, 10, MapSize);
+	// 장애물 생성
+	for (int i = 0; i < ObstarcleNum; i++)
+		m_ObstarcleList.push_back(new CCube(m_TextureLib));
+	m_ObstarcleList.remove_if([](CCube* p)->bool {return Length(p->GetCenter()) > (MapSize * 0.5f); });
+	// 플레이어 기체 생성
+	m_Player = new CPlayer();
+	m_pCamera->SetTarget(m_Player);
+	// 적기체 생성
+	for (int i =0; i < InitEnemyNum; i++)
+		m_EnemyList.push_back(new CEnemy(Vec3f{0.0f, 0.0f, 0.0f}, m_Player));
+	// 보스 생성
+	m_Boss = new CBoss(m_Player);
+}
+
 void CMainScene::Update(float fTimeElapsed)
 {
 	m_pCamera->Update(fTimeElapsed);
 	ProcessInput();
-	if (m_bFront) m_pCamera->TranslatePos(0.0f, 0.0f, 100.0f*fTimeElapsed);
-	if (m_bBack ) m_pCamera->TranslatePos(0.0f, 0.0f, -100.0f*fTimeElapsed);
-	if (m_bLeft ) m_pCamera->TranslatePos(100.0f*fTimeElapsed, 0.0f, 0.0f);
-	if (m_bRight) m_pCamera->TranslatePos(-100.0f*fTimeElapsed, 0.0f, 0.0f);
-	if (m_bFront)std::cout<<"m_bFront"<<std::endl;
-	if (m_bBack) std::cout<<"m_bBack"<<std::endl;
-	if (m_bLeft) std::cout<<"m_bLeft"<<std::endl;
-	if (m_bRight)std::cout<<"m_bRight"<<std::endl;
+	float speed = m_Player->GetSpeed();
+	if (m_bFront) m_pCamera->TranslatePos(0.0f, 0.0f, speed*fTimeElapsed);
+	if (m_bBack ) m_pCamera->TranslatePos(0.0f, 0.0f, -speed*fTimeElapsed);
+	if (m_bLeft ) m_pCamera->TranslatePos(speed*fTimeElapsed, 0.0f, 0.0f);
+	if (m_bRight) m_pCamera->TranslatePos(-speed*fTimeElapsed, 0.0f, 0.0f);
+	m_Sky->Update(fTimeElapsed);
+	m_Player->Update(fTimeElapsed);
+	for (auto &p : m_EnemyList)
+		p->Update(fTimeElapsed);
+	m_Boss->Update(fTimeElapsed);
 }
 
 void CMainScene::Rendering()
 {
 	glPushMatrix();
-	glLoadIdentity();
 	m_pCamera->LookAt();
 	m_pLight->Light(CLight::LightTag::Light0);
 	DrawAxis();
-	m_Bottom.Rendering();
-	glutSolidCube(100.0f);
+	m_Sky->Rander();
+	m_Bottom->Rendering();
+	for(auto p: m_ObstarcleList)
+		p->Rendering();
+	for (auto &p : m_EnemyList)
+		p->Rendering();
+	m_Boss->Rendering();
+	m_Player->Rendering();
 	glPopMatrix();
+}
+
+void CMainScene::RendMiniMap()
+{
+	glViewport(CLIENT_WIDTH - 300, CLIENT_HEIGHT - 300, 300, 300);
+	glPushMatrix();
+	m_MiniMapCamera->LookAt();
+	m_pLight->Light(CLight::LightTag::Light0);
+	DrawAxis();
+	for (auto p : m_ObstarcleList)
+		p->Rendering();
+	glColor3f(1, 0, 0);
+	glPointSize(5);
+	glBegin(GL_POINTS);
+	for (auto p : m_EnemyList)
+		glVertex3fv(p->GetCenter().arr);
+	glEnd();
+	m_Player->Rendering();
+	CTextureLibraray::UsingTexture2D();
+	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::MiniMap);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor4f(1, 1, 1, 0.3f);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 1);
+	glVertex3f(MapSize, 0.0f, MapSize);
+	glTexCoord2f(0, 0);
+	glVertex3f(MapSize, 0.0f, -MapSize);
+	glTexCoord2f(1, 0);
+	glVertex3f(-MapSize, 0.0f, -MapSize);
+	glTexCoord2f(1, 1);
+	glVertex3f(-MapSize, 0.0f, MapSize);
+	glEnd();
+	glDisable(GL_BLEND);
+	CTextureLibraray::StopUsingTexture2D();
+	glPopMatrix();
+	glViewport(0, 0, CLIENT_WIDTH, CLIENT_HEIGHT);
 }
 
 bool CMainScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
@@ -113,10 +192,12 @@ void CMainScene::BuildObjects(CFramework * myFramework, HWND hWnd, CurrentScene 
 {
 	CScene::BuildObjects(myFramework, hWnd, tag);
 	m_pCamera = m_pFramework->GetCamera();
+	m_MiniMapCamera = m_pFramework->GetMiniMapCamera();
 	m_pLight = m_pFramework->GetLight();
 	m_TextureLib = m_pFramework->GetTextureLib();
 	SettingLight();
-	m_Bottom.SetScale(1000, 10, 1000);
+	SettingTexture();
+	SettingObjects();
 }
 
 void CMainScene::ReleaseObjects()

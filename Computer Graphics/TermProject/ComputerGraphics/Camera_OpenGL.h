@@ -1,5 +1,4 @@
 #pragma once
-#define radius_per_one_degree 0.0174532925f;
 class CPlayer;
 
 class CCamera_OpenGL
@@ -50,7 +49,7 @@ public:
 	
 	void SetProjection(ProjectionType type) { m_P_Type = type; LookAt(); }
 	void SetViewMode(CameraViewMode mode) { m_V_Type = mode; LookAt(); }
-	void SetTargetPos(CPlayer* target) { m_Target = target; LookAt(); }
+	void SetTarget(CPlayer* target) { m_Target = target; LookAt(); }
 	void SetSensivity(const float sensitivity) { m_Sensitivity = sensitivity; LookAt(); }
 
 	void FixTarget() { m_bFixTarget = true; LookAt(); }

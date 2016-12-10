@@ -6,19 +6,16 @@ template< typename T > constexpr float Reciprocal(T x) { return 1.0f / static_ca
 class CSurface
 {
 private:
+	CTextureLibraray *m_TextureLib;
 	Vec3f m_Center;
 	Vec3f m_vertex[DETAIL][DETAIL];
 	Vec3f m_normal[DETAIL - 1][DETAIL - 1];
 	Scale3f m_Scale;
 
-	GLubyte * TexBits;
-	BITMAPINFO *BM_Info[6];
-	GLuint texture_object[6];
 public:
 	CSurface();
+	CSurface(CTextureLibraray *texture);
 	~CSurface();
-
-	void LoadTexture();
 
 	void Rendering();
 	void Update(const float fTimeElapsed);

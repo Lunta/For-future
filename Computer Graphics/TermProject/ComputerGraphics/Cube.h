@@ -2,6 +2,7 @@
 class CCube
 {
 private:
+	CTextureLibraray *m_TextureLib;
 
 	Vec3f m_Center;
 	Vec3f m_Cube[8];
@@ -11,15 +12,15 @@ private:
 	Angle3f m_Angle;
 	float m_matrix[16];
 
-	GLubyte * TexBits;
-	BITMAPINFO *BM_Info[6];
-	GLuint texture_object[6];
 public:
 	CCube();
+	CCube(CTextureLibraray *texture);
 	~CCube();
 
+	void SetPos(Vec3f & pos);
+
 	void RotateInit();
-	void LoadTexture();
+	void Rend_BB();
 
 	void Rendering();
 	void Update(const float fTimeElapsed);
