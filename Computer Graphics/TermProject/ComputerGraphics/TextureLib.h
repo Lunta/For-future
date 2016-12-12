@@ -1,7 +1,7 @@
 #pragma once
 
-#include <GL/GLUT.h>
 #include <windows.h>
+#include <GL/GLUT.h>
 #include <atlImage.h>
 #include <vector>
 
@@ -21,6 +21,13 @@ public:
 		, BK_BOTTOM
 		, BK_STORM
 		, MiniMap
+		, Heroes
+		, Gear
+		, UIBACK
+		, LOGO
+		, TITLE
+		, GAMEOVER
+		, GAMECLEAR
 		, COUNT
 	};
 

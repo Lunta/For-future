@@ -9,8 +9,11 @@ public:
 
 	enum class CurrentScene : int {
 		None = 0
+		, Logo
+		, Title
 		, Main
-		, Tutering
+		, GameOver
+		, GameClear
 		, count
 	};
 

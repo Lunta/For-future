@@ -22,12 +22,13 @@ CCamera_OpenGL::CCamera_OpenGL(HWND hWnd, const int client_width, const int clie
 	m_zFar = 3000.0f;
 	m_Zoom = 1.0f;
 	
+
 	m_Angle = { 0.0f, PI * 0.5f, 0.0f };
 	m_Sensitivity = 2.0f;
 
-	m_Pos = { 0.0f, 0.0f, 0.0f };;
-	m_Look = { 0.0f, 0.0f, 1.0f };;
-	m_Up = { 0.0f, 1.0f, 0.0f };;
+	m_Pos = { 0.0f, 1000.0f, -1024.0f };
+	m_Look = { 0.0f, 0.0f, 1.0f };
+	m_Up = { 0.0f, 1.0f, 0.0f };
 
 	m_Target = nullptr;
 
@@ -58,10 +59,70 @@ void CCamera_OpenGL::LookAt()
 				pos.x, pos.y, pos.z,
 				m_Up.x, m_Up.y, m_Up.z);
 		}
-		else gluLookAt(
-				m_Pos.x, m_Pos.y, m_Pos.z,
-				m_Pos.x + m_Look.x, m_Pos.y + m_Look.y, m_Pos.z + m_Look.z,
+		else
+		{
+			if (m_V_Type == CameraViewMode::TPS)
+			{
+				Vec3f pos = (m_Target->GetCenter()) - 200.0f*m_Look;
+				pos.y += 50.0f;
+				gluLookAt(
+					pos.x, pos.y, pos.z,
+					pos.x + m_Look.x, pos.y + m_Look.y, pos.z + m_Look.z,
+					m_Up.x, m_Up.y, m_Up.z);
+			}
+			else if (m_V_Type == CameraViewMode::FPS)
+			{
+				Vec3f pos = (m_Target->GetCenter()) + 7.0f*m_Look;
+				gluLookAt(
+					pos.x, pos.y, pos.z,
+					pos.x + m_Look.x, pos.y + m_Look.y, pos.z + m_Look.z,
+					m_Up.x, m_Up.y, m_Up.z);
+			}
+			//gluLookAt(
+			//	m_Pos.x, m_Pos.y, m_Pos.z,
+			//	m_Pos.x + m_Look.x, m_Pos.y + m_Look.y, m_Pos.z + m_Look.z,
+			//	m_Up.x, m_Up.y, m_Up.z);
+		}
+	}
+	else if (m_P_Type == ProjectionType::Ortho)
+	{
+		glOrtho(-MapSize / 2, MapSize / 2, -MapSize / 2, MapSize / 2, -MapSize / 2, MapSize / 2);
+		m_Pos = {0.0f, 0.0f, 0.0f};
+		m_Angle.x = 0.0f;
+		m_Angle.y = PI / 2.0f;
+		m_Look = { cosf(m_Angle.y), tanf(m_Angle.x), sinf(m_Angle.y) };
+		Normalize(m_Look);
+
+		gluLookAt(
+				m_Pos.x, 100, m_Pos.z,
+				m_Pos.x + m_Look.x, m_Pos.y + 1, m_Pos.z + m_Look.z,
 				m_Up.x, m_Up.y, m_Up.z);
+	}
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+void CCamera_OpenGL::LookAt_IgnoreFar()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	if (m_P_Type == ProjectionType::Perspective)
+	{
+		gluPerspective(m_fovy / m_Zoom, m_aspect, m_zNear, 10000.0f);
+
+		if (m_bFixTarget) {
+			Vec3f pos = m_Target->GetCenter();
+			gluLookAt(
+				m_Pos.x, m_Pos.y, m_Pos.z,
+				pos.x, pos.y, pos.z,
+				m_Up.x, m_Up.y, m_Up.z);
+		}
+		else gluLookAt(
+			m_Pos.x, m_Pos.y, m_Pos.z,
+			m_Pos.x + m_Look.x, m_Pos.y + m_Look.y, m_Pos.z + m_Look.z,
+			m_Up.x, m_Up.y, m_Up.z);
 	}
 	else if (m_P_Type == ProjectionType::Ortho)
 	{
@@ -72,9 +133,9 @@ void CCamera_OpenGL::LookAt()
 		Normalize(m_Look);
 
 		gluLookAt(
-				m_Pos.x, 100, m_Pos.z,
-				m_Pos.x + m_Look.x, m_Pos.y + 1, m_Pos.z + m_Look.z,
-				m_Up.x, m_Up.y, m_Up.z);
+			m_Pos.x, 100, m_Pos.z,
+			m_Pos.x + m_Look.x, m_Pos.y + 1, m_Pos.z + m_Look.z,
+			m_Up.x, m_Up.y, m_Up.z);
 	}
 
 	glMatrixMode(GL_MODELVIEW);
@@ -140,4 +201,31 @@ void CCamera_OpenGL::Update(float fTimeElapsed)
 	POINT point{0,0};
 	ClientToScreen(m_hWnd, &point);
 	SetCursorPos(point.x + (m_Client_Width / 2), point.y + (m_Client_Height / 2));
+}
+
+void CCamera_OpenGL::Reset()
+{
+
+	m_fovy = 50.0f;
+	m_aspect = static_cast<double>(m_Client_Width) / static_cast<double>(m_Client_Height);
+
+	m_zNear = 1.0f;
+	m_zFar = 3000.0f;
+	m_Zoom = 1.0f;
+
+
+	m_Angle = { 0.0f, PI * 0.5f, 0.0f };
+	m_Sensitivity = 2.0f;
+
+	m_Pos = { 0.0f, 1000.0f, -1024.0f };
+	m_Look = { 0.0f, 0.0f, 1.0f };
+	m_Up = { 0.0f, 1.0f, 0.0f };
+
+	m_Target = nullptr;
+
+	m_P_Type = ProjectionType::Perspective;
+	m_V_Type = CameraViewMode::TPS;
+
+	m_bFixTarget = false;
+	m_bShake = false;
 }

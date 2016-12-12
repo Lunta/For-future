@@ -58,6 +58,24 @@
     <Filter Include="SoundManager">
       <UniqueIdentifier>{253bbd44-4aa3-4cca-b1d5-e10f8c87c4c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Bullet">
+      <UniqueIdentifier>{99cff990-af97-45dc-a054-52218ce4e6e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{ee90f55b-c5f9-4f51-b274-921a476a0f4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\LogoScene">
+      <UniqueIdentifier>{3f5ca9e6-7c2d-4a54-b594-6c59db83d9da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TitleScene">
+      <UniqueIdentifier>{55cfa83b-49fb-4c5a-a1b0-c467c8d5f668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\GameOverScene">
+      <UniqueIdentifier>{c0211f76-b9f0-4ab2-b986-929d5a5b108f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\GameClearScene">
+      <UniqueIdentifier>{02049fce-22d9-454b-9448-93a665895a9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -75,17 +93,8 @@
     <ClCompile Include="MainScene.cpp">
       <Filter>Scene\MainScene</Filter>
     </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>Objects\Boss</Filter>
-    </ClCompile>
-    <ClCompile Include="maincpp.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Objects\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Objects\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Objects\Player</Filter>
@@ -96,9 +105,6 @@
     <ClCompile Include="MyObject.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>헤더 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Surface.cpp">
       <Filter>Objects\Surface</Filter>
     </ClCompile>
@@ -107,9 +113,6 @@
     </ClCompile>
     <ClCompile Include="TextureLib.cpp">
       <Filter>Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundManager.cpp">
-      <Filter>SoundManager</Filter>
     </ClCompile>
     <ClCompile Include="M_CombatDrone.cpp">
       <Filter>Model</Filter>
@@ -122,6 +125,45 @@
     </ClCompile>
     <ClCompile Include="M_Sky.cpp">
       <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Objects\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Launcher.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyBolt.cpp">
+      <Filter>Objects\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Objects\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Objects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="BossLauncher.cpp">
+      <Filter>Objects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoScene.cpp">
+      <Filter>Scene\LogoScene</Filter>
+    </ClCompile>
+    <ClCompile Include="maincpp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScene.cpp">
+      <Filter>Scene\GameOverScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClearScene.cpp">
+      <Filter>Scene\GameClearScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,23 +194,14 @@
     <ClInclude Include="MainScene.h">
       <Filter>Scene\MainScene</Filter>
     </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>Objects\Boss</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Objects\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Objects\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="MyObject.h">
       <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Surface.h">
       <Filter>Objects\Surface</Filter>
@@ -178,9 +211,6 @@
     </ClInclude>
     <ClInclude Include="TextureLib.h">
       <Filter>Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>SoundManager</Filter>
     </ClInclude>
     <ClInclude Include="M_CombatDrone.h">
       <Filter>Model</Filter>
@@ -196,6 +226,45 @@
     </ClInclude>
     <ClInclude Include="RanderProp.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Objects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Launcher.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyBolt.h">
+      <Filter>Objects\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Objects\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Objects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="BossLauncher.h">
+      <Filter>Objects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoScene.h">
+      <Filter>Scene\LogoScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScene.h">
+      <Filter>Scene\GameOverScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClearScene.h">
+      <Filter>Scene\GameClearScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Spline.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ private:
 
 	Vec3f m_Center;
 	Vec3f m_Cube[8];
-	Vec3f m_Normal[6];
+	SFormularf m_Formular[6];
 
 	Scale3f m_scale; 
 	Angle3f m_Angle;
@@ -33,6 +33,7 @@ public:
 	bool isPointCollide(Vec3f& point);
 
 	const Vec3f GetCenter() const { return m_Center; }
-	const Vec3f* Get_BB() const { return m_Cube; }
+	SFormularf* Get_SFormular() { return m_Formular; }
+	Vec3f *Get_BB() { return m_Cube; }
 };
 

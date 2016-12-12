@@ -19,7 +19,9 @@ private:
 
 	HDC				m_hDC = NULL;
 
-	myCOLORREFf		m_clrBackBuffer{ 0.0f, 0.0f, 0.0f, 1.0f };
+	myCOLORREFf		m_clrBackBuffer{ 0.5f, 0.5f, 0.9f, 0.1f };
+
+	CSoundManager	*m_SoundManager;
 
 	CScene			*m_pCurrentScene;
 	CScene			*m_arrScene[GetEnumValueByType(CScene::CurrentScene::count)];
@@ -44,6 +46,7 @@ public:
 
 	bool OnCreate(HWND hWnd, const RECT& rc);
 	bool OpenGLInit();
+	void TextureLoad();
 	void BuildScene();
 
 	bool OnDestroy();
@@ -60,10 +63,12 @@ public:
 	void ReShape(int width, int height);
 
 	void ChangeScene(CScene::CurrentScene tag, bool bDestroy = false);
-	CCamera_OpenGL* GetCamera() { return m_Camera; }
-	CCamera_OpenGL* GetMiniMapCamera() { return m_MiniMapCamera; }
-	CLight* GetLight() { return m_Light; }
-	CTextureLibraray* GetTextureLib() { return m_TextureLib; }
+
+	CSoundManager*		GetSoundManager() { return m_SoundManager; }
+	CCamera_OpenGL*		GetMiniMapCamera() { return m_MiniMapCamera; }
+	CCamera_OpenGL*		GetCamera() { return m_Camera; }
+	CLight*				GetLight() { return m_Light; }
+	CTextureLibraray*	GetTextureLib() { return m_TextureLib; }
 
 	void FrameAdvance();
 

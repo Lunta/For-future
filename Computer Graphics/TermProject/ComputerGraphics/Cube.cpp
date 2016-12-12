@@ -16,14 +16,20 @@ CCube::CCube(CTextureLibraray * texture)
 	m_Center.x = static_cast<float>((rand() % MapSize) - MapSize / 2);
 	m_Center.y = 0.0f;
 	m_Center.z = static_cast<float>((rand() % MapSize) - MapSize / 2);
-	m_scale.x = 20.0f;
-	m_scale.y = 20.0f;
-	m_scale.z = 20.0f;
+	float l = sqrt(m_Center.x*m_Center.x + m_Center.z*m_Center.z);
+	Vec3f vec = CalcNormalize(m_Center);
+	if (l < 400.0f)
+	{
+		m_Center = 400.0f * vec;
+	}
+	m_scale.x = 50.0f + rand() % 150;
+	m_scale.y = 500.0f + rand() % 350;
+	m_scale.z = 50.0f + rand() % 150;
 	for (int i = 0; i < 16; i++) m_matrix[i] = 0;
 	for (int i = 0; i < 4; i++) m_matrix[i * 4 + i] = 1;
-	m_Angle.pitch = rand() % 360;
-	m_Angle.yaw = rand() % 360;
-	m_Angle.roll = rand() % 360;
+	m_Angle.pitch = 5 - rand() % 10;
+	m_Angle.yaw = 45 - rand() % 90;
+	m_Angle.roll =  5 - rand() % 10;
 	Rotate(m_Angle.pitch, true, false, false);
 	Rotate(m_Angle.yaw, false, true, false);
 	Rotate(m_Angle.roll, false, false, true);
@@ -50,6 +56,12 @@ void CCube::RotateInit()
 	m_Cube[CubePos::LBB] = { -1.0f, -1.0f, -1.0f };
 	m_Cube[CubePos::RBF] = { 1.0f, -1.0f,  1.0f };
 	m_Cube[CubePos::RBB] = { 1.0f, -1.0f, -1.0f };
+	for (int i = 0; i < 8; i++)
+	{
+		m_Cube[i].x *= m_scale.x;
+		m_Cube[i].y *= m_scale.y;
+		m_Cube[i].z *= m_scale.z;
+	}
 	for (int i = 0; i < 3; i++)  
 		for (int j = 0; j < 3; j++)
 		{
@@ -66,21 +78,14 @@ void CCube::RotateInit()
 	for (int i = 0; i < 8; i++)
 	{
 		m_Cube[i] = temp[i];
-		m_Cube[i].x *= m_scale.x;
-		m_Cube[i].y *= m_scale.y;
-		m_Cube[i].z *= m_scale.z;
 		m_Cube[i] += m_Center;
 	}
-
-	m_Normal[CTextureLibraray::TextureIndex::TOP] = Cross(m_Cube[CubePos::RTB] - m_Cube[CubePos::RTF], m_Cube[CubePos::RTB] - m_Cube[CubePos::LTF]);
-	m_Normal[CTextureLibraray::TextureIndex::RIGHT] = Cross(m_Cube[CubePos::RTF] - m_Cube[CubePos::RTB], m_Cube[CubePos::RTF] - m_Cube[CubePos::RBB]);
-	m_Normal[CTextureLibraray::TextureIndex::LEFT] = Cross(m_Cube[CubePos::LTB] - m_Cube[CubePos::LTF], m_Cube[CubePos::LTB] - m_Cube[CubePos::LBF]);
-	m_Normal[CTextureLibraray::TextureIndex::FORWARD] = Cross(m_Cube[CubePos::LTF] - m_Cube[CubePos::RTF], m_Cube[CubePos::LTF] - m_Cube[CubePos::RBF]);
-	m_Normal[CTextureLibraray::TextureIndex::BACK] = Cross(m_Cube[CubePos::RTB] - m_Cube[CubePos::LTB], m_Cube[CubePos::RTB] - m_Cube[CubePos::LBB]);
-	m_Normal[CTextureLibraray::TextureIndex::BOTTOM] = Cross(m_Cube[CubePos::LBB] - m_Cube[CubePos::LBF], m_Cube[CubePos::LBB] - m_Cube[CubePos::RBF]);
-	
-	for (int i = 0; i < 6; i++)
-		Normalize(m_Normal[i]);
+	m_Formular[CTextureLibraray::TextureIndex::TOP].SetFormular(m_Cube[CubePos::RTB], m_Cube[CubePos::RTF], m_Cube[CubePos::LTF]);
+	m_Formular[CTextureLibraray::TextureIndex::RIGHT].SetFormular(m_Cube[CubePos::RTF], m_Cube[CubePos::RTB], m_Cube[CubePos::RBB]);
+	m_Formular[CTextureLibraray::TextureIndex::LEFT].SetFormular(m_Cube[CubePos::LTB], m_Cube[CubePos::LTF], m_Cube[CubePos::LBF]);
+	m_Formular[CTextureLibraray::TextureIndex::FORWARD].SetFormular(m_Cube[CubePos::LTF], m_Cube[CubePos::RTF], m_Cube[CubePos::RBF]);
+	m_Formular[CTextureLibraray::TextureIndex::BACK].SetFormular(m_Cube[CubePos::RTB], m_Cube[CubePos::LTB], m_Cube[CubePos::LBB]);
+	m_Formular[CTextureLibraray::TextureIndex::BOTTOM].SetFormular(m_Cube[CubePos::LBB], m_Cube[CubePos::LBF], m_Cube[CubePos::RBF]);
 }
 
 void CCube::Rend_BB()
@@ -91,7 +96,7 @@ void CCube::Rend_BB()
 	glColor4f(1, 0, 0, 0.2f);
 	// À­¸é
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::TOP].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::TOP].Normal.arr);
 	glVertex3fv(m_Cube[CubePos::RTB].arr);
 	glVertex3fv(m_Cube[CubePos::RTF].arr);
 	glVertex3fv(m_Cube[CubePos::LTF].arr);
@@ -99,7 +104,7 @@ void CCube::Rend_BB()
 	glEnd();
 	// ¿À¸¥ÂÊ¸é
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::RIGHT].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::RIGHT].Normal.arr);
 	glVertex3fv(m_Cube[CubePos::RTF].arr);
 	glVertex3fv(m_Cube[CubePos::RTB].arr);
 	glVertex3fv(m_Cube[CubePos::RBB].arr);
@@ -107,7 +112,7 @@ void CCube::Rend_BB()
 	glEnd();
 	// ¿ÞÂÊ¸é
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::LEFT].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::LEFT].Normal.arr);
 	glVertex3fv(m_Cube[CubePos::LTB].arr);
 	glVertex3fv(m_Cube[CubePos::LTF].arr);
 	glVertex3fv(m_Cube[CubePos::LBF].arr);
@@ -115,7 +120,7 @@ void CCube::Rend_BB()
 	glEnd();
 	// ¾Õ¸é
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::FORWARD].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::FORWARD].Normal.arr);
 	glVertex3fv(m_Cube[CubePos::LTF].arr);
 	glVertex3fv(m_Cube[CubePos::RTF].arr);
 	glVertex3fv(m_Cube[CubePos::RBF].arr);
@@ -123,7 +128,7 @@ void CCube::Rend_BB()
 	glEnd();
 	// µÞ¸é
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::BACK].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::BACK].Normal.arr);
 	glVertex3fv(m_Cube[CubePos::RTB].arr);
 	glVertex3fv(m_Cube[CubePos::LTB].arr);
 	glVertex3fv(m_Cube[CubePos::LBB].arr);
@@ -131,7 +136,7 @@ void CCube::Rend_BB()
 	glEnd();
 	// ¾Æ·§¸é
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::BOTTOM].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::BOTTOM].Normal.arr);
 	glVertex3fv(m_Cube[CubePos::LBB].arr);
 	glVertex3fv(m_Cube[CubePos::LBF].arr);
 	glVertex3fv(m_Cube[CubePos::RBF].arr);
@@ -149,7 +154,7 @@ void CCube::Rendering()
 	// À­¸é
 	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::TOP);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::TOP].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::TOP].Normal.arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::RTB].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -162,7 +167,7 @@ void CCube::Rendering()
 	// ¿À¸¥ÂÊ¸é
 	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::RIGHT);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::RIGHT].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::RIGHT].Normal.arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::RTF].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -175,7 +180,7 @@ void CCube::Rendering()
 	// ¿ÞÂÊ¸é
 	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::LEFT);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::LEFT].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::LEFT].Normal.arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::LTB].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -188,7 +193,7 @@ void CCube::Rendering()
 	// ¾Õ¸é
 	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::FORWARD);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::FORWARD].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::FORWARD].Normal.arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::LTF].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -201,7 +206,7 @@ void CCube::Rendering()
 	// µÞ¸é
 	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::BACK);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::BACK].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::BACK].Normal.arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::RTB].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -214,7 +219,7 @@ void CCube::Rendering()
 	// ¾Æ·§¸é
 	m_TextureLib->LoadTexture(CTextureLibraray::TextureIndex::BOTTOM);
 	glBegin(GL_QUADS);
-	glNormal3fv(m_Normal[CTextureLibraray::TextureIndex::BOTTOM].arr);
+	glNormal3fv(m_Formular[CTextureLibraray::TextureIndex::BOTTOM].Normal.arr);
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3fv(m_Cube[CubePos::LBB].arr);
 	glTexCoord2f(0.0f, 0.0f);
@@ -239,6 +244,7 @@ void CCube::Translate(Vec3f move)
 	{
 		m_Cube[i] += move;
 	}
+	RotateInit();
 }
 
 void CCube::Rotate(float angle, bool x, bool y, bool z)

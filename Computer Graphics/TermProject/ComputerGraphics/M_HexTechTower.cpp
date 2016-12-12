@@ -1,8 +1,6 @@
-#pragma once
+
 #include "stdafx.h"
 #include "M_HexTechTower.h"
-#include <cmath>
-#include <gl/glut.h>
 #include "RanderProp.h"
 
 
@@ -19,7 +17,7 @@ C_M_HexTechTower::~C_M_HexTechTower()
 bool C_M_HexTechTower::Update(const float fTimeElapsed)
 {
 	m_gearangle += 60.0f * fTimeElapsed;
-	if (m_gearangle > 360.0f) m_gearangle - 360.0f;
+	if (m_gearangle > 360.0f) m_gearangle = 0.0f;
 	return false;
 }
 

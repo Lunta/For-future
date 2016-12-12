@@ -1,7 +1,11 @@
 #include "stdafx.h"
 
 #include "Framework.h"
+#include "LogoScene.h"
+#include "TitleScene.h"
 #include "MainScene.h"
+#include "GameOverScene.h"
+#include "GameClearScene.h"
 
 using namespace std;
 
@@ -33,6 +37,7 @@ bool CFramework::OnCreate(HWND hWnd, const RECT & rc)
 	system("title Debug Console");
 
 	srand((unsigned int)time(NULL));
+	ShowCursor(false);
 
 	m_hWnd = hWnd;
 
@@ -53,11 +58,17 @@ bool CFramework::OnCreate(HWND hWnd, const RECT & rc)
 	m_Camera = new CCamera_OpenGL(m_hWnd, CLIENT_WIDTH, CLIENT_HEIGHT);
 	m_MiniMapCamera = new CCamera_OpenGL(m_hWnd, CLIENT_WIDTH, CLIENT_HEIGHT);
 	m_MiniMapCamera->SetProjection(CCamera_OpenGL::ProjectionType::Ortho);
+	
 	// 조명 생성
 	m_Light = new CLight();
 
 	// 텍스처 생성
 	m_TextureLib = new CTextureLibraray();
+	TextureLoad();
+
+	// 사운드 생성
+	m_SoundManager = new CSoundManager();
+	m_SoundManager->Initialize();
 
 	// 백그라운드 색상 초기화
 	ClearBackgroundColor();
@@ -141,12 +152,44 @@ bool CFramework::OpenGLInit()
 	return true;
 }
 
+void CFramework::TextureLoad()
+{
+	m_TextureLib->SetTexture(L"Texture/TILE_1.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_2.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_3.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_4.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_5.png");
+	m_TextureLib->SetTexture(L"Texture/TILE_6.png");
+	m_TextureLib->SetTexture(L"Texture/Bottom.jpg");
+	m_TextureLib->SetTexture(L"Texture/Storm.jpg");
+	m_TextureLib->SetTexture(L"Texture/Radar.png");
+	m_TextureLib->SetTexture(L"Texture/Heroes.png");
+	m_TextureLib->SetTexture(L"Texture/Gear.png");
+	m_TextureLib->SetTexture(L"Texture/UI_Back.png");
+	m_TextureLib->SetTexture(L"Texture/Logo.png");
+	m_TextureLib->SetTexture(L"Texture/Title.png");
+	m_TextureLib->SetTexture(L"Texture/GameOver.png");
+	m_TextureLib->SetTexture(L"Texture/GameClear.png");
+}
+
 void CFramework::BuildScene()
 {
+	m_arrScene[GetSceneEnumInt(Logo)] = new CLogoScene();
+	m_arrScene[GetSceneEnumInt(Logo)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::Logo);
+
+	m_arrScene[GetSceneEnumInt(Title)] = new CTitleScene();
+	m_arrScene[GetSceneEnumInt(Title)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::Title);
+	
 	m_arrScene[GetSceneEnumInt(Main)] = new CMainScene();
 	m_arrScene[GetSceneEnumInt(Main)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::Main);
+	
+	m_arrScene[GetSceneEnumInt(GameOver)] = new CGameOverScene();
+	m_arrScene[GetSceneEnumInt(GameOver)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::GameOver);
+	
+	m_arrScene[GetSceneEnumInt(GameClear)] = new CGameClearScene();
+	m_arrScene[GetSceneEnumInt(GameClear)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::GameClear);
 
-	m_pCurrentScene = m_arrScene[GetSceneEnumInt(Main)]; // 현재신은 타이틀로 초기화
+	m_pCurrentScene = m_arrScene[GetSceneEnumInt(Logo)]; // 현재신은 타이틀로 초기화
 
 }
 
@@ -267,9 +310,25 @@ void CFramework::ChangeScene(CScene::CurrentScene Tag, bool bDestroy)
 	{
 		switch (Tag) 
 		{
+		case CScene::CurrentScene::Logo:
+			m_arrScene[GetSceneEnumInt(Logo)] = new CLogoScene();
+			m_arrScene[GetSceneEnumInt(Logo)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::Logo);
+			break;
+		case CScene::CurrentScene::Title:
+			m_arrScene[GetSceneEnumInt(Title)] = new CTitleScene();
+			m_arrScene[GetSceneEnumInt(Title)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::Title);
+			break;
 		case CScene::CurrentScene::Main:
 			m_arrScene[GetSceneEnumInt(Main)] = new CMainScene();
 			m_arrScene[GetSceneEnumInt(Main)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::Main);
+			break;
+		case CScene::CurrentScene::GameOver:
+			m_arrScene[GetSceneEnumInt(GameOver)] = new CGameOverScene();
+			m_arrScene[GetSceneEnumInt(GameOver)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::GameOver);
+			break;
+		case CScene::CurrentScene::GameClear:
+			m_arrScene[GetSceneEnumInt(GameClear)] = new CGameClearScene();
+			m_arrScene[GetSceneEnumInt(GameClear)]->BuildObjects(this, m_hWnd, CScene::CurrentScene::GameClear);
 			break;
 		}
 

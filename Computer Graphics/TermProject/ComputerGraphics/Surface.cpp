@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Surface.h"
+//#include "Spline.h"
 
 
 CSurface::CSurface()
@@ -77,6 +78,22 @@ void CSurface::SetSurface_XZ()
 				y, -(t*(DETAIL *0.5f)) + (t * i) };
 		}
 	}
+	//for (int i = 0; i < DETAIL; i++)
+	//{
+	//	for (int j = 0; j < DETAIL-1; j++)
+	//	{
+	//		int k = 0;
+	//		for (float f = 0.f; f < 1.0f; f += CurveDetail)
+	//		{
+	//			m_CurvedSurface[i*DETAIL][k++] =
+	//			CalcCadinal(f, 0.1f
+	//				, m_vertex[i][max(j-1, 0)]
+	//				, m_vertex[i][j]
+	//				, m_vertex[i][min(j + 1, DETAIL - 1)]
+	//				, m_vertex[i][min(j + 2, DETAIL - 1)]);
+	//		}
+	//	}
+	//}
 	for (int i = 0; i < DETAIL; i++)
 	{
 		for (int j = 0; j < DETAIL; j++)
@@ -93,9 +110,9 @@ void CSurface::SetSurface_XZ()
 			m_normal[i][j] = Normalize(Cross(
 				m_vertex[i][j] - m_vertex[i + 1][j],
 				m_vertex[i][j] - m_vertex[i + 1][j + 1]));
-
 		}
 	}
+
 }
 
 void CSurface::SetSurface_XY()

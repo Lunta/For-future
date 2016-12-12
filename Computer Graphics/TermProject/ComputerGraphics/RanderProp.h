@@ -19,7 +19,7 @@
 #define COLOR_JADE		{COLOR255*128,COLOR255*172,COLOR255*170}
 #define COLOR_RED		{1.0,0.0,0.0}
 #define COLOR_YELLOW	{1.0,1.0,0.0}
-
+#define COLOR_EGGYOLK	{1.0,COLOR255*169,COLOR255*25}
 
 #endif
 
@@ -380,6 +380,32 @@ static void RandEnergyCubes(float radius, int gearangle,Vec3f color, float alpha
 
 }
 
+static void RandQuad(Vec3f pos, float fScale, bool isXY) {
+	glPushMatrix();
+	{
+		glTranslatef(pos.x, pos.y, pos.z);
+
+		float fx = fScale * 0.5f;
+		float fy = (isXY) ? fScale * 0.5f : 0;
+		float fz = (isXY) ? 0 : fScale * 0.5f;
+
+		glBegin(GL_QUADS);
+		{
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex3f(-fx, +fy, -fz);
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex3f(-fx, -fy, +fz);
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex3f(+fx, -fy, +fz);
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex3f(+fx, +fy, -fz);
+		}
+		glEnd();
+
+
+	}
+	glPopMatrix();
+}
 
 
 #endif

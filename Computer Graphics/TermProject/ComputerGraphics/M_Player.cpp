@@ -21,7 +21,7 @@ bool C_M_Player::Update(const float fTimeElapsed)
 	return false;
 }
 
-void C_M_Player::Rander()
+void C_M_Player::Rander(bool isShooting)
 {
 	glPushMatrix();
 	{
@@ -76,7 +76,11 @@ void C_M_Player::Rander()
 			glPushMatrix();
 			{
 				glTranslatef(-m_size*1.35f,0,0);
-				RandGettling(m_size,m_size, m_size / 20.0f, m_gearangle,COLOR_WOOD,COLOR_GOLD,COLOR_BSILVER,COLOR_GOLD,1.0);
+				if(!isShooting)
+					RandGettling(m_size, m_size, m_size / 20.0f, m_gearangle, COLOR_WOOD, COLOR_GOLD, COLOR_BSILVER, COLOR_GOLD, 1.0);
+				if (isShooting)
+					RandGettling(m_size, m_size, m_size / 20.0f, m_gearangle*7, COLOR_WOOD, COLOR_GOLD, COLOR_GOLD, COLOR_GOLD, 1.0);
+
 				glTranslatef(0,0,-m_size*0.7);
 				// booster
 				RandPiston(m_size, m_size*0.25,m_gearangle*5,COLOR_WINE,COLOR_GOLD,1.0);
@@ -86,7 +90,10 @@ void C_M_Player::Rander()
 			glPushMatrix();
 			{
 				glTranslatef(m_size*1.35f, 0, 0);
-				RandGettling(m_size,m_size, m_size / 20.0f, -m_gearangle, COLOR_WOOD, COLOR_GOLD, COLOR_BSILVER, COLOR_GOLD, 1.0);
+				if (!isShooting)
+					RandGettling(m_size, m_size, m_size / 20.0f, -m_gearangle, COLOR_WOOD, COLOR_GOLD, COLOR_BSILVER, COLOR_GOLD, 1.0);
+				if (isShooting)
+					RandGettling(m_size, m_size, m_size / 20.0f, -m_gearangle * 7, COLOR_WOOD, COLOR_GOLD, COLOR_GOLD, COLOR_GOLD, 1.0);
 				glTranslatef(0, 0, -m_size*0.7);
 				// booster
 				RandPiston(m_size, m_size*0.25, m_gearangle * 5,COLOR_WINE, COLOR_GOLD, 1.0);

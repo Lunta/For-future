@@ -1,5 +1,4 @@
 #pragma once
-
 template <typename T>
 struct myRECT
 {
@@ -190,13 +189,12 @@ public:
 	Vector3D<Ty> Normal;
 	Ty Distance;
 
-	void SetFormular(CVertex3D<Ty> a, CVertex3D<Ty> b, CVertex3D<Ty> c)
+	void SetFormular(Vector3D<Ty> a, Vector3D<Ty> b, Vector3D<Ty> c)
 	{
-		Normal = CrossProduct(a - b, c - b);
-		Normal.Normalize();
+		Normal = Normalize(Cross(b - a, b - c));
 		Distance = -(Normal.x * a.x + Normal.y * a.y + Normal.z * a.z);
 	}
-	constexpr bool isCollide(const CVertex3D<Ty> vtx) const { return 0 > (Normal.x * vtx.x + Normal.y * vtx.y + Normal.z * vtx.z + Distance); }
+	constexpr bool isCollide(const Vector3D<Ty> vtx) const { return 0 > (Normal.x * vtx.x + Normal.y * vtx.y + Normal.z * vtx.z + Distance); }
 };
 
 using SFormularf = CSurfaceFormular<float>;

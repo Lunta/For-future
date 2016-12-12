@@ -46,7 +46,8 @@ public:
 	~CCamera_OpenGL();
 
 	void LookAt();
-	
+	void LookAt_IgnoreFar();
+
 	void SetProjection(ProjectionType type) { m_P_Type = type; LookAt(); }
 	void SetViewMode(CameraViewMode mode) { m_V_Type = mode; LookAt(); }
 	void SetTarget(CPlayer* target) { m_Target = target; LookAt(); }
@@ -61,6 +62,8 @@ public:
 	void ShakeCamera(const float power, const bool axis_x = false, const bool axis_y = true);
 
 	void Update(float fTimeElapsed);
+
+	void Reset();
 
 	const Vec3f& GetLookVec() const { return m_Look; }
 };

@@ -39,6 +39,7 @@
 #include <math.h>
 
 // 추가 포함 라이브러리 헤더입니다.
+#include "SoundManager.h"
 #include "Vec2f.h"
 #include "Vector3D.h"
 #include "DataStructure3D.h"
@@ -49,6 +50,15 @@
 #include "Player.h"
 #include "Boss.h"
 #include "Enemy.h"
+
+#include "Bullet.h"
+#include "EnergyBolt.h"
+
+#include "Launcher.h"
+#include "BossLauncher.h"
+
+#include "Particle.h"
+
 #include "Surface.h"
 
 
@@ -101,3 +111,6 @@
 #define ForceOfShear 40
 #define degree_per_one_radius 57.29577951471995f
 #define radius_per_one_degree 0.0174532925f;
+
+#define HitTime 3.0f
+#define BarrierRepair 1.0f

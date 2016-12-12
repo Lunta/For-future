@@ -36,9 +36,10 @@ public:
 	~C_M_Player();
 
 	bool Update(const float fTimeElapsed);
-	void Rander();
+	void Rander(bool isShooting);
 
 	const float GetSize() const{ return m_size; }
 	Vec3f GetPos() const { return m_pt; }
+	const float GetAngle() const { return m_gearangle; }
 };
 

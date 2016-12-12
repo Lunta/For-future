@@ -4,7 +4,7 @@
 using namespace FMOD;
 
 // 동시실행가능한 사운드(채널) 갯수.
-#define Max_Channel 3000
+#define Max_Channel 4000
 
 class CSoundManager
 {
@@ -13,14 +13,18 @@ public:
 	typedef enum 
 	{
 		Logo_BGM,
+		Title_BGM,
 		Stage_BGM,
+		GameOver_BGM,
+		GameClear_BGM,
 		Count_BGM,
 		Stop_BGM
 	}BGM_SOUND;
 	///////////////// UI /////////////////////
 	typedef enum
 	{
-		Dummy_UI,
+		BarrierCrash_UI,
+		CollideBullet_UI,
 		Count_UI,
 		Stop_UI
 	}UI_SOUND;
@@ -45,7 +49,6 @@ public:
 	///////////////// BOSS ///////////////////
 	typedef enum
 	{
-		Boss_Idle,
 		Boss_Shot,
 		Boss_Die,
 		Boss_Count,

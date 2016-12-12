@@ -1,38 +1,58 @@
 #pragma once
 #include "Scene.h"
-#define ObstarcleNum 100
+#define ObstarcleNum 40
 #define InitEnemyNum 10
+#define ImmuneTime 5
+
 class CM_Sky;
 
 class CMainScene :public CScene
 {
 private:
-	CCamera_OpenGL		*m_pCamera;
-	CCamera_OpenGL		*m_MiniMapCamera;
+	CSoundManager			*m_SoundManager;
 
-	CLight				*m_pLight;
-	CTextureLibraray	*m_TextureLib;
+	CCamera_OpenGL			*m_pCamera;
+	CCamera_OpenGL			*m_MiniMapCamera;
 
-	CSurface			*m_Bottom;
-	CM_Sky				* m_Sky;
-	std::list<CCube *>	m_ObstarcleList;
+	CLight					*m_pLight;
+	CTextureLibraray		*m_TextureLib;
 
-	CPlayer				*m_Player;
-	CBoss				*m_Boss;
-	std::list<CEnemy*>	m_EnemyList;
+	CSurface				*m_Bottom;
+	CM_Sky					*m_Sky;
 
-	bool				m_bFront = false;
-	bool				m_bBack = false;
-	bool				m_bLeft = false;
-	bool				m_bRight = false;
+	std::list<CCube *>		m_ObstarcleList;
+	std::list<Cbullet*>		m_bullets;
+	std::list<Cbullet*>		m_ally_bullets;
+	std::list<CEnergyBolt*> m_energybolts;
+	std::list<CParticle*>	m_particles;
+
+	CPlayer					*m_Player;
+	CBoss					*m_Boss;
+	std::list<CEnemy*>		m_EnemyList;
+
+	float					m_Immune = 0.0f;
+	float					m_Embient = 1.0f;
+
+	bool					m_bFront = false;
+	bool					m_bBack = false;
+	bool					m_bLeft = false;
+	bool					m_bRight = false;
+	bool					m_bImmune = false;
+	bool					m_bButton5 = false;
+	bool					m_bButton6 = false;
+
+	bool					m_bGameOver = false;
+	bool					m_bGameClear = false;
 public:
 	CMainScene();
 	~CMainScene();
 
 	void DrawAxis();
 	void SettingLight();
-	void SettingTexture();
 	void SettingObjects();
+
+	bool CollideCheck(CCube& a, CCube& b);
+	void Reset();
 
 	virtual void Update(float fTimeElapsed);
 	virtual void Rendering();

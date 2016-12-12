@@ -7,6 +7,8 @@ protected:
 
 	float m_fRotateMatrix[16];
 
+	bool m_bDie = false;
+
 public:
 	CMyObject();
 	~CMyObject();
@@ -18,5 +20,6 @@ public:
 	virtual void Rotate(const float angle, bool x, bool y, bool z);
 
 	Vec3f& GetCenter() { return m_vCenter; }
+	bool IsDie() const { return m_bDie; }
 };
 

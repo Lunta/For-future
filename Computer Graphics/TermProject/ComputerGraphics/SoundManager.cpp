@@ -31,35 +31,38 @@ void CSoundManager::Initialize()
 	CreateSound_Enemy();
 	CreateSound_Boss();
 	// 볼륨 크기조절
-	FMOD_Channel_SetVolume(g_Enemy_Channel, 0.2);
+	FMOD_Channel_SetVolume(g_UI_Channel, 0.3);
 }
 
 void CSoundManager::CreateSound_BGM() {
 
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Logo.wav", FMOD_LOOP_NORMAL, 0, &g_BGM_Sound[BGM_SOUND::Logo_BGM]);
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Stage_0-1_BGM.mp3", FMOD_LOOP_NORMAL, 0, &g_BGM_Sound[BGM_SOUND::Stage_BGM]);
+	FMOD_System_CreateSound(g_System, "Sound/Logo.wav", FMOD_LOOP_NORMAL, 0, &g_BGM_Sound[BGM_SOUND::Logo_BGM]);
+	FMOD_System_CreateSound(g_System, "Sound/Title.mp3", FMOD_LOOP_NORMAL, 0, &g_BGM_Sound[BGM_SOUND::Title_BGM]);
+	FMOD_System_CreateSound(g_System, "Sound/Play_BGM.ogg", FMOD_LOOP_NORMAL, 0, &g_BGM_Sound[BGM_SOUND::Stage_BGM]);
+	FMOD_System_CreateSound(g_System, "Sound/GameOver.ogg", FMOD_LOOP_NORMAL, 0, &g_BGM_Sound[BGM_SOUND::GameOver_BGM]);
+	FMOD_System_CreateSound(g_System, "Sound/GameClear.mp3", FMOD_LOOP_NORMAL, 0, &g_BGM_Sound[BGM_SOUND::GameClear_BGM]);
 }
 void CSoundManager::CreateSound_UI() {
 
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Potion.wav", FMOD_DEFAULT, 0, &g_UI_Sound[UI_SOUND::Dummy_UI]);
+	FMOD_System_CreateSound(g_System, "Sound/BarrierCrash.mp3", FMOD_DEFAULT, 0, &g_UI_Sound[UI_SOUND::BarrierCrash_UI]);
+	FMOD_System_CreateSound(g_System, "Sound/CollideBullet.ogg", FMOD_DEFAULT, 0, &g_UI_Sound[UI_SOUND::CollideBullet_UI]);
 }
 void CSoundManager::CreateSound_Player() {
 
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Shot.wav", FMOD_DEFAULT, 0, &g_Player_Sound[PLAYER_SOUND::Shot_P]);
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Die.wav", FMOD_DEFAULT, 0, &g_Player_Sound[PLAYER_SOUND::Die_P]);
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Hit.wav", FMOD_DEFAULT, 0, &g_Player_Sound[PLAYER_SOUND::Hit_P]);
+	FMOD_System_CreateSound(g_System, "Sound/Shot.ogg", FMOD_DEFAULT, 0, &g_Player_Sound[PLAYER_SOUND::Shot_P]);
+	FMOD_System_CreateSound(g_System, "Sound/Die.mp3", FMOD_DEFAULT, 0, &g_Player_Sound[PLAYER_SOUND::Die_P]);
+	FMOD_System_CreateSound(g_System, "Sound/Hit.wav", FMOD_DEFAULT, 0, &g_Player_Sound[PLAYER_SOUND::Hit_P]);
 }
 void CSoundManager::CreateSound_Enemy() {
 
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Enemy_Shot.wav", FMOD_DEFAULT, 0, &g_Enemy_Sound[ENEMY_SOUND::Enemy_Shot]);
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Enemy_Hit.mp3", FMOD_DEFAULT, 0, &g_Enemy_Sound[ENEMY_SOUND::Enemy_Hit]);
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Enemy_Die.mp3", FMOD_DEFAULT, 0, &g_Enemy_Sound[ENEMY_SOUND::Enemy_Die]);
+	FMOD_System_CreateSound(g_System, "Sound/Shot.ogg", FMOD_DEFAULT, 0, &g_Enemy_Sound[ENEMY_SOUND::Enemy_Shot]);
+	FMOD_System_CreateSound(g_System, "Sound/Hit.wav", FMOD_DEFAULT, 0, &g_Enemy_Sound[ENEMY_SOUND::Enemy_Hit]);
+	FMOD_System_CreateSound(g_System, "Sound/Die.mp3", FMOD_DEFAULT, 0, &g_Enemy_Sound[ENEMY_SOUND::Enemy_Die]);
 }
 void CSoundManager::CreateSound_Boss() {
 
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Boss_Phase_2_Shift.wav", FMOD_DEFAULT, 0, &g_Boss_Sound[BOSS_SOUND::Boss_Idle]);
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Boss_Phase_2_Attack.wav", FMOD_DEFAULT, 0, &g_Boss_Sound[BOSS_SOUND::Boss_Shot]);
-	FMOD_System_CreateSound(g_System, "Resource\\sound\\Boss_Die.wav", FMOD_DEFAULT, 0, &g_Boss_Sound[BOSS_SOUND::Boss_Die]);
+	FMOD_System_CreateSound(g_System, "Sound/Splash.ogg", FMOD_DEFAULT, 0, &g_Boss_Sound[BOSS_SOUND::Boss_Shot]);
+	FMOD_System_CreateSound(g_System, "Sound/Boss_Crashed.ogg", FMOD_DEFAULT, 0, &g_Boss_Sound[BOSS_SOUND::Boss_Die]);
 }
 
 void CSoundManager::Update(float fTimeElapsed)
@@ -72,8 +75,17 @@ void CSoundManager::PlaySnd_BGM(int set) {
 	case BGM_SOUND::Logo_BGM:
 		FMOD_System_PlaySound(g_System, g_BGM_Sound[BGM_SOUND::Logo_BGM], NULL, false, &g_BGM_Channel);
 		break;
+	case BGM_SOUND::Title_BGM:
+		FMOD_System_PlaySound(g_System, g_BGM_Sound[BGM_SOUND::Title_BGM], NULL, false, &g_BGM_Channel);
+		break;
 	case BGM_SOUND::Stage_BGM:
 		FMOD_System_PlaySound(g_System, g_BGM_Sound[BGM_SOUND::Stage_BGM], NULL, false, &g_BGM_Channel);
+		break;
+	case BGM_SOUND::GameOver_BGM:
+		FMOD_System_PlaySound(g_System, g_BGM_Sound[BGM_SOUND::GameOver_BGM], NULL, false, &g_BGM_Channel);
+		break;
+	case BGM_SOUND::GameClear_BGM:
+		FMOD_System_PlaySound(g_System, g_BGM_Sound[BGM_SOUND::GameClear_BGM], NULL, false, &g_BGM_Channel);
 		break;
 	case BGM_SOUND::Stop_BGM:
 		FMOD_Channel_Stop(g_BGM_Channel);
@@ -82,6 +94,13 @@ void CSoundManager::PlaySnd_BGM(int set) {
 }
 void CSoundManager::PlaySnd_UI(int set) {
 	switch (set) {
+	case UI_SOUND::BarrierCrash_UI:
+		FMOD_System_PlaySound(g_System, g_UI_Sound[UI_SOUND::BarrierCrash_UI], NULL, false, &g_UI_Channel);
+		break;
+	case UI_SOUND::CollideBullet_UI:
+		FMOD_System_PlaySound(g_System, g_UI_Sound[UI_SOUND::CollideBullet_UI], NULL, false, &g_UI_Channel);
+
+		break;
 	case UI_SOUND::Stop_UI:
 		FMOD_Channel_Stop(g_UI_Channel);
 		break;
@@ -121,9 +140,6 @@ void CSoundManager::PlaySnd_Enemy(int set) {
 }
 void CSoundManager::PlaySnd_Boss(int set) {
 	switch (set) {
-	case BOSS_SOUND::Boss_Idle:
-		FMOD_System_PlaySound(g_System, g_Boss_Sound[BOSS_SOUND::Boss_Idle], NULL, false, &g_Boss_Channel);
-		break;
 	case BOSS_SOUND::Boss_Shot:
 		FMOD_System_PlaySound(g_System, g_Boss_Sound[BOSS_SOUND::Boss_Shot], NULL, false, &g_Boss_Channel);
 		break;
