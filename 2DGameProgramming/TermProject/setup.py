@@ -6,7 +6,7 @@ os.environ['TK_LIBRARY'] = 'C:\\Users\\tkdql\\AppData\\Local\\Programs\\Python\\
 
 cx_Freeze.setup(
     name='Meteor Crash',
-    version = "1.1",
+    version = "1.0",
     options={'build_exe': {'packages':['pygame'],
                            'include_files': ['./SDL2/', './Resource/', 'ranking.txt']}},
     executables = [cx_Freeze.Executable(script='MeteorCrash.py', icon='MeteorCrash.ico')]
